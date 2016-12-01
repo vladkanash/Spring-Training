@@ -25,6 +25,7 @@ public class DataSourceConfiguration {
         return new EmbeddedDatabaseBuilder()
                 .setType(EmbeddedDatabaseType.H2)
                 .addScript("classpath:sql/h2_tables.ddl")
+                .addScript("classpath:sql/h2_testdata.ddl")
                 .build();
     }
 
