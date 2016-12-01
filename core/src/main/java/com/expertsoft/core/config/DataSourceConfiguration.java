@@ -1,4 +1,4 @@
-package com.expertsoft.core.dao;
+package com.expertsoft.core.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +21,6 @@ public class DataSourceConfiguration {
 //    }
 
     @Bean
-    @Primary
     public DataSource embeddedDataSource() {
         return new EmbeddedDatabaseBuilder()
                 .setType(EmbeddedDatabaseType.H2)

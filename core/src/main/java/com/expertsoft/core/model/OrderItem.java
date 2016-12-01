@@ -6,9 +6,17 @@ public class OrderItem {
 
     }
 
+    private long key;
     private int quantity;
     private Phone phone;
 
+    public long getKey() {
+        return key;
+    }
+
+    public void setKey(long key) {
+        this.key = key;
+    }
 
     public int getQuantity() {
         return quantity;
@@ -33,6 +41,7 @@ public class OrderItem {
 
         OrderItem orderItem = (OrderItem) o;
 
+        if (key != orderItem.key) return false;
         if (quantity != orderItem.quantity) return false;
         return phone != null ? phone.equals(orderItem.phone) : orderItem.phone == null;
 
@@ -40,7 +49,8 @@ public class OrderItem {
 
     @Override
     public int hashCode() {
-        int result = quantity;
+        int result = (int) (key ^ (key >>> 32));
+        result = 31 * result + quantity;
         result = 31 * result + (phone != null ? phone.hashCode() : 0);
         return result;
     }
