@@ -21,11 +21,11 @@ class OrderItemRowMapper implements RowMapper<OrderItem> {
 
     public OrderItem mapRow(ResultSet resultSet, int i) throws SQLException {
         OrderItem item = new OrderItem();
-        long phoneKey = resultSet.getLong("PHONE_FK");
+        long phoneKey = resultSet.getLong(JdbcConstants.ORDER_ITEM_PHONE_COLUMN);
         Phone phone = phoneDao.getPhone(phoneKey);
 
-        item.setKey(resultSet.getLong("KEY"));
-        item.setQuantity(resultSet.getInt("QUANTITY"));
+        item.setKey(resultSet.getLong(JdbcConstants.ORDER_ITEM_KEY_COLUMN));
+        item.setQuantity(resultSet.getInt(JdbcConstants.ORDER_ITEM_KEY_COLUMN));
         item.setPhone(phone);
         return item;
     }

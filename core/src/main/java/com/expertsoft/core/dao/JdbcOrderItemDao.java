@@ -20,40 +20,37 @@ public class JdbcOrderItemDao implements OrderItemDao {
     private final static String SELECT_QUERY = "SELECT * FROM ORDER_ITEM WHERE KEY=?";
 
     private final JdbcOperations jdbcOperations;
-    private final SimpleJdbcInsert insertActor;
+    private final SimpleJdbcInsert jdbcInsert;
     private final RowMapper<OrderItem> orderItemRowMapper;
 
     @Autowired
     public JdbcOrderItemDao(JdbcOperations jdbcOperations, DataSource dataSource, RowMapper<OrderItem> orderItemRowMapper) {
         this.jdbcOperations = jdbcOperations;
         this.orderItemRowMapper = orderItemRowMapper;
-        this.insertActor = new SimpleJdbcInsert(dataSource)
-                .withTableName("ORDER_ITEM")
-                .usingGeneratedKeyColumns("KEY");
+        this.jdbcInsert = new SimpleJdbcInsert(dataSource)
+                .withTableName(JdbcConstants.ORDER_ITEM_TABLE)
+                .usingGeneratedKeyColumns(JdbcConstants.ORDER_ITEM_KEY_COLUMN);
     }
 
     public List<OrderItem> getItemsForOrder(long orderKey) {
-        return jdbcOperations.query(SELECT_FOR_ORDER_QUERY,
-                orderItemRowMapper, orderKey);
+        return jdbcOperations.query(SELECT_FOR_ORDER_QUERY, orderItemRowMapper, orderKey);
     }
 
     public List<OrderItem> findAll() {
-        return jdbcOperations.query(SELECT_ALL_QUERY,
-                orderItemRowMapper);
+        return jdbcOperations.query(SELECT_ALL_QUERY, orderItemRowMapper);
     }
 
-    public OrderItem saveOrderItem(OrderItem item) {
+    public void saveOrderItem(OrderItem item) {
         Map<String, Object> parameters = new HashMap<>(2);
-        parameters.put("PHONE_FK", item.getPhone().getKey());
-        parameters.put("QUANTITY", item.getQuantity());
-        Number newId = insertActor.executeAndReturnKey(parameters);
+        parameters.put(JdbcConstants.ORDER_ITEM_PHONE_COLUMN, item.getPhone().getKey());
+        parameters.put(JdbcConstants.ORDER_ITEM_QUANTITY_COLUMN, item.getQuantity());
+        parameters.put(JdbcConstants.ORDER_ITEM_ORDER_COLUMN, item.getOrder().getKey());
+        Number newId = jdbcInsert.executeAndReturnKey(parameters);
         item.setKey(newId.longValue());
-        return item;
     }
 
     public OrderItem getOrderItem(long key) {
-        return jdbcOperations.queryForObject(SELECT_QUERY,
-                orderItemRowMapper, key);
+        return jdbcOperations.queryForObject(SELECT_QUERY, orderItemRowMapper, key);
     }
 
     public void close() {

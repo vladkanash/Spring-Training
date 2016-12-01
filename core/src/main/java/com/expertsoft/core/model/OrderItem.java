@@ -9,6 +9,7 @@ public class OrderItem {
     private long key;
     private int quantity;
     private Phone phone;
+    private Order order;
 
     public long getKey() {
         return key;
@@ -34,6 +35,14 @@ public class OrderItem {
         this.phone = phone;
     }
 
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -43,8 +52,8 @@ public class OrderItem {
 
         if (key != orderItem.key) return false;
         if (quantity != orderItem.quantity) return false;
-        return phone != null ? phone.equals(orderItem.phone) : orderItem.phone == null;
-
+        if (phone != null ? !phone.equals(orderItem.phone) : orderItem.phone != null) return false;
+        return order != null ? order.equals(orderItem.order) : orderItem.order == null;
     }
 
     @Override
@@ -52,6 +61,7 @@ public class OrderItem {
         int result = (int) (key ^ (key >>> 32));
         result = 31 * result + quantity;
         result = 31 * result + (phone != null ? phone.hashCode() : 0);
+        result = 31 * result + (order != null ? order.hashCode() : 0);
         return result;
     }
 }

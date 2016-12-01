@@ -27,8 +27,8 @@ public class JdbcPhoneDao implements PhoneDao {
     public JdbcPhoneDao(JdbcOperations jdbcOperations, DataSource dataSource) {
         this.jdbcOperations = jdbcOperations;
         this.jdbcInsert = new SimpleJdbcInsert(dataSource)
-                .withTableName("PHONE")
-                .usingGeneratedKeyColumns("KEY");
+                .withTableName(JdbcConstants.PHONE_TABLE)
+                .usingGeneratedKeyColumns(JdbcConstants.PHONE_KEY_COLUMN);
     }
 
     public Phone getPhone(long key) {
@@ -37,14 +37,13 @@ public class JdbcPhoneDao implements PhoneDao {
                 key);
     }
 
-    public Phone savePhone(Phone phone) {
+    public void savePhone(Phone phone) {
         Map<String, Object> parameters = new HashMap<>(3);
-        parameters.put("PRICE", phone.getPrice());
-        parameters.put("MODEL", phone.getModel());
-        parameters.put("COLOR", phone.getColor());
+        parameters.put(JdbcConstants.PHONE_PRICE_COLUMN, phone.getPrice());
+        parameters.put(JdbcConstants.PHONE_MODEL_COLUMN, phone.getModel());
+        parameters.put(JdbcConstants.PHONE_COLOR_COLUMN, phone.getColor());
         Number newId = jdbcInsert.executeAndReturnKey(parameters);
         phone.setKey(newId.longValue());
-        return phone;
     }
 
     public List<Phone> findAll() {

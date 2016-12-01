@@ -10,7 +10,7 @@ public interface OrderItemDao {
 
     List<OrderItem> findAll();
 
-    OrderItem saveOrderItem(OrderItem item);
+    void saveOrderItem(OrderItem item);
 
     OrderItem getOrderItem(long key);
 
