@@ -2,6 +2,8 @@ package com.expertsoft.core.dao;
 
 import com.expertsoft.core.model.OrderItem;
 import com.expertsoft.core.model.Phone;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -17,6 +20,19 @@ import static org.junit.Assert.*;
 com.expertsoft.core.dao.JdbcPhoneDao.class})
 
 public class JdbcOrderItemDaoTest {
+
+    private Phone phone;
+
+    @Before
+    public void createPhone() {
+        Phone phone = new Phone();
+        phone.setModel("Apple Iphone 6S");
+        phone.setPrice(new BigDecimal(799.99));
+        phone.setColor("Black");
+
+        phoneDao.savePhone(phone);
+        this.phone = phoneDao.findAll().get(0);
+    }
 
     @Autowired
     private OrderItemDao orderItemDao;
@@ -31,25 +47,38 @@ public class JdbcOrderItemDaoTest {
 
     @Test
     public void saveOrderItem() throws Exception {
-        Phone phone = new Phone();
-        phone.setModel("Apple Iphone 6S");
-        phone.setPrice(new BigDecimal(799.99));
-        phone.setColor("Black");
-        phoneDao.savePhone(phone);
-        Phone savedPhone = phoneDao.findAll().get(0);
-
         OrderItem testItem = new OrderItem();
         testItem.setQuantity(13);
-        testItem.setPhone(savedPhone);
-
+        testItem.setPhone(phone);
         orderItemDao.saveOrderItem(testItem);
-        OrderItem item = orderItemDao.findAll().get(0);
-        assertEquals(item.getQuantity(), testItem.getQuantity());
+
+        List<OrderItem> items = orderItemDao.findAll();
+        assertTrue(items.size() >= 1);
     }
 
     @Test
     public void getOrderItem() throws Exception {
+        OrderItem testItem = new OrderItem();
+        testItem.setQuantity(13);
+        testItem.setPhone(phone);
 
+        OrderItem newItem = orderItemDao.saveOrderItem(testItem);
+        OrderItem item = orderItemDao.getOrderItem(newItem.getKey());
+        assertEquals(item.getPhone(), testItem.getPhone());
+    }
+
+    @Test
+    public void findAll() throws Exception {
+        OrderItem testItem = new OrderItem();
+        testItem.setQuantity(7);
+        testItem.setPhone(phone);
+
+        int n = 7;
+        for (int i = 0; i < n; i++) {
+            orderItemDao.saveOrderItem(testItem);
+        }
+        List<OrderItem> items = orderItemDao.findAll();
+        assertEquals(items.size(), n);
     }
 
 }

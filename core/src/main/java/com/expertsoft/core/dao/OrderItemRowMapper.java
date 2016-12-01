@@ -12,8 +12,12 @@ import java.sql.SQLException;
 @Component
 class OrderItemRowMapper implements RowMapper<OrderItem> {
 
+    private final PhoneDao phoneDao;
+
     @Autowired
-    private PhoneDao phoneDao;
+    public OrderItemRowMapper(PhoneDao phoneDao) {
+        this.phoneDao = phoneDao;
+    }
 
     public OrderItem mapRow(ResultSet resultSet, int i) throws SQLException {
         OrderItem item = new OrderItem();
