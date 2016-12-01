@@ -8,7 +8,7 @@ public interface PhoneDao {
 
     Phone getPhone(long key);
 
-    void savePhone(Phone phone);
+    Phone savePhone(Phone phone);
 
     List<Phone> findAll();
 

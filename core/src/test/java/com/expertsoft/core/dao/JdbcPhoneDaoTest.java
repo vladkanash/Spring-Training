@@ -26,9 +26,9 @@ public class JdbcPhoneDaoTest {
         testPhone.setColor("Black");
         testPhone.setPrice(new BigDecimal(659.99));
 
-        phoneDao.savePhone(testPhone);
-
-        assertEquals(phoneDao.findAll().get(2).getModel(), testPhone.getModel());
+        Phone savedPhone = phoneDao.savePhone(testPhone);
+        String savedModel = phoneDao.getPhone(savedPhone.getKey()).getModel();
+        assertEquals(savedModel, testPhone.getModel());
     }
 
     @Test
