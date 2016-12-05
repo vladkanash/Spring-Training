@@ -1,5 +1,7 @@
 package com.expertsoft.core.dao;
 
+import com.expertsoft.core.config.DataSourceConfiguration;
+import com.expertsoft.core.dao.impl.JdbcPhoneDao;
 import com.expertsoft.core.model.Phone;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,7 +15,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = JdbcPhoneDao.class)
+@ContextConfiguration(classes={ DataSourceConfiguration.class })
 public class JdbcPhoneDaoTest {
 
     @Autowired
@@ -26,8 +28,8 @@ public class JdbcPhoneDaoTest {
         testPhone.setColor("Black");
         testPhone.setPrice(new BigDecimal(659.99));
 
-        Phone savedPhone = phoneDao.savePhone(testPhone);
-        String savedModel = phoneDao.getPhone(savedPhone.getKey()).getModel();
+        phoneDao.savePhone(testPhone);
+        String savedModel = phoneDao.getPhone(testPhone.getKey()).getModel();
         assertEquals(savedModel, testPhone.getModel());
     }
 
@@ -48,8 +50,7 @@ public class JdbcPhoneDaoTest {
         phoneDao.savePhone(phone1);
         phoneDao.savePhone(phone2);
 
-        List<Phone> phones  = phoneDao.findAll();
-        assertEquals(phones.size(), 2);
+        List<Phone> phones = phoneDao.findAll();
+        assertTrue(phones.contains(phone1) && phones.contains(phone2));
     }
-
 }

@@ -1,5 +1,6 @@
-package com.expertsoft.core.dao;
+package com.expertsoft.core.dao.impl;
 
+import com.expertsoft.core.dao.PhoneDao;
 import com.expertsoft.core.model.OrderItem;
 import com.expertsoft.core.model.Phone;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +21,12 @@ class OrderItemRowMapper implements RowMapper<OrderItem> {
     }
 
     public OrderItem mapRow(ResultSet resultSet, int i) throws SQLException {
-        OrderItem item = new OrderItem();
-        long phoneKey = resultSet.getLong(JdbcConstants.ORDER_ITEM_PHONE_COLUMN);
-        Phone phone = phoneDao.getPhone(phoneKey);
+        final OrderItem item = new OrderItem();
+        final long phoneKey = resultSet.getLong(JdbcConstants.ORDER_ITEM_PHONE_COLUMN);
+        final Phone phone = phoneDao.getPhone(phoneKey);
 
         item.setKey(resultSet.getLong(JdbcConstants.ORDER_ITEM_KEY_COLUMN));
-        item.setQuantity(resultSet.getInt(JdbcConstants.ORDER_ITEM_KEY_COLUMN));
+        item.setQuantity(resultSet.getInt(JdbcConstants.ORDER_ITEM_QUANTITY_COLUMN));
         item.setPhone(phone);
         return item;
     }

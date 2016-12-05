@@ -1,5 +1,7 @@
-package com.expertsoft.core.dao;
+package com.expertsoft.core.dao.impl;
 
+import com.expertsoft.core.dao.OrderDao;
+import com.expertsoft.core.dao.OrderItemDao;
 import com.expertsoft.core.model.Order;
 import com.expertsoft.core.model.OrderItem;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,7 @@ import java.util.Map;
 @Repository
 public class JdbcOrderDao implements OrderDao {
 
-    private final static String SELECT_ALL_QUERY = "SELECT  * FROM PHONIFY_ORDER";
+    private static final String SELECT_ALL_QUERY = "SELECT  * FROM PHONIFY_ORDER";
     private static final String SELECT_QUERY = "SELECT * FROM PUBLIC.PHONIFY_ORDER WHERE KEY=?";
 
     private final JdbcOperations jdbcOperations;
@@ -42,18 +44,18 @@ public class JdbcOrderDao implements OrderDao {
     }
 
     public void saveOrder(Order order) {
-        Map<String, Object> parameters = new HashMap<>(5);
+        final Map<String, Object> parameters = new HashMap<>(5);
         parameters.put(JdbcConstants.ORDER_FIRST_NAME_COLUMN, order.getFirstName());
         parameters.put(JdbcConstants.ORDER_LAST_NAME_COLUMN, order.getLastName());
         parameters.put(JdbcConstants.ORDER_TOTAL_PRICE_COLUMN, order.getTotalPrice());
         parameters.put(JdbcConstants.ORDER_CONTACT_PHONE_COLUMN, order.getContactPhone());
         parameters.put(JdbcConstants.ORDER_DELIVERY_ADDRESS_COLUMN, order.getDeliveryAddress());
 
-        Number newId = jdbcInsert.executeAndReturnKey(parameters);
+        final Number newId = jdbcInsert.executeAndReturnKey(parameters);
         order.setKey(newId.longValue());
 
         if (null != order.getOrderItems()) {
-            for (OrderItem item : order.getOrderItems()) {
+            for (final OrderItem item : order.getOrderItems()) {
                 item.setOrder(order);
                 orderItemDao.saveOrderItem(item);
             }

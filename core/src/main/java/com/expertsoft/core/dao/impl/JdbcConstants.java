@@ -1,4 +1,4 @@
-package com.expertsoft.core.dao;
+package com.expertsoft.core.dao.impl;
 
 class JdbcConstants {
 

@@ -1,11 +1,12 @@
-package com.expertsoft.core.dao;
+package com.expertsoft.core.dao.impl;
 
+import com.expertsoft.core.dao.PhoneDao;
 import com.expertsoft.core.model.Phone;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -14,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-@ComponentScan(basePackages = "com.expertsoft.core")
 public class JdbcPhoneDao implements PhoneDao {
 
     private final static String SELECT_QUERY = "SELECT * FROM PHONE WHERE key=?";
@@ -38,11 +38,11 @@ public class JdbcPhoneDao implements PhoneDao {
     }
 
     public void savePhone(Phone phone) {
-        Map<String, Object> parameters = new HashMap<>(3);
+        final Map<String, Object> parameters = new HashMap<>(3);
         parameters.put(JdbcConstants.PHONE_PRICE_COLUMN, phone.getPrice());
         parameters.put(JdbcConstants.PHONE_MODEL_COLUMN, phone.getModel());
         parameters.put(JdbcConstants.PHONE_COLOR_COLUMN, phone.getColor());
-        Number newId = jdbcInsert.executeAndReturnKey(parameters);
+        final Number newId = jdbcInsert.executeAndReturnKey(parameters);
         phone.setKey(newId.longValue());
     }
 

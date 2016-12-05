@@ -1,5 +1,7 @@
-package com.expertsoft.core.dao;
+package com.expertsoft.core.dao.impl;
 
+import com.expertsoft.core.dao.OrderItemDao;
+import com.expertsoft.core.model.Order;
 import com.expertsoft.core.model.OrderItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcOperations;
@@ -24,7 +26,9 @@ public class JdbcOrderItemDao implements OrderItemDao {
     private final RowMapper<OrderItem> orderItemRowMapper;
 
     @Autowired
-    public JdbcOrderItemDao(JdbcOperations jdbcOperations, DataSource dataSource, RowMapper<OrderItem> orderItemRowMapper) {
+    public JdbcOrderItemDao(JdbcOperations jdbcOperations,
+                            DataSource dataSource,
+                            RowMapper<OrderItem> orderItemRowMapper) {
         this.jdbcOperations = jdbcOperations;
         this.orderItemRowMapper = orderItemRowMapper;
         this.jdbcInsert = new SimpleJdbcInsert(dataSource)
@@ -41,11 +45,15 @@ public class JdbcOrderItemDao implements OrderItemDao {
     }
 
     public void saveOrderItem(OrderItem item) {
-        Map<String, Object> parameters = new HashMap<>(2);
+        final Map<String, Object> parameters = new HashMap<>(3);
+
         parameters.put(JdbcConstants.ORDER_ITEM_PHONE_COLUMN, item.getPhone().getKey());
         parameters.put(JdbcConstants.ORDER_ITEM_QUANTITY_COLUMN, item.getQuantity());
-        parameters.put(JdbcConstants.ORDER_ITEM_ORDER_COLUMN, item.getOrder().getKey());
-        Number newId = jdbcInsert.executeAndReturnKey(parameters);
+        final Order order = item.getOrder();
+        if (null != order) {
+            parameters.put(JdbcConstants.ORDER_ITEM_ORDER_COLUMN, order.getKey());
+        }
+        final Number newId = jdbcInsert.executeAndReturnKey(parameters);
         item.setKey(newId.longValue());
     }
 
@@ -54,6 +62,6 @@ public class JdbcOrderItemDao implements OrderItemDao {
     }
 
     public void close() {
-
+        //???
     }
 }

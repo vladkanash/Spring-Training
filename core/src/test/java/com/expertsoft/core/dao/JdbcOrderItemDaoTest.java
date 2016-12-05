@@ -1,9 +1,11 @@
 package com.expertsoft.core.dao;
 
+import com.expertsoft.core.config.DataSourceConfiguration;
+import com.expertsoft.core.dao.impl.JdbcOrderItemDao;
+import com.expertsoft.core.dao.impl.JdbcPhoneDao;
 import com.expertsoft.core.model.OrderItem;
 import com.expertsoft.core.model.Phone;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +18,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes={com.expertsoft.core.dao.JdbcOrderItemDao.class,
-com.expertsoft.core.dao.JdbcPhoneDao.class})
+@ContextConfiguration(classes={ DataSourceConfiguration.class })
 
 public class JdbcOrderItemDaoTest {
 
@@ -53,7 +54,7 @@ public class JdbcOrderItemDaoTest {
         orderItemDao.saveOrderItem(testItem);
 
         List<OrderItem> items = orderItemDao.findAll();
-        assertTrue(items.size() >= 1);
+        assertTrue(items.contains(testItem));
     }
 
     @Test
@@ -62,8 +63,8 @@ public class JdbcOrderItemDaoTest {
         testItem.setQuantity(13);
         testItem.setPhone(phone);
 
-        OrderItem newItem = orderItemDao.saveOrderItem(testItem);
-        OrderItem item = orderItemDao.getOrderItem(newItem.getKey());
+        orderItemDao.saveOrderItem(testItem);
+        OrderItem item = orderItemDao.getOrderItem(testItem.getKey());
         assertEquals(item.getPhone(), testItem.getPhone());
     }
 
@@ -78,7 +79,6 @@ public class JdbcOrderItemDaoTest {
             orderItemDao.saveOrderItem(testItem);
         }
         List<OrderItem> items = orderItemDao.findAll();
-        assertEquals(items.size(), n);
+        assertTrue(items.size() >= n);
     }
-
 }

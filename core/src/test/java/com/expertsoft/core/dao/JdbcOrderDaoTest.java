@@ -1,5 +1,6 @@
 package com.expertsoft.core.dao;
 
+import com.expertsoft.core.config.DataSourceConfiguration;
 import com.expertsoft.core.model.Order;
 import com.expertsoft.core.model.OrderItem;
 import com.expertsoft.core.model.Phone;
@@ -16,9 +17,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes={com.expertsoft.core.dao.JdbcOrderDao.class,
-            com.expertsoft.core.dao.JdbcOrderItemDao.class,
-            com.expertsoft.core.dao.JdbcPhoneDao.class})
+@ContextConfiguration(classes={ DataSourceConfiguration.class })
 public class JdbcOrderDaoTest {
 
     @Autowired

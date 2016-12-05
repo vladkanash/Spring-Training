@@ -1,5 +1,6 @@
-package com.expertsoft.core.dao;
+package com.expertsoft.core.dao.impl;
 
+import com.expertsoft.core.dao.OrderItemDao;
 import com.expertsoft.core.model.Order;
 import com.expertsoft.core.model.OrderItem;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +23,11 @@ public class OrderRowMapper implements RowMapper<Order> {
 
     @Override
     public Order mapRow(ResultSet resultSet, int i) throws SQLException {
-        Order order = new Order();
-        long orderKey = resultSet.getLong(JdbcConstants.ORDER_KEY_COLUMN);
-        List<OrderItem> orderItems = orderItemDao.getItemsForOrder(orderKey);
+        final Order order = new Order();
+        final long orderKey = resultSet.getLong(JdbcConstants.ORDER_KEY_COLUMN);
+        final List<OrderItem> orderItems = orderItemDao.getItemsForOrder(orderKey);
         if (null != orderItems) {
-            for (OrderItem item : orderItems) {
+            for (final OrderItem item : orderItems) {
                 item.setOrder(order);
             }
         }
