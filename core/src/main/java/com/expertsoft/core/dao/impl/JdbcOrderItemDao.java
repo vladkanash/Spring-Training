@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class JdbcOrderItemDao implements OrderItemDao {
+class JdbcOrderItemDao implements OrderItemDao {
 
     private final static String SELECT_FOR_ORDER_QUERY = "SELECT * FROM ORDER_ITEM WHERE ORDER_FK=?";
     private final static String SELECT_ALL_QUERY = "SELECT * FROM ORDER_ITEM";

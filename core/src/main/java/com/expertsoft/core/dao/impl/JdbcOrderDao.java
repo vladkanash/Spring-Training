@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class JdbcOrderDao implements OrderDao {
+class JdbcOrderDao implements OrderDao {
 
     private static final String SELECT_ALL_QUERY = "SELECT  * FROM PHONIFY_ORDER";
     private static final String SELECT_QUERY = "SELECT * FROM PUBLIC.PHONIFY_ORDER WHERE KEY=?";

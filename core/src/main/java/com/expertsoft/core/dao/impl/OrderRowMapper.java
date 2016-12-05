@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Component
-public class OrderRowMapper implements RowMapper<Order> {
+class OrderRowMapper implements RowMapper<Order> {
 
     private final OrderItemDao orderItemDao;
 
