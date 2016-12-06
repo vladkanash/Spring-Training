@@ -1,5 +1,7 @@
 package com.expertsoft.web.controller;
 
+import com.expertsoft.core.service.PhoneService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,11 +12,17 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class HelloController {
 
+    private final PhoneService phoneService;
+
+    @Autowired
+    public HelloController(PhoneService phoneService) {
+        this.phoneService = phoneService;
+    }
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String printWelcome(ModelMap model) {
-
-        model.addAttribute("message", "Spring 4 MVC Hello World");
-        return "hello";
+        model.addAttribute("phones", phoneService.findAll());
+        return "index";
 
     }
 
@@ -22,7 +30,7 @@ public class HelloController {
     public ModelAndView hello(@PathVariable("name") String name) {
 
         ModelAndView model = new ModelAndView();
-        model.setViewName("hello");
+        model.setViewName("index");
         model.addObject("msg", name);
 
         return model;
