@@ -13,7 +13,4 @@ public interface OrderItemDao {
     void saveOrderItem(OrderItem item);
 
     OrderItem getOrderItem(long key);
-
-    void close();
-
 }

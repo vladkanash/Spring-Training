@@ -60,8 +60,4 @@ class JdbcOrderItemDao implements OrderItemDao {
     public OrderItem getOrderItem(long key) {
         return jdbcOperations.queryForObject(SELECT_QUERY, orderItemRowMapper, key);
     }
-
-    public void close() {
-        //???
-    }
 }

@@ -65,8 +65,4 @@ class JdbcOrderDao implements OrderDao {
     public List<Order> findAll() {
         return jdbcOperations.query(SELECT_ALL_QUERY, orderRowMapper);
     }
-
-    public void close() {
-
-    }
 }

@@ -11,6 +11,4 @@ public interface PhoneDao {
     void savePhone(Phone phone);
 
     List<Phone> findAll();
-
-    void close();
 }

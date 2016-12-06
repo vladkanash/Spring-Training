@@ -11,6 +11,4 @@ public interface OrderDao {
     void saveOrder(Order order);
 
     List<Order> findAll();
-
-    void close();
 }

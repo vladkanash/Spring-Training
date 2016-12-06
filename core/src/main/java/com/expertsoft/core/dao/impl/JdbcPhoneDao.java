@@ -50,8 +50,4 @@ class JdbcPhoneDao implements PhoneDao {
         return jdbcOperations.query(SELECT_ALL_QUERY,
                 new BeanPropertyRowMapper<>(Phone.class));
     }
-
-    public void close() {
-
-    }
 }
