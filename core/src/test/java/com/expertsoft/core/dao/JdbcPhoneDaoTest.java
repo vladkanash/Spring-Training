@@ -1,7 +1,6 @@
 package com.expertsoft.core.dao;
 
 import com.expertsoft.core.config.DataSourceConfiguration;
-import com.expertsoft.core.dao.impl.JdbcPhoneDao;
 import com.expertsoft.core.model.Phone;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,7 +18,7 @@ import static org.junit.Assert.*;
 public class JdbcPhoneDaoTest {
 
     @Autowired
-    private JdbcPhoneDao phoneDao;
+    private PhoneDao phoneDao;
 
     @Test
     public void savePhone() throws Exception {

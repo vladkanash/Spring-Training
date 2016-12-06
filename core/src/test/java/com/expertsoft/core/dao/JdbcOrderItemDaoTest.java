@@ -1,8 +1,6 @@
 package com.expertsoft.core.dao;
 
 import com.expertsoft.core.config.DataSourceConfiguration;
-import com.expertsoft.core.dao.impl.JdbcOrderItemDao;
-import com.expertsoft.core.dao.impl.JdbcPhoneDao;
 import com.expertsoft.core.model.OrderItem;
 import com.expertsoft.core.model.Phone;
 import org.junit.Before;
