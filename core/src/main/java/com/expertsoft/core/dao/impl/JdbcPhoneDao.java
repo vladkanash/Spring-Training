@@ -3,6 +3,7 @@ package com.expertsoft.core.dao.impl;
 import com.expertsoft.core.dao.PhoneDao;
 import com.expertsoft.core.model.Phone;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -32,9 +33,13 @@ class JdbcPhoneDao implements PhoneDao {
     }
 
     public Phone getPhone(long key) {
-        return jdbcOperations.queryForObject(SELECT_QUERY,
-                new BeanPropertyRowMapper<>(Phone.class),
-                key);
+        try {
+            return jdbcOperations.queryForObject(SELECT_QUERY,
+                    new BeanPropertyRowMapper<>(Phone.class),
+                    key);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     public void savePhone(Phone phone) {
