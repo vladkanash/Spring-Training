@@ -37,11 +37,18 @@
                         <tbody>
                             <c:forEach items="${phoneList}" var="phone">
                                 <tr>
-                                    <td><a href="/phone/${phone.key}"><c:out value="${phone.model}"/></a></td>
-                                    <td><c:out value="${phone.color}"/></td>
-                                    <td><c:out value="${phone.price}"/>$</td>
-                                    <td><input id="${phone.key}" type="text" class="form-control" maxlength="3" size="1" /></td>
-                                    <td><button onclick="addToCart(${phone.key})" class="btn btn-sm btn-primary">Add to cart</button></td>
+                                    <sf:form method="POST" modelAttribute="productForm" action="/productList" class="productForm">
+                                        <td><a href="/phone/${phone.key}"><c:out value="${phone.model}"/></a></td>
+                                        <td><c:out value="${phone.color}"/></td>
+                                        <td><c:out value="${phone.price}"/>$</td>
+                                        <td>
+                                            <sf:input path="quantity" id="${phone.key}" type="text" class="form-control" maxlength="3" size="1" />
+                                            <div class="alert alert-danger" style="display: none">
+                                            </div>
+                                        </td>
+                                        <td><sf:button type="submit" class="btn btn-sm btn-primary">Add to cart</sf:button></td>
+                                        <sf:hidden value="${phone.key}" path="productKey" />
+                                    </sf:form>
                                 </tr>
                             </c:forEach>
                         </tbody>
@@ -52,33 +59,45 @@
         <hr>
     </div>
 
-    <sf:form method="POST" commandName="productForm" id="productForm">
-        <sf:errors path="quantity" cssClass="form-error"/>
-        <sf:hidden path="quantity" id="productQuantity"/>
-        <sf:hidden id="productKey" path="productKey" />
-    </sf:form>
+    <%--<sf:form method="POST" commandName="productForm" id="productForm">--%>
+        <%--<sf:errors path="quantity" cssClass="form-error"/>--%>
+        <%--<sf:hidden path="quantity" id="productQuantity"/>--%>
+        <%--<sf:hidden id="productKey" path="productKey" />--%>
+    <%--</sf:form>--%>
 
     <jsp:include page="common/common-js.jsp"/>
 
     <script>
-        function addToCart(key) {
-            var quantity = $('#' + key).val();
-            $('#productQuantity').val(quantity);
-            $('#productKey').val(key);
-//            $('#productForm').submit();
+        $(document).ready(function() {
+            $('.productForm').submit(function (e) {
+                e.preventDefault();
+                var data = {};
 
-            $.ajax({
-                type: "POST",
-                contentType: 'application/json',
-                url: '/productList',
-                data: $('#productForm').serialize(),
-                dataType: 'json',
-                success: function(data) {
-                    console.log("SUCCESS: ", data);
-                    display(data);
-                }
-            });
-        }
+                $.each(this, function(i, v){
+                    var input = $(v);
+                    data[input.attr("name")] = input.val();
+                    delete data["undefined"];
+                });
+
+                $.ajax({
+                    type: "POST",
+                    contentType : 'application/json; charset=utf-8',
+                    url: '/productList',
+                    data: JSON.stringify(data),
+                    dataType: 'json',
+                    success: function(data) {
+                        console.log("SUCCESS: ", data);
+                        $("#cartSummary").load('/productList #cartSummary > *');
+                        $('input.form-control').val('0');
+                    },
+                    error: function(data) {
+                        console.log("ERROR: ", data);
+                        this.find('.alert').html(data);
+                    }
+                });
+
+            })
+        });
     </script>
 
 </body>

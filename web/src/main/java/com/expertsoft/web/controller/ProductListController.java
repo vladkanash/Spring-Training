@@ -1,11 +1,15 @@
 package com.expertsoft.web.controller;
 
 import com.expertsoft.core.model.ProductForm;
+import com.expertsoft.core.service.CartService;
 import com.expertsoft.core.service.PhoneService;
+import com.expertsoft.web.model.AjaxResponse;
 import com.expertsoft.web.validation.ProductFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -17,12 +21,18 @@ public class ProductListController {
 
     private final PhoneService phoneService;
     private final ProductFormValidator productFormValidator;
+    private final MessageSource messageSource;
+    private final CartService cartService;
 
     @Autowired
     public ProductListController(PhoneService phoneService,
-                                 ProductFormValidator productFormValidator) {
+                                 ProductFormValidator productFormValidator,
+                                 MessageSource messageSource,
+                                 CartService cartService) {
         this.phoneService = phoneService;
         this.productFormValidator = productFormValidator;
+        this.messageSource = messageSource;
+        this.cartService = cartService;
     }
 
     @InitBinder
@@ -34,19 +44,39 @@ public class ProductListController {
     public String phoneList(Map<String, Object> model) {
         model.put("phoneList", phoneService.findAll());
         model.put("productForm", new ProductForm());
+        model.put("productCount", cartService.getProductCount());
+        model.put("totalPrice", cartService.getTotalPrice());
         return "productList";
     }
 
-    @RequestMapping(value = "/productList", method = RequestMethod.POST)
-    public String processAddToCart(@Validated @RequestBody ProductForm item, BindingResult result,
-                                   Map<String, Object> model) {
+//    @RequestMapping(value = "/productList", method = RequestMethod.POST)
+//    public String processAddToCart(@Validated @RequestBody ProductForm item, BindingResult result,
+//                                   Map<String, Object> model) {
+//
+//        if (result.hasErrors()) {
+//            model.put("phoneList", phoneService.findAll());
+//            return "productList";
+//        }
+//        long key = item.getQuantity();
+//        return "redirect:productList";
+//    }
 
+    @RequestMapping(value="/productList", method = RequestMethod.POST)
+    public @ResponseBody AjaxResponse submittedFromData(@RequestBody @Validated ProductForm productForm,
+                                                        BindingResult result) {
+
+        AjaxResponse response = new AjaxResponse();
         if (result.hasErrors()) {
-            model.put("phoneList", phoneService.findAll());
-            return "productList";
+            response.setValidationStatus(AjaxResponse.ValidationStatus.ERROR);
+            for (ObjectError error : result.getAllErrors()) {
+              String message =  messageSource.getMessage(error, null);
+              response.addError(error.getObjectName(), message);
+            }
+        } else {
+            cartService.addProductToCart(productForm.getProductKey(), productForm.getQuantity());
+            response.setValidationStatus(AjaxResponse.ValidationStatus.SUCCESS);
         }
-        long key = item.getQuantity();
-        return "redirect:productList";
+        return response;
     }
 
 

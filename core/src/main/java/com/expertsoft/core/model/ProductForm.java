@@ -3,7 +3,6 @@ package com.expertsoft.core.model;
 public class ProductForm {
 
     private long productKey;
-
     private int quantity;
 
     public long getProductKey() {
