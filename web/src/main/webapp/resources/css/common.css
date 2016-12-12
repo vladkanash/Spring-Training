@@ -2,6 +2,6 @@ body {
     padding-top: 100px;
 }
 
-.form-error {
-    background-color: red;
+input.form-control {
+    width: auto;
 }

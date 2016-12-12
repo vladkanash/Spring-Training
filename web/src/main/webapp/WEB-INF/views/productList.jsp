@@ -37,14 +37,13 @@
                         <tbody>
                             <c:forEach items="${phoneList}" var="phone">
                                 <tr>
-                                    <sf:form method="POST" modelAttribute="productForm" action="/productList" class="productForm">
+                                    <sf:form method="POST" modelAttribute="productForm" class="productForm">
                                         <td><a href="/phone/${phone.key}"><c:out value="${phone.model}"/></a></td>
                                         <td><c:out value="${phone.color}"/></td>
                                         <td><c:out value="${phone.price}"/>$</td>
                                         <td>
-                                            <sf:input path="quantity" id="${phone.key}" type="text" class="form-control" maxlength="3" size="1" />
-                                            <div class="alert alert-danger" style="display: none">
-                                            </div>
+                                            <sf:input path="quantity" id="${phone.key}" type="text" class="form-control" maxlength="3"/>
+                                            <span class="error text-danger"></span>
                                         </td>
                                         <td><sf:button type="submit" class="btn btn-sm btn-primary">Add to cart</sf:button></td>
                                         <sf:hidden value="${phone.key}" path="productKey" />
@@ -59,46 +58,9 @@
         <hr>
     </div>
 
-    <%--<sf:form method="POST" commandName="productForm" id="productForm">--%>
-        <%--<sf:errors path="quantity" cssClass="form-error"/>--%>
-        <%--<sf:hidden path="quantity" id="productQuantity"/>--%>
-        <%--<sf:hidden id="productKey" path="productKey" />--%>
-    <%--</sf:form>--%>
-
     <jsp:include page="common/common-js.jsp"/>
-
-    <script>
-        $(document).ready(function() {
-            $('.productForm').submit(function (e) {
-                e.preventDefault();
-                var data = {};
-
-                $.each(this, function(i, v){
-                    var input = $(v);
-                    data[input.attr("name")] = input.val();
-                    delete data["undefined"];
-                });
-
-                $.ajax({
-                    type: "POST",
-                    contentType : 'application/json; charset=utf-8',
-                    url: '/productList',
-                    data: JSON.stringify(data),
-                    dataType: 'json',
-                    success: function(data) {
-                        console.log("SUCCESS: ", data);
-                        $("#cartSummary").load('/productList #cartSummary > *');
-                        $('input.form-control').val('0');
-                    },
-                    error: function(data) {
-                        console.log("ERROR: ", data);
-                        this.find('.alert').html(data);
-                    }
-                });
-
-            })
-        });
-    </script>
+    <spring:url value="/resources/js/productForm.js" var="productFormJs" />
+    <script src="${productFormJs}"></script>
 
 </body>
 </html>

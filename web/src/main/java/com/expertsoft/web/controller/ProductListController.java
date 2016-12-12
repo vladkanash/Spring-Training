@@ -49,22 +49,9 @@ public class ProductListController {
         return "productList";
     }
 
-//    @RequestMapping(value = "/productList", method = RequestMethod.POST)
-//    public String processAddToCart(@Validated @RequestBody ProductForm item, BindingResult result,
-//                                   Map<String, Object> model) {
-//
-//        if (result.hasErrors()) {
-//            model.put("phoneList", phoneService.findAll());
-//            return "productList";
-//        }
-//        long key = item.getQuantity();
-//        return "redirect:productList";
-//    }
-
-    @RequestMapping(value="/productList", method = RequestMethod.POST)
+    @RequestMapping(value="/addToCart", method = RequestMethod.POST)
     public @ResponseBody AjaxResponse submittedFromData(@RequestBody @Validated ProductForm productForm,
                                                         BindingResult result) {
-
         AjaxResponse response = new AjaxResponse();
         if (result.hasErrors()) {
             response.setValidationStatus(AjaxResponse.ValidationStatus.ERROR);
