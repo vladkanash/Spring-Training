@@ -1,6 +1,6 @@
 package com.expertsoft.web.controller;
 
-import com.expertsoft.core.model.ProductForm;
+import com.expertsoft.web.model.ProductForm;
 import com.expertsoft.core.service.CartService;
 import com.expertsoft.core.service.PhoneService;
 import com.expertsoft.web.model.AjaxResponse;
@@ -10,6 +10,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.validation.Validator;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ import java.util.Map;
 public class ProductListController {
 
     private final PhoneService phoneService;
-    private final ProductFormValidator productFormValidator;
+    private final Validator productFormValidator;
     private final MessageSource messageSource;
     private final CartService cartService;
 
@@ -65,6 +66,4 @@ public class ProductListController {
         }
         return response;
     }
-
-
 }

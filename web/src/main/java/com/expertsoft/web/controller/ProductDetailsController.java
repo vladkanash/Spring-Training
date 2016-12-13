@@ -1,6 +1,6 @@
 package com.expertsoft.web.controller;
 
-import com.expertsoft.core.model.ProductForm;
+import com.expertsoft.web.model.ProductForm;
 import com.expertsoft.core.service.CartService;
 import com.expertsoft.core.service.PhoneService;
 import org.springframework.beans.factory.annotation.Autowired;

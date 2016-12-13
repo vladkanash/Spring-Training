@@ -1,4 +1,4 @@
-package com.expertsoft.core.model;
+package com.expertsoft.web.model;
 
 public class ProductForm {
 

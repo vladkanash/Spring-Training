@@ -1,6 +1,6 @@
 package com.expertsoft.web.validation;
 
-import com.expertsoft.core.model.ProductForm;
+import com.expertsoft.web.model.ProductForm;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;

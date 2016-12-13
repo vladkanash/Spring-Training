@@ -13,7 +13,7 @@
     <div class="container">
         <jsp:include page="header.jsp"/>
 
-        <div class="row">
+        <div class="row title-row">
             <div class="col-lg-4 col-sm-12 col-xs-12 col-md-4">
                 <h4 class="text-primary">
                     Phone details
