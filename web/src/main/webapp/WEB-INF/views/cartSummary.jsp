@@ -22,7 +22,7 @@
             </h4>
         </div>
         <div class="col-lg-2 col-sm-4 col-xs-12 col-md-2">
-            <a href="#" class="btn btn-primary">Order</a>
+            <a href="<spring:url value="/orderSummary"/>" class="btn btn-primary">Order</a>
             <button onclick="$('#productUpdateForm').submit()" class="btn btn-primary">Update</button>
         </div>
     </div>
@@ -41,6 +41,7 @@
                 </thead>
                 <tbody>
                 <sf:form method="POST" modelAttribute="productUpdateForm" action="/updateProduct" id="productUpdateForm">
+                    <sf:errors path="productMap" cssClass="error text-danger"/>
                     <c:forEach items="${productList}" var="item">
                         <tr>
                             <td><c:out value="${item.phone.model}"/></td>
@@ -62,7 +63,7 @@
         <div class="col-lg-10 col-sm-8 col-xs-12 col-md-10">
         </div>
         <div class="col-lg-2 col-sm-4 col-xs-12 col-md-2">
-            <a href="#" class="btn btn-primary">Order</a>
+            <a href="<spring:url value="/orderSummary"/>" class="btn btn-primary">Order</a>
         </div>
     </div>
     </c:when>

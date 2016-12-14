@@ -47,7 +47,7 @@ public class CartSummaryController {
     }
 
     @RequestMapping(value="/updateProduct", method=RequestMethod.POST)
-    public String updateProduct(@ModelAttribute @Validated ProductUpdateForm productUpdateForm,
+    public String updateProduct(@ModelAttribute("productUpdateForm") @Validated ProductUpdateForm productUpdateForm,
                                 BindingResult result, Model model) {
         if (result.hasErrors()) {
             //TODO error handling

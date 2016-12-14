@@ -9,3 +9,7 @@ input.form-control {
 .title-row {
     padding-bottom: 30px;
 }
+
+.no-padding {
+    padding: 0;
+}
