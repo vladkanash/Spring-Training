@@ -2,6 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,7 +41,12 @@
                                 <sf:form method="POST" modelAttribute="productForm" class="productForm">
                                     <td><a href="/phone/${phone.key}"><c:out value="${phone.model}"/></a></td>
                                     <td><c:out value="${phone.color}"/></td>
-                                    <td><c:out value="${phone.price}"/>$</td>
+                                    <td>
+                                        <fmt:formatNumber type="currency"
+                                                          minFractionDigits="2"
+                                                          currencySymbol="$"
+                                                          value="${phone.price}" />
+                                    </td>
                                     <td>
                                         <sf:input path="quantity" id="${phone.key}" type="text" class="form-control" maxlength="3"/>
                                         <span class="error text-danger"></span>

@@ -24,6 +24,7 @@ public class ProductUpdateFormValidator implements Validator {
         for (int quantity : productMap.values()) {
             if (quantity <= 0) {
                 errors.rejectValue("productMap", "NotNull.quantity");
+                //TODO reject value
             }
         }
     }

@@ -49,7 +49,7 @@
                             <td><c:out value="${item.phone.price}"/>$</td>
                             <td>
                                 <sf:input path="productMap[${item.phone.key}]" type="text" class="form-control" maxlength="3" value="${item.quantity}"/>
-                                <sf:errors path="productMap" cssClass="error text-danger"/>
+                                <sf:errors path="productMap[${item.phone.key}]" cssClass="error text-danger"/>
                             </td>
                             <td><a href="/deleteProduct/${item.phone.key}" class="btn btn-sm btn-default">Delete</a></td>
                         </tr>

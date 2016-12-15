@@ -2,6 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,7 +27,7 @@
 
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                <sf:form method="POST" modelAttribute="order">
+                <sf:form method="POST" modelAttribute="order" id="orderSubmitForm" action="/submitOrder">
 
                     <spring:bind path="firstName">
                         <div class="form-group form-horizontal ${status.error ? 'has-error' : ''}">
@@ -36,7 +37,7 @@
                         </div>
                     </spring:bind>
 
-                    <spring:bind path="firstName">
+                    <spring:bind path="lastName">
                         <div class="form-group form-horizontal  ${status.error ? 'has-error' : ''}">
                             <label for="lastName">Last Name</label>
                             <sf:input path="lastName" class="form-control" id="lastName" placeholder="Last Name"/>
@@ -55,8 +56,8 @@
                     <spring:bind path="contactPhone">
                         <div class="form-group form-horizontal ${status.error ? 'has-error' : ''}">
                             <label for="contactPhone">Contact Phone</label>
-                            <sf:input path="lastName" class="form-control" id="contactPhone" placeholder="Your Phone"/>
-                            <sf:errors path="lastName" class="control-label" />
+                            <sf:input path="contactPhone" class="form-control" id="contactPhone" placeholder="Phone Number"/>
+                            <sf:errors path="contactPhone" class="control-label" />
                         </div>
                     </spring:bind>
 
@@ -78,7 +79,10 @@
                         <tr>
                             <td><c:out value="${item.phone.model}"/></td>
                             <td><c:out value="${item.phone.color}"/></td>
-                            <td><c:out value="${item.phone.price}"/>$</td>
+                            <td><fmt:formatNumber type="currency"
+                                                  minFractionDigits="2"
+                                                  currencySymbol="$"
+                                                  value="${item.phone.price}" /></td>
                             <td><c:out value="${item.quantity}"/></td>
                             <td><c:out value="${item.quantity * item.phone.price}"/>$</td>
                         </tr>
@@ -86,25 +90,9 @@
                     </tbody>
                 </table>
                 <div class="col-xs-12 col-xm-12 col-md-5 col-lg-5 pull-right no-padding">
-                    <table class="table">
-                        <tbody>
-                        <tr>
-                            <td>Subtotal:</td>
-                            <td>${order.totalPrice}$</td>
-                        </tr>
-                        <tr>
-                        <tr>
-                            <td>Shipping:</td>
-                            <td>${shippingPrice}$</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Total:</strong></td>
-                            <td><strong>${order.totalPrice + shippingPrice}$</strong></td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    <jsp:include page="include/orderPriceSummary.jsp" />
                     <div class="pull-right">
-                        <input type="submit" class="btn btn-primary btn-lg" value="Submit Order"/>
+                        <button class="btn btn-primary btn-lg" onclick="$('#orderSubmitForm').submit()">Submit Order</button>
                     </div>
                 </div>
             </div>

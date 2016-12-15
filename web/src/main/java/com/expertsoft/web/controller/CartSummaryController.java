@@ -11,6 +11,7 @@ import org.springframework.validation.Validator;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Map;
 
@@ -50,6 +51,10 @@ public class CartSummaryController {
     public String updateProduct(@ModelAttribute("productUpdateForm") @Validated ProductUpdateForm productUpdateForm,
                                 BindingResult result, Model model) {
         if (result.hasErrors()) {
+            model.addAttribute("productCount", cartService.getProductCount());
+            model.addAttribute("totalPrice", cartService.getTotalPrice());
+            model.addAttribute("productList", cartService.getOrderItems());
+            return "/cartSummary";
             //TODO error handling
         } else {
             for (final Map.Entry<Long, Integer> entry : productUpdateForm.getProductMap().entrySet()) {
