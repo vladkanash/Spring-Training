@@ -22,7 +22,7 @@
             </h4>
         </div>
         <div class="col-lg-2 col-sm-4 col-xs-12 col-md-2">
-            <a href="<spring:url value="/orderSummary"/>" class="btn btn-primary">Order</a>
+            <a href="<spring:url value="/orderInfo"/>" class="btn btn-primary">Order</a>
             <button onclick="$('#productUpdateForm').submit()" class="btn btn-primary">Update</button>
         </div>
     </div>
@@ -63,7 +63,7 @@
         <div class="col-lg-10 col-sm-8 col-xs-12 col-md-10">
         </div>
         <div class="col-lg-2 col-sm-4 col-xs-12 col-md-2">
-            <a href="<spring:url value="/orderSummary"/>" class="btn btn-primary">Order</a>
+            <a href="<spring:url value="/orderInfo"/>" class="btn btn-primary">Order</a>
         </div>
     </div>
     </c:when>

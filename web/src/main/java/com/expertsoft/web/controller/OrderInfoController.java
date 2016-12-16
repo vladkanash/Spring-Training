@@ -17,15 +17,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class OrderSummaryController {
+public class OrderInfoController {
 
     private final CartService cartService;
     private final Validator orderSubmitFormValidator;
 
 
     @Autowired
-    public OrderSummaryController(CartService cartService,
-                                  OrderSubmitFormValidator validator) {
+    public OrderInfoController(CartService cartService,
+                               OrderSubmitFormValidator validator) {
         this.cartService = cartService;
         this.orderSubmitFormValidator = validator;
     }
@@ -35,13 +35,13 @@ public class OrderSummaryController {
         binder.setValidator(orderSubmitFormValidator);
     }
 
-    @RequestMapping(value="/orderSummary", method= RequestMethod.GET)
+    @RequestMapping(value="/orderInfo", method= RequestMethod.GET)
     public String getCartSummary(Model model) {
         model.addAttribute("productCount", cartService.getProductCount());
         model.addAttribute("totalPrice", cartService.getTotalPrice());
         model.addAttribute("order", cartService.getOrder());
         model.addAttribute("shippingPrice", 5);
-        return "orderSummary";
+        return "orderInfo";
     }
 
     @RequestMapping(value="/submitOrder", method=RequestMethod.POST)
@@ -54,8 +54,8 @@ public class OrderSummaryController {
             model.addAttribute("totalPrice", cartService.getTotalPrice());
             model.addAttribute("order", cartService.getOrder());
             model.addAttribute("shippingPrice", 5);
-            return "/orderSummary";
+            return "/orderInfo";
         }
-        return "redirect:/orderSummary";
+        return "redirect:/orderInfo";
     }
 }
