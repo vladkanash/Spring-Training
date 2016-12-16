@@ -3,7 +3,6 @@ package com.expertsoft.web.validation;
 import com.expertsoft.web.model.ProductUpdateForm;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import java.util.Map;
@@ -23,8 +22,7 @@ public class ProductUpdateFormValidator implements Validator {
         Map<Long, Integer> productMap = productForm.getProductMap();
         for (int quantity : productMap.values()) {
             if (quantity <= 0) {
-                errors.rejectValue("productMap", "NotNull.quantity");
-                //TODO reject value
+                errors.rejectValue("productMap", "cartInfo.quantity.null");
             }
         }
     }

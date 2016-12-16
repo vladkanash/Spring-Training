@@ -15,7 +15,8 @@
 <div class="container">
     <jsp:include page="header.jsp"/>
 
-
+    <c:choose>
+        <c:when test="${not empty order.orderItems}">
         <div class="row title-row">
             <div class="col-lg-10 col-sm-8 col-xs-12 col-md-10">
                 <h4 class="text-primary">
@@ -26,7 +27,7 @@
 
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                <sf:form method="POST" modelAttribute="order" id="orderSubmitForm" action="/submitOrder">
+                <sf:form method="POST" modelAttribute="orderInfoForm" id="orderSubmitForm" action="/submitOrder">
 
                     <spring:bind path="firstName">
                         <div class="form-group form-horizontal ${status.error ? 'has-error' : ''}">
@@ -93,6 +94,16 @@
                 </div>
             </div>
         </div>
+        </c:when>
+            <c:otherwise>
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-xs-12 col-md-12">
+                        <h4 class="text text-danger">Your cart is empty</h4>
+                        <a href="<spring:url value="/productList"/>" class="btn btn-danger">Go to store</a>
+                    </div>
+                </div>
+            </c:otherwise>
+    </c:choose>
 </div>
 
 <jsp:include page="common/common-js.jsp"/>

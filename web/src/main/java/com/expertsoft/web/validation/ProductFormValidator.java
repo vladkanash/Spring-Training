@@ -16,11 +16,11 @@ public class ProductFormValidator implements Validator {
 
     @Override
     public void validate(Object o, Errors errors) {
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "quantity", "NotNull.quantity");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "quantity", "cartInfo.quantity.null");
 
         ProductForm productForm = (ProductForm) o;
         if (productForm.getQuantity() <= 0) {
-            errors.rejectValue("quantity", "NotNull.quantity");
+            errors.rejectValue("quantity", "cartInfo.quantity.null");
         }
     }
 }
