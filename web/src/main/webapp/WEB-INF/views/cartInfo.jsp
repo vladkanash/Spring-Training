@@ -2,10 +2,11 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="phonify" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Cart Summary</title>
+    <title>Cart Info</title>
     <jsp:include page="common/common-css.jsp"/>
 </head>
 <body>
@@ -46,7 +47,7 @@
                         <tr>
                             <td><c:out value="${item.phone.model}"/></td>
                             <td><c:out value="${item.phone.color}"/></td>
-                            <td><c:out value="${item.phone.price}"/>$</td>
+                            <td><phonify:currency value="${item.phone.price}"/></td>
                             <td>
                                 <sf:input path="productMap[${item.phone.key}]" type="text" class="form-control" maxlength="3" value="${item.quantity}"/>
                                 <sf:errors path="productMap[${item.phone.key}]" cssClass="error text-danger"/>

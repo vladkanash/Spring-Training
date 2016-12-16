@@ -2,11 +2,12 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="phonify" tagdir="/WEB-INF/tags" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Order Summary</title>
+    <title>Order Info</title>
     <jsp:include page="common/common-css.jsp"/>
 </head>
 <body>
@@ -15,8 +16,6 @@
     <jsp:include page="header.jsp"/>
 
 
-    <c:choose>
-    <c:when test="${not empty order.orderItems}">
         <div class="row title-row">
             <div class="col-lg-10 col-sm-8 col-xs-12 col-md-10">
                 <h4 class="text-primary">
@@ -79,12 +78,9 @@
                         <tr>
                             <td><c:out value="${item.phone.model}"/></td>
                             <td><c:out value="${item.phone.color}"/></td>
-                            <td><fmt:formatNumber type="currency"
-                                                  minFractionDigits="2"
-                                                  currencySymbol="$"
-                                                  value="${item.phone.price}" /></td>
+                            <td><phonify:currency value="${item.phone.price}"/></td>
                             <td><c:out value="${item.quantity}"/></td>
-                            <td><c:out value="${item.quantity * item.phone.price}"/>$</td>
+                            <td><phonify:currency value="${item.quantity * item.phone.price}"/></td>
                         </tr>
                     </c:forEach>
                     </tbody>
@@ -97,16 +93,6 @@
                 </div>
             </div>
         </div>
-    </c:when>
-        <c:otherwise>
-            <div class="row">
-                <div class="col-lg-12 col-sm-12 col-xs-12 col-md-12">
-                    <h4 class="text text-danger">Your cart is empty</h4>
-                    <a href="<spring:url value="/productList"/>" class="btn btn-danger">Go to store</a>
-                </div>
-            </div>
-        </c:otherwise>
-    </c:choose>
 </div>
 
 <jsp:include page="common/common-js.jsp"/>

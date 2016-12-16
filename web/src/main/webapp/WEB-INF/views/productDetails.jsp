@@ -2,6 +2,8 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="phonify" tagdir="/WEB-INF/tags" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,7 +40,7 @@
                         Color
                     </li>
                     <li class="list-group-item">
-                        <span class="pull-right"><c:out value="${phone.price}$"/></span>
+                        <span class="pull-right"><phonify:currency value="${phone.price}"/></span>
                         Price
                     </li>
                 </ul>
