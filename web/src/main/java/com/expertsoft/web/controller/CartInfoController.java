@@ -16,13 +16,13 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.Map;
 
 @Controller
-public class CartSummaryController {
+public class CartInfoController {
 
     private final CartService cartService;
     private final Validator productUpdateFormValidator;
 
     @Autowired
-    public CartSummaryController(CartService cartService, ProductUpdateFormValidator validator) {
+    public CartInfoController(CartService cartService, ProductUpdateFormValidator validator) {
         this.cartService = cartService;
         this.productUpdateFormValidator = validator;
     }
@@ -32,19 +32,19 @@ public class CartSummaryController {
         binder.setValidator(productUpdateFormValidator);
     }
 
-    @RequestMapping(value="/cartSummary", method=RequestMethod.GET)
+    @RequestMapping(value="/cartInfo", method=RequestMethod.GET)
     public String getCartSummary(Model model) {
         model.addAttribute("productCount", cartService.getProductCount());
         model.addAttribute("totalPrice", cartService.getTotalPrice());
         model.addAttribute("productList", cartService.getOrderItems());
         model.addAttribute("productUpdateForm", new ProductUpdateForm());
-        return "cartSummary";
+        return "cartInfo";
     }
 
     @RequestMapping(value="/deleteProduct/{productKey}", method=RequestMethod.GET)
     public String deleteProduct(@PathVariable long productKey, Model model) {
         cartService.removeProduct(productKey);
-        return "redirect:/cartSummary";
+        return "redirect:/cartInfo";
     }
 
     @RequestMapping(value="/updateProduct", method=RequestMethod.POST)
@@ -54,13 +54,13 @@ public class CartSummaryController {
             model.addAttribute("productCount", cartService.getProductCount());
             model.addAttribute("totalPrice", cartService.getTotalPrice());
             model.addAttribute("productList", cartService.getOrderItems());
-            return "/cartSummary";
+            return "/cartInfo";
             //TODO error handling
         } else {
             for (final Map.Entry<Long, Integer> entry : productUpdateForm.getProductMap().entrySet()) {
                 cartService.updateProduct(entry.getKey(), entry.getValue());
             }
         }
-        return "redirect:/cartSummary";
+        return "redirect:/cartInfo";
     }
 }
