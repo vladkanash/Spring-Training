@@ -29,7 +29,6 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
         return viewResolver;
     }
 
-
     @Bean
     public ResourceBundleMessageSource messageSource() {
         ResourceBundleMessageSource rb = new ResourceBundleMessageSource();

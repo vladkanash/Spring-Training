@@ -45,19 +45,17 @@ public class ProductListController {
     public String phoneList(Map<String, Object> model) {
         model.put("phoneList", phoneService.findAll());
         model.put("productForm", new ProductForm());
-        model.put("productCount", cartService.getProductCount());
-        model.put("totalPrice", cartService.getTotalPrice());
         return "productList";
     }
 
     @RequestMapping(value="/addToCart", method = RequestMethod.POST)
     public @ResponseBody AjaxResponse submittedFromData(@RequestBody @Validated ProductForm productForm,
                                                         BindingResult result) {
-        AjaxResponse response = new AjaxResponse();
+        final AjaxResponse response = new AjaxResponse();
         if (result.hasErrors()) {
             response.setValidationStatus(AjaxResponse.ValidationStatus.ERROR);
             for (ObjectError error : result.getAllErrors()) {
-              String message =  messageSource.getMessage(error, null);
+              final String message =  messageSource.getMessage(error, null);
               response.addError(error.getObjectName(), message);
             }
         } else {

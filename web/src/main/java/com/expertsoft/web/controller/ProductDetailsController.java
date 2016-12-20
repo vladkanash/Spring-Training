@@ -26,8 +26,6 @@ public class ProductDetailsController {
     public String getPhone(@PathVariable long phoneKey, Model model) {
         model.addAttribute(phoneService.getPhone(phoneKey));
         model.addAttribute("productForm", new ProductForm());
-        model.addAttribute("productCount", cartService.getProductCount());
-        model.addAttribute("totalPrice", cartService.getTotalPrice());
         return "productDetails";
     }
 }

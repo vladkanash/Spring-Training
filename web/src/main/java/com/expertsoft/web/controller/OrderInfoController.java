@@ -73,8 +73,6 @@ public class OrderInfoController {
     }
 
     private void populateDefaultModel(Model model) {
-        model.addAttribute("productCount", cartService.getProductCount());
-        model.addAttribute("totalPrice", cartService.getTotalPrice());
         model.addAttribute("order", cartService.getOrder());
         model.addAttribute("shippingPrice", shippingPrice);
     }

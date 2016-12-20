@@ -11,7 +11,6 @@ import org.springframework.validation.Validator;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Map;
 
@@ -34,9 +33,7 @@ public class CartInfoController {
 
     @RequestMapping(value="/cartInfo", method=RequestMethod.GET)
     public String getCartSummary(Model model) {
-        model.addAttribute("productCount", cartService.getProductCount());
-        model.addAttribute("totalPrice", cartService.getTotalPrice());
-        model.addAttribute("productList", cartService.getOrderItems());
+        populateDefaultModel(model);
         model.addAttribute("productUpdateForm", new ProductUpdateForm());
         return "cartInfo";
     }
@@ -51,16 +48,17 @@ public class CartInfoController {
     public String updateProduct(@ModelAttribute("productUpdateForm") @Validated ProductUpdateForm productUpdateForm,
                                 BindingResult result, Model model) {
         if (result.hasErrors()) {
-            model.addAttribute("productCount", cartService.getProductCount());
-            model.addAttribute("totalPrice", cartService.getTotalPrice());
-            model.addAttribute("productList", cartService.getOrderItems());
+            populateDefaultModel(model);
             return "/cartInfo";
-            //TODO error handling
         } else {
             for (final Map.Entry<Long, Integer> entry : productUpdateForm.getProductMap().entrySet()) {
                 cartService.updateProduct(entry.getKey(), entry.getValue());
             }
+            return "redirect:/cartInfo";
         }
-        return "redirect:/cartInfo";
+    }
+
+    private void populateDefaultModel(Model model) {
+        model.addAttribute("productList", cartService.getOrderItems());
     }
 }
