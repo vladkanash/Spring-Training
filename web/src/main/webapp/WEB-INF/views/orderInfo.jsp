@@ -64,28 +64,7 @@
                 </sf:form>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                        <th>Model</th>
-                        <th>Color</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Subtotal</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach items="${order.orderItems}" var="item">
-                        <tr>
-                            <td><c:out value="${item.phone.model}"/></td>
-                            <td><c:out value="${item.phone.color}"/></td>
-                            <td><phonify:currency value="${item.phone.price}"/></td>
-                            <td><c:out value="${item.quantity}"/></td>
-                            <td><phonify:currency value="${item.quantity * item.phone.price}"/></td>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
+                <jsp:include page="include/orderItemsTable.jsp" />
                 <div class="col-xs-12 col-xm-12 col-md-5 col-lg-5 pull-right no-padding">
                     <jsp:include page="include/orderPriceSummary.jsp" />
                     <div class="pull-right">

@@ -20,4 +20,6 @@ public interface CartService {
     Order getOrder();
 
     double getTotalPrice();
+
+    void clear();
 }

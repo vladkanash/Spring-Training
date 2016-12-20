@@ -5,6 +5,7 @@ import com.expertsoft.core.dao.OrderItemDao;
 import com.expertsoft.core.model.Order;
 import com.expertsoft.core.model.OrderItem;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -40,7 +41,11 @@ class JdbcOrderDao implements OrderDao {
     }
 
     public Order getOrder(long key) {
-         return jdbcOperations.queryForObject(SELECT_QUERY, orderRowMapper, key);
+        try {
+            return jdbcOperations.queryForObject(SELECT_QUERY, orderRowMapper, key);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     public void saveOrder(Order order) {

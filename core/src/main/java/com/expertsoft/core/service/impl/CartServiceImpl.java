@@ -18,7 +18,7 @@ import java.util.List;
 @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class CartServiceImpl implements CartService {
 
-    private BigDecimal totalPrice = new BigDecimal(0.0);
+    private BigDecimal totalPrice = BigDecimal.ZERO;
     private final PhoneService phoneService;
     private final List<OrderItem> orderItems = new ArrayList<>();
 
@@ -85,11 +85,6 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public List<OrderItem> getOrderItems() {
-        return orderItems;
-    }
-
-    @Override
     public Order getOrder() {
         Order order = new Order();
         order.setTotalPrice(totalPrice);
@@ -98,15 +93,26 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    public void clear() {
+        orderItems.clear();
+        totalPrice = BigDecimal.ZERO;
+    }
+
+    @Override
     public double getTotalPrice() {
         return totalPrice.doubleValue();
+    }
+
+    @Override
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
     }
 
     private void repriceCart() {
         totalPrice = new BigDecimal(0);
         for (final OrderItem item : orderItems) {
             final Phone phone = item.getPhone();
-            BigDecimal itemPrice = phone.getPrice().multiply(new BigDecimal(item.getQuantity()));
+            BigDecimal itemPrice = phone.getPrice().multiply(BigDecimal.valueOf(item.getQuantity()));
             totalPrice = totalPrice.add(itemPrice);
         }
     }
