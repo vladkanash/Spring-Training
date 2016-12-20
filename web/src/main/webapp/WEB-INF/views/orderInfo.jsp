@@ -66,7 +66,9 @@
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                 <jsp:include page="include/orderItemsTable.jsp" />
                 <div class="col-xs-12 col-xm-12 col-md-5 col-lg-5 pull-right no-padding">
-                    <jsp:include page="include/orderPriceSummary.jsp" />
+                    <jsp:include page="include/orderPriceSummary.jsp" >
+                        <jsp:param name="shippingPrice" value="${shippingPrice}"/>
+                    </jsp:include>
                     <div class="pull-right">
                         <button class="btn btn-primary btn-lg" onclick="$('#orderSubmitForm').submit()">Submit Order</button>
                     </div>

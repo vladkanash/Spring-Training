@@ -27,7 +27,9 @@
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
             <jsp:include page="include/orderItemsTable.jsp" />
             <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 no-padding">
-                <jsp:include page="include/orderPriceSummary.jsp" />
+                <jsp:include page="include/orderPriceSummary.jsp" >
+                    <jsp:param name="shippingPrice" value="${order.shippingPrice}"/>
+                </jsp:include>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-1 col-lg-1">

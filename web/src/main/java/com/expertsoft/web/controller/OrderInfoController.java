@@ -84,5 +84,6 @@ public class OrderInfoController {
         order.setLastName(orderInfoForm.getLastName());
         order.setDeliveryAddress(orderInfoForm.getDeliveryAddress());
         order.setContactPhone(orderInfoForm.getContactPhone());
+        order.setShippingPrice(shippingPrice);
     }
 }

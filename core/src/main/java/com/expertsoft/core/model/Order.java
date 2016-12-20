@@ -12,6 +12,7 @@ public class Order {
     private long key;
     private List<OrderItem> orderItems;
     private BigDecimal totalPrice;
+    private BigDecimal shippingPrice;
     private String firstName;
     private String lastName;
     private String deliveryAddress;
@@ -73,6 +74,14 @@ public class Order {
         this.contactPhone = contactPhone;
     }
 
+    public BigDecimal getShippingPrice() {
+        return shippingPrice;
+    }
+
+    public void setShippingPrice(BigDecimal shippingPrice) {
+        this.shippingPrice = shippingPrice;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -83,12 +92,13 @@ public class Order {
         if (key != order.key) return false;
         if (orderItems != null ? !orderItems.equals(order.orderItems) : order.orderItems != null) return false;
         if (totalPrice != null ? !totalPrice.equals(order.totalPrice) : order.totalPrice != null) return false;
+        if (shippingPrice != null ? !shippingPrice.equals(order.shippingPrice) : order.shippingPrice != null)
+            return false;
         if (firstName != null ? !firstName.equals(order.firstName) : order.firstName != null) return false;
         if (lastName != null ? !lastName.equals(order.lastName) : order.lastName != null) return false;
         if (deliveryAddress != null ? !deliveryAddress.equals(order.deliveryAddress) : order.deliveryAddress != null)
             return false;
         return contactPhone != null ? contactPhone.equals(order.contactPhone) : order.contactPhone == null;
-
     }
 
     @Override
@@ -96,6 +106,7 @@ public class Order {
         int result = (int) (key ^ (key >>> 32));
         result = 31 * result + (orderItems != null ? orderItems.hashCode() : 0);
         result = 31 * result + (totalPrice != null ? totalPrice.hashCode() : 0);
+        result = 31 * result + (shippingPrice != null ? shippingPrice.hashCode() : 0);
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (deliveryAddress != null ? deliveryAddress.hashCode() : 0);

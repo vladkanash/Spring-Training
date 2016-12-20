@@ -9,13 +9,13 @@
     <tr>
     <tr>
         <td>Shipping:</td>
-        <td><phonify:currency value="${shippingPrice}" /></td>
+        <td><phonify:currency value="${param.shippingPrice}" /></td>
     </tr>
     <tr>
         <td><strong>Total:</strong></td>
         <td>
             <strong>
-                <phonify:currency value="${order.totalPrice + shippingPrice}" />
+                <phonify:currency value="${order.totalPrice + param.shippingPrice}" />
             </strong>
         </td>
     </tr>

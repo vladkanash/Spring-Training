@@ -55,6 +55,7 @@ class JdbcOrderDao implements OrderDao {
         parameters.put(JdbcConstants.ORDER_TOTAL_PRICE_COLUMN, order.getTotalPrice());
         parameters.put(JdbcConstants.ORDER_CONTACT_PHONE_COLUMN, order.getContactPhone());
         parameters.put(JdbcConstants.ORDER_DELIVERY_ADDRESS_COLUMN, order.getDeliveryAddress());
+        parameters.put(JdbcConstants.ORDER_SHIPPING_PRICE_COLUMN, order.getShippingPrice());
 
         final Number newId = jdbcInsert.executeAndReturnKey(parameters);
         order.setKey(newId.longValue());

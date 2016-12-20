@@ -19,6 +19,7 @@ class JdbcConstants {
     final static String ORDER_TOTAL_PRICE_COLUMN = "TOTAL_PRICE";
     final static String ORDER_DELIVERY_ADDRESS_COLUMN = "DELIVERY_ADDRESS";
     final static String ORDER_CONTACT_PHONE_COLUMN = "CONTACT_PHONE";
+    final static String ORDER_SHIPPING_PRICE_COLUMN = "SHIPPING_PRICE";
 
     final static String PHONE_KEY_COLUMN = "KEY";
     final static String PHONE_MODEL_COLUMN = "MODEL";

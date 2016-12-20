@@ -39,6 +39,7 @@ class OrderRowMapper implements RowMapper<Order> {
         order.setContactPhone(resultSet.getString(JdbcConstants.ORDER_CONTACT_PHONE_COLUMN));
         order.setDeliveryAddress(resultSet.getString(JdbcConstants.ORDER_DELIVERY_ADDRESS_COLUMN));
         order.setTotalPrice(resultSet.getBigDecimal(JdbcConstants.ORDER_TOTAL_PRICE_COLUMN));
+        order.setShippingPrice(resultSet.getBigDecimal(JdbcConstants.ORDER_SHIPPING_PRICE_COLUMN));
         return order;
     }
 }
