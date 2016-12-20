@@ -38,4 +38,27 @@ public class OrderInfoForm {
     public void setContactPhone(String contactPhone) {
         this.contactPhone = contactPhone;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        OrderInfoForm that = (OrderInfoForm) o;
+
+        if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
+        if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
+        if (deliveryAddress != null ? !deliveryAddress.equals(that.deliveryAddress) : that.deliveryAddress != null)
+            return false;
+        return contactPhone != null ? contactPhone.equals(that.contactPhone) : that.contactPhone == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = firstName != null ? firstName.hashCode() : 0;
+        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        result = 31 * result + (deliveryAddress != null ? deliveryAddress.hashCode() : 0);
+        result = 31 * result + (contactPhone != null ? contactPhone.hashCode() : 0);
+        return result;
+    }
 }

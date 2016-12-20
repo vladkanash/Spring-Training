@@ -13,13 +13,6 @@ import javax.sql.DataSource;
 @ComponentScan(value = {"com.expertsoft.core"})
 public class DataSourceConfiguration {
 
-//    @Bean
-//    public DataSource oracleDataSource() {
-//        DriverManagerDataSource ds = new DriverManagerDataSource();
-//
-//        ds.setDriverClassName();
-//    }
-
     @Bean
     public DataSource embeddedDataSource() {
         return new EmbeddedDatabaseBuilder()

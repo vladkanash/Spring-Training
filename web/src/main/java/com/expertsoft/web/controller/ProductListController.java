@@ -55,8 +55,8 @@ public class ProductListController {
         if (result.hasErrors()) {
             response.setValidationStatus(AjaxResponse.ValidationStatus.ERROR);
             for (ObjectError error : result.getAllErrors()) {
-              final String message =  messageSource.getMessage(error, null);
-              response.addError(error.getObjectName(), message);
+                final String message =  messageSource.getMessage(error, null);
+                response.addError(error.getObjectName(), message);
             }
         } else {
             cartService.addProductToCart(productForm.getProductKey(), productForm.getQuantity());

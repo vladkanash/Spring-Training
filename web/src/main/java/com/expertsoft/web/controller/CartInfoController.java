@@ -17,6 +17,8 @@ import java.util.Map;
 @Controller
 public class CartInfoController {
 
+    private static final String VIEW_NAME = "/cartInfo";
+
     private final CartService cartService;
     private final Validator productUpdateFormValidator;
 
@@ -33,32 +35,28 @@ public class CartInfoController {
 
     @RequestMapping(value="/cartInfo", method=RequestMethod.GET)
     public String getCartSummary(Model model) {
-        populateDefaultModel(model);
+        model.addAttribute("productList", cartService.getOrderItems());
         model.addAttribute("productUpdateForm", new ProductUpdateForm());
-        return "cartInfo";
+        return VIEW_NAME;
     }
 
     @RequestMapping(value="/deleteProduct/{productKey}", method=RequestMethod.GET)
     public String deleteProduct(@PathVariable long productKey, Model model) {
         cartService.removeProduct(productKey);
-        return "redirect:/cartInfo";
+        return "redirect:" + VIEW_NAME;
     }
 
     @RequestMapping(value="/updateProduct", method=RequestMethod.POST)
     public String updateProduct(@ModelAttribute("productUpdateForm") @Validated ProductUpdateForm productUpdateForm,
                                 BindingResult result, Model model) {
         if (result.hasErrors()) {
-            populateDefaultModel(model);
-            return "/cartInfo";
+            model.addAttribute("productList", cartService.getOrderItems());
+            return VIEW_NAME;
         } else {
             for (final Map.Entry<Long, Integer> entry : productUpdateForm.getProductMap().entrySet()) {
                 cartService.updateProduct(entry.getKey(), entry.getValue());
             }
-            return "redirect:/cartInfo";
+            return "redirect:" + VIEW_NAME;
         }
-    }
-
-    private void populateDefaultModel(Model model) {
-        model.addAttribute("productList", cartService.getOrderItems());
     }
 }

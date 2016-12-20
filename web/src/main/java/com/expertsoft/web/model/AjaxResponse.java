@@ -30,4 +30,22 @@ public class AjaxResponse {
     public void addError(final String field, final String message) {
         errors.put(field, message);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        AjaxResponse that = (AjaxResponse) o;
+
+        if (validationStatus != that.validationStatus) return false;
+        return errors != null ? errors.equals(that.errors) : that.errors == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = validationStatus != null ? validationStatus.hashCode() : 0;
+        result = 31 * result + (errors != null ? errors.hashCode() : 0);
+        return result;
+    }
 }

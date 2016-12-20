@@ -46,25 +46,26 @@
                     </tr>
                 </thead>
                 <tbody>
-                <sf:form method="POST" modelAttribute="productUpdateForm" action="/updateProduct" id="productUpdateForm">
-                    <sf:errors path="productMap" cssClass="error text-danger"/>
-                    <c:forEach items="${productList}" var="item">
-                        <tr>
-                            <td><c:out value="${item.phone.model}"/></td>
-                            <td><c:out value="${item.phone.color}"/></td>
-                            <td><phonify:currency value="${item.phone.price}"/></td>
-                            <td>
-                                <sf:input path="productMap[${item.phone.key}]" type="text" class="form-control" maxlength="3" value="${item.quantity}"/>
-                                <sf:errors path="productMap[${item.phone.key}]" cssClass="error text-danger"/>
-                            </td>
-                            <td>
-                                <a href="/deleteProduct/${item.phone.key}" class="btn btn-sm btn-default">
-                                    <spring:message code="cartInfo.button.delete"/>
-                                </a>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                </sf:form>
+                    <sf:form method="POST" modelAttribute="productUpdateForm" action="/updateProduct" id="productUpdateForm">
+                        <sf:errors path="productMap" cssClass="error text-danger"/>
+                        <c:forEach items="${productList}" var="item">
+                            <tr>
+                                <td><c:out value="${item.phone.model}"/></td>
+                                <td><c:out value="${item.phone.color}"/></td>
+                                <td><phonify:currency value="${item.phone.price}"/></td>
+                                <td>
+                                    <sf:input path="productMap[${item.phone.key}]" type="text"
+                                              class="form-control" maxlength="3" value="${item.quantity}"/>
+                                    <sf:errors path="productMap[${item.phone.key}]" cssClass="error text-danger"/>
+                                </td>
+                                <td>
+                                    <a href="/deleteProduct/${item.phone.key}" class="btn btn-sm btn-default">
+                                        <spring:message code="cartInfo.button.delete"/>
+                                    </a>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </sf:form>
                 </tbody>
             </table>
         </div>

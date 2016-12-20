@@ -1,7 +1,6 @@
 package com.expertsoft.web.controller;
 
 import com.expertsoft.web.model.ProductForm;
-import com.expertsoft.core.service.CartService;
 import com.expertsoft.core.service.PhoneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,19 +12,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class ProductDetailsController {
 
+    private static final String VIEW_NAME = "productDetails";
+
     private final PhoneService phoneService;
-    private final CartService cartService;
 
     @Autowired
-    public ProductDetailsController(PhoneService phoneService, CartService cartService) {
+    public ProductDetailsController(PhoneService phoneService) {
         this.phoneService = phoneService;
-        this.cartService = cartService;
     }
 
     @RequestMapping(value = "/phone/{phoneKey}", method = RequestMethod.GET)
     public String getPhone(@PathVariable long phoneKey, Model model) {
         model.addAttribute(phoneService.getPhone(phoneKey));
-        model.addAttribute("productForm", new ProductForm());
-        return "productDetails";
+        model.addAttribute(new ProductForm());
+        return VIEW_NAME;
     }
 }
