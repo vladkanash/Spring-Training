@@ -2,6 +2,8 @@
 
 <nav class="navbar navbar-inverse navbar-fixed-top" >
     <div class="navbar-header">
-        <a class="navbar-brand" href="<spring:url value="/productList"/>">Phonify Store</a>
+        <a class="navbar-brand" href="<spring:url value="/productList"/>">
+            <spring:message code="navbar.title"/>
+        </a>
     </div>
 </nav>

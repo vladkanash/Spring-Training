@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Product Details</title>
+    <title><spring:message code="productList.title"/></title>
     <jsp:include page="common/common-css.jsp"/>
 </head>
 <body>
@@ -17,7 +17,7 @@
         <div class="row title-row">
             <div class="col-lg-12 col-sm-12 col-xs-12 col-md-12">
                 <h4 class="text-primary">
-                    Our Phones
+                    <spring:message code="productList.header"/>
                 </h4>
             </div>
         </div>
@@ -28,11 +28,11 @@
                     <table class="table">
                     <thead>
                         <tr>
-                            <th>Model</th>
-                            <th>Color</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                            <th>Action</th>
+                            <th><spring:message code="product.model"/></th>
+                            <th><spring:message code="product.color"/></th>
+                            <th><spring:message code="product.price"/></th>
+                            <th><spring:message code="product.quantity"/></th>
+                            <th><spring:message code="product.action"/></th>
                         </tr>
                     </thead>
                     <tbody>

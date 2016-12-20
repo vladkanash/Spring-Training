@@ -18,12 +18,12 @@
         <div class="row title-row">
             <div class="col-lg-4 col-sm-12 col-xs-12 col-md-4">
                 <h4 class="text-primary">
-                    Phone details
+                    <spring:message code="productDetails.header.left"/>
                 </h4>
             </div>
             <div class="col-lg-4 col-sm-12 col-xs-12 col-md-4">
                 <h4 class="text-primary">
-                    Add to cart
+                    <spring:message code="productDetails.header.right"/>
                 </h4>
             </div>
         </div>
@@ -33,15 +33,15 @@
                 <ul class="list-group">
                     <li class="list-group-item">
                         <span class="pull-right"><c:out value="${phone.model}"/></span>
-                        Model
+                        <spring:message code="product.model"/>
                     </li>
                     <li class="list-group-item">
                         <span class="pull-right"><c:out value="${phone.color}"/></span>
-                        Color
+                        <spring:message code="product.color"/>
                     </li>
                     <li class="list-group-item">
                         <span class="pull-right"><phonify:currency value="${phone.price}"/></span>
-                        Price
+                        <spring:message code="product.price"/>
                     </li>
                 </ul>
             </div>
@@ -49,7 +49,7 @@
             <div class="col-sm-12 col-lg-4 col-xs-12 col-md-4">
             <sf:form method="POST" modelAttribute="productForm" class="productForm form-vertical">
                 <div class="form-group">
-                    <label class="control-label" for="${phone.key}">Quantity</label>
+                    <label class="control-label" for="${phone.key}"><spring:message code="product.quantity"/></label>
                     <div class="controls">
                         <sf:hidden value="${phone.key}" path="productKey" />
                         <sf:input path="quantity" id="${phone.key}" type="text" class="form-control" maxlength="3"/>
@@ -57,7 +57,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <sf:button type="submit" class="btn btn-sm btn-primary">Add to cart</sf:button>
+                    <sf:button type="submit" class="btn btn-sm btn-primary">
+                        <spring:message code="cart.button.add"/>
+                    </sf:button>
                 </div>
             </sf:form>
             </div>

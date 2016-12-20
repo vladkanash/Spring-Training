@@ -1,14 +1,15 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="phonify" tagdir="/WEB-INF/tags" %>
 
 <table class="table table-bordered">
     <thead>
     <tr>
-        <th>Model</th>
-        <th>Color</th>
-        <th>Price</th>
-        <th>Quantity</th>
-        <th>Subtotal</th>
+        <th><spring:message code="product.model"/></th>
+        <th><spring:message code="product.color"/></th>
+        <th><spring:message code="product.price"/></th>
+        <th><spring:message code="product.quantity"/></th>
+        <th><spring:message code="product.subtotal"/></th>
     </tr>
     </thead>
     <tbody>

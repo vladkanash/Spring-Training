@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>${phone.model}</title>
+    <title><spring:message code="orderSummary.title"/></title>
     <jsp:include page="common/common-css.jsp"/>
 </head>
 <body>
@@ -18,7 +18,7 @@
     <div class="row title-row">
         <div class="col-lg-4 col-sm-12 col-xs-12 col-md-4">
             <h4 class="text-primary">
-                Thank you for your order!
+                <spring:message code="orderSummary.header"/>
             </h4>
         </div>
     </div>
@@ -38,19 +38,19 @@
             <table class="table">
                 <tbody>
                     <tr>
-                        <td><strong>First Name</strong></td>
+                        <td><strong><spring:message code="orderSummary.label.firstName"/></strong></td>
                         <td><c:out value="${order.firstName}"/></td>
                     </tr>
                     <tr>
-                        <td><strong>Last Name</strong></td>
+                        <td><strong><spring:message code="orderSummary.label.lastName"/></strong></td>
                         <td><c:out value="${order.lastName}"/></td>
                     </tr>
                     <tr>
-                        <td><strong>Delivery Address</strong></td>
+                        <td><strong><spring:message code="orderSummary.label.deliveryAddress"/></strong></td>
                         <td><c:out value="${order.deliveryAddress}"/></td>
                     </tr>
                     <tr>
-                        <td><strong>Contact Phone</strong></td>
+                        <td><strong><spring:message code="orderSummary.label.contactPhone"/></strong></td>
                         <td><c:out value="${order.contactPhone}"/></td>
                     </tr>
                 </tbody>

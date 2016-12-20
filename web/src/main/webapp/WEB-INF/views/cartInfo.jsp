@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Cart Info</title>
+    <title><spring:message code="cartInfo.title"/></title>
     <jsp:include page="common/common-css.jsp"/>
 </head>
 <body>
@@ -20,12 +20,16 @@
     <div class="row title-row">
         <div class="col-lg-10 col-sm-8 col-xs-12 col-md-10">
             <h4 class="text-primary">
-                Cart
+                <spring:message code="cartInfo.header"/>
             </h4>
         </div>
         <div class="col-lg-2 col-sm-4 col-xs-12 col-md-2">
-            <a href="<spring:url value="/orderInfo"/>" class="btn btn-primary">Order</a>
-            <button onclick="$('#productUpdateForm').submit()" class="btn btn-primary">Update</button>
+            <a href="<spring:url value="/orderInfo"/>" class="btn btn-primary">
+                <spring:message code="cartInfo.button.order"/>
+            </a>
+            <button onclick="$('#productUpdateForm').submit()" class="btn btn-primary">
+                <spring:message code="cartInfo.button.update"/>
+            </button>
         </div>
     </div>
 
@@ -34,11 +38,11 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Model</th>
-                        <th>Color</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Action</th>
+                        <th><spring:message code="product.model"/></th>
+                        <th><spring:message code="product.color"/></th>
+                        <th><spring:message code="product.price"/></th>
+                        <th><spring:message code="product.quantity"/></th>
+                        <th><spring:message code="product.action"/></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -53,7 +57,11 @@
                                 <sf:input path="productMap[${item.phone.key}]" type="text" class="form-control" maxlength="3" value="${item.quantity}"/>
                                 <sf:errors path="productMap[${item.phone.key}]" cssClass="error text-danger"/>
                             </td>
-                            <td><a href="/deleteProduct/${item.phone.key}" class="btn btn-sm btn-default">Delete</a></td>
+                            <td>
+                                <a href="/deleteProduct/${item.phone.key}" class="btn btn-sm btn-default">
+                                    <spring:message code="cartInfo.button.delete"/>
+                                </a>
+                            </td>
                         </tr>
                     </c:forEach>
                 </sf:form>
@@ -61,19 +69,24 @@
             </table>
         </div>
     </div>
+
     <div class="row title-row">
         <div class="col-lg-10 col-sm-8 col-xs-12 col-md-10">
         </div>
         <div class="col-lg-2 col-sm-4 col-xs-12 col-md-2">
-            <a href="<spring:url value="/orderInfo"/>" class="btn btn-primary">Order</a>
+            <a href="<spring:url value="/orderInfo"/>" class="btn btn-primary">
+                <spring:message code="cartInfo.button.order"/>
+            </a>
         </div>
     </div>
     </c:when>
         <c:otherwise>
             <div class="row">
                 <div class="col-lg-12 col-sm-12 col-xs-12 col-md-12">
-                    <h4 class="text text-danger">Your cart is empty</h4>
-                    <a href="<spring:url value="/productList"/>" class="btn btn-danger">Go to store</a>
+                    <h4 class="text text-danger"><spring:message code="cart.empty"/></h4>
+                    <a href="<spring:url value="/productList"/>" class="btn btn-danger">
+                        <spring:message code="cart.button.empty"/>
+                    </a>
                 </div>
             </div>
         </c:otherwise>
