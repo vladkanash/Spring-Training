@@ -18,8 +18,16 @@ public class ProductFormValidator implements Validator {
     public void validate(Object o, Errors errors) {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "quantity", "cartInfo.quantity.null");
 
+        int quantity;
         ProductForm productForm = (ProductForm) o;
-        if (productForm.getQuantity() <= 0) {
+        try {
+            quantity = Integer.valueOf(productForm.getQuantity());
+        } catch (NumberFormatException nfe) {
+            errors.rejectValue("quantity", "cartInfo.quantity.notString");
+            return;
+        }
+
+        if (quantity <= 0) {
             errors.rejectValue("quantity", "cartInfo.quantity.null");
         }
     }

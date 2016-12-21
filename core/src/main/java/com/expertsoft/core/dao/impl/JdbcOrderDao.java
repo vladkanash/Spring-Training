@@ -49,7 +49,7 @@ class JdbcOrderDao implements OrderDao {
     }
 
     public void saveOrder(Order order) {
-        final Map<String, Object> parameters = new HashMap<>(5);
+        final Map<String, Object> parameters = new HashMap<>(6);
         parameters.put(JdbcConstants.ORDER_FIRST_NAME_COLUMN, order.getFirstName());
         parameters.put(JdbcConstants.ORDER_LAST_NAME_COLUMN, order.getLastName());
         parameters.put(JdbcConstants.ORDER_TOTAL_PRICE_COLUMN, order.getTotalPrice());

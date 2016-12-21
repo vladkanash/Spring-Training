@@ -41,7 +41,7 @@ public class CartInfoController {
     }
 
     @RequestMapping(value="/deleteProduct/{productKey}", method=RequestMethod.GET)
-    public String deleteProduct(@PathVariable long productKey, Model model) {
+    public String deleteProduct(@PathVariable long productKey) {
         cartService.removeProduct(productKey);
         return "redirect:" + VIEW_NAME;
     }
@@ -53,8 +53,9 @@ public class CartInfoController {
             model.addAttribute("productList", cartService.getOrderItems());
             return VIEW_NAME;
         } else {
-            for (final Map.Entry<Long, Integer> entry : productUpdateForm.getProductMap().entrySet()) {
-                cartService.updateProduct(entry.getKey(), entry.getValue());
+            for (final Map.Entry<Long, String> entry : productUpdateForm.getProductMap().entrySet()) {
+                int quantity = Integer.valueOf(entry.getValue());
+                cartService.updateProduct(entry.getKey(), quantity);
             }
             return "redirect:" + VIEW_NAME;
         }

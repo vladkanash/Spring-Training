@@ -6,6 +6,8 @@ import com.expertsoft.core.model.Phone;
 import com.expertsoft.core.service.CartService;
 import com.expertsoft.core.service.PhoneService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
@@ -16,11 +18,15 @@ import java.util.List;
 
 @Service
 @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
-public class CartServiceImpl implements CartService {
+@PropertySource("classpath:application.properties")
+class CartServiceImpl implements CartService {
 
     private BigDecimal totalPrice = BigDecimal.ZERO;
     private final PhoneService phoneService;
     private final List<OrderItem> orderItems = new ArrayList<>();
+
+    @Value("${shipping.price}")
+    private BigDecimal shippingPrice;
 
     @Autowired
     public CartServiceImpl(PhoneService phoneService) {
@@ -87,6 +93,7 @@ public class CartServiceImpl implements CartService {
     @Override
     public Order getOrder() {
         Order order = new Order();
+        order.setShippingPrice(shippingPrice);
         order.setTotalPrice(totalPrice);
         order.setOrderItems(orderItems);
         return order;
@@ -109,7 +116,7 @@ public class CartServiceImpl implements CartService {
     }
 
     private void repriceCart() {
-        totalPrice = new BigDecimal(0);
+        totalPrice = BigDecimal.ZERO;
         for (final OrderItem item : orderItems) {
             final Phone phone = item.getPhone();
             BigDecimal itemPrice = phone.getPrice().multiply(BigDecimal.valueOf(item.getQuantity()));

@@ -8,6 +8,7 @@ import com.expertsoft.web.validation.ProductFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.Validator;
@@ -43,8 +44,10 @@ public class ProductListController {
 
     @RequestMapping(value = "/productList", method = RequestMethod.GET)
     public String phoneList(Map<String, Object> model) {
+        ProductForm form = new ProductForm();
+        form.setQuantity("0");
         model.put("phoneList", phoneService.findAll());
-        model.put("productForm", new ProductForm());
+        model.put("productForm", form);
         return "productList";
     }
 
@@ -59,7 +62,8 @@ public class ProductListController {
                 response.addError(error.getObjectName(), message);
             }
         } else {
-            cartService.addProductToCart(productForm.getProductKey(), productForm.getQuantity());
+            int quantity = Integer.valueOf(productForm.getQuantity());
+            cartService.addProductToCart(productForm.getProductKey(), quantity);
             response.setValidationStatus(AjaxResponse.ValidationStatus.SUCCESS);
         }
         return response;

@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class OrderSummaryController {
@@ -22,11 +23,7 @@ public class OrderSummaryController {
     }
 
     @RequestMapping(value="/orderSummary/{orderKey}", method= RequestMethod.GET)
-    public String getOrderSummary(@PathVariable long orderKey, Model model) {
-        final Order order = orderService.getOrder(orderKey);
-        if (null != order) {
-            model.addAttribute(order);
-        }
-        return VIEW_NAME;
+    public ModelAndView getOrderSummary(@PathVariable long orderKey, Model model) {
+        return new ModelAndView(VIEW_NAME, "order", orderService.getOrder(orderKey));
     }
 }

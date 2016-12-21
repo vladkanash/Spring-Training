@@ -18,10 +18,17 @@ public class ProductUpdateFormValidator implements Validator {
     @Override
     public void validate(Object o, Errors errors) {
 
+        int quantityValue;
         ProductUpdateForm productForm = (ProductUpdateForm) o;
-        Map<Long, Integer> productMap = productForm.getProductMap();
-        for (int quantity : productMap.values()) {
-            if (quantity <= 0) {
+        Map<Long, String> productMap = productForm.getProductMap();
+        for (String quantity : productMap.values()) {
+            try {
+                quantityValue = Integer.valueOf(quantity);
+            } catch (NumberFormatException nfe) {
+                errors.rejectValue("productMap", "cartInfo.quantity.notString");
+                return;
+            }
+            if (quantityValue <= 0) {
                 errors.rejectValue("productMap", "cartInfo.quantity.null");
             }
         }

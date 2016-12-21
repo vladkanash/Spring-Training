@@ -6,7 +6,6 @@ import com.expertsoft.core.service.OrderService;
 import com.expertsoft.web.model.OrderInfoForm;
 import com.expertsoft.web.validation.OrderSubmitFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,16 +18,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.math.BigDecimal;
-
 @Controller
 @PropertySource("classpath:application.properties")
 public class OrderInfoController {
 
     private static final String VIEW_NAME = "orderInfo";
-
-    @Value("${delivery.price}")
-    private BigDecimal shippingPrice;
 
     private final CartService cartService;
     private final OrderService orderService;
@@ -68,13 +62,15 @@ public class OrderInfoController {
             copyShippingInfo(order, orderInfoForm);
             orderService.saveOrder(order);
             cartService.clear();
+            model.asMap().clear();
             return "redirect:/orderSummary/" + order.getKey();
         }
     }
 
     private void populateDefaultModel(Model model) {
-        model.addAttribute("order", cartService.getOrder());
-        model.addAttribute("shippingPrice", shippingPrice);
+        final Order order = cartService.getOrder();
+        model.addAttribute(order);
+        model.addAttribute("shippingPrice", order.getShippingPrice());
     }
 
     private void copyShippingInfo(final Order order, final OrderInfoForm orderInfoForm) {
@@ -82,6 +78,5 @@ public class OrderInfoController {
         order.setLastName(orderInfoForm.getLastName());
         order.setDeliveryAddress(orderInfoForm.getDeliveryAddress());
         order.setContactPhone(orderInfoForm.getContactPhone());
-        order.setShippingPrice(shippingPrice);
     }
 }

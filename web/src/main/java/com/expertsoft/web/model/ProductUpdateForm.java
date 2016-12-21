@@ -5,13 +5,13 @@ import java.util.Map;
 
 public class ProductUpdateForm {
 
-    private Map<Long, Integer> productMap = new HashMap<>();
+    private Map<Long, String> productMap = new HashMap<>();
 
-    public Map<Long, Integer> getProductMap() {
+    public Map<Long, String> getProductMap() {
         return productMap;
     }
 
-    public void setProductMap(Map<Long, Integer> productMap) {
+    public void setProductMap(Map<Long, String> productMap) {
         this.productMap = productMap;
     }
 
