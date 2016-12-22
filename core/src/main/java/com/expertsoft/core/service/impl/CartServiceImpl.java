@@ -90,27 +90,23 @@ class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Order getOrder() {
-        Order order = new Order();
-        order.setShippingPrice(shippingPrice);
-        order.setTotalPrice(cart.getTotalPrice());
-        order.setOrderItems(cart.getItems());
-        return order;
-    }
-
-    @Override
     public void clear() {
         cart.getItems().clear();
         cart.setTotalPrice(BigDecimal.ZERO);
     }
 
     @Override
-    public double getTotalPrice() {
-        return cart.getTotalPrice().doubleValue();
+    public BigDecimal getTotalPrice() {
+        return cart.getTotalPrice();
     }
 
     @Override
-    public List<OrderItem> getOrderItems() {
+    public Cart getCart() {
+        return cart;
+    }
+
+    @Override
+    public List<OrderItem> getItems() {
         return cart.getItems();
     }
 
@@ -123,5 +119,6 @@ class CartServiceImpl implements CartService {
             itemPrice = phone.getPrice().multiply(BigDecimal.valueOf(item.getQuantity()));
             totalPrice = totalPrice.add(itemPrice);
         }
+        cart.setTotalPrice(totalPrice);
     }
 }

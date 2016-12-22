@@ -1,10 +1,22 @@
-package com.expertsoft.web.model;
+package com.expertsoft.web.form;
 
-public class OrderInfoForm {
+import org.hibernate.validator.constraints.NotBlank;
 
+import javax.validation.constraints.Pattern;
+
+public class OrderForm {
+
+    @NotBlank
     private String firstName;
+
+    @NotBlank
     private String lastName;
+
+    @NotBlank
     private String deliveryAddress;
+
+    @NotBlank
+    @Pattern(regexp="^[0-9]{10}$")
     private String contactPhone;
 
     public String getFirstName() {
@@ -44,7 +56,7 @@ public class OrderInfoForm {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        OrderInfoForm that = (OrderInfoForm) o;
+        OrderForm that = (OrderForm) o;
 
         if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
         if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;

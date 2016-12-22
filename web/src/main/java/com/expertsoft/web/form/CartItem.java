@@ -1,9 +1,16 @@
-package com.expertsoft.web.model;
+package com.expertsoft.web.form;
 
-public class ProductForm {
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
+
+public class CartItem {
+
+    @NotNull
+    @Min(1)
+    private String quantity;
 
     private long productKey;
-    private String quantity;
 
     public long getProductKey() {
         return productKey;
@@ -26,7 +33,7 @@ public class ProductForm {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ProductForm that = (ProductForm) o;
+        CartItem that = (CartItem) o;
 
         if (productKey != that.productKey) return false;
         return quantity != null ? quantity.equals(that.quantity) : that.quantity == null;

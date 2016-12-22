@@ -6,6 +6,7 @@ import com.expertsoft.core.service.PhoneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -20,7 +21,8 @@ class PhoneServiceImpl implements PhoneService {
 
     @Override
     public final List<Phone> findAll() {
-        return phoneDao.findAll();
+        final List<Phone> phones = phoneDao.findAll();
+        return phones != null ? phones : Collections.<Phone>emptyList();
     }
 
     @Override

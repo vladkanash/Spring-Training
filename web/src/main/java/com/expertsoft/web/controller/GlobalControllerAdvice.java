@@ -1,6 +1,6 @@
 package com.expertsoft.web.controller;
 
-import com.expertsoft.core.exception.OrderNotFoundException;
+import com.expertsoft.core.service.impl.OrderNotFoundException;
 import com.expertsoft.core.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

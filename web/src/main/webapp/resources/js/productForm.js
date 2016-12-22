@@ -7,9 +7,9 @@ $(document).ready(function() {
         $.each(this, function(i, v){
             var input = $(v);
             data[input.attr("name")] = input.val();
-            delete data["undefined"];
         });
-        var errors = $('input#' + data['productKey']).siblings('.error');
+
+        var errors = $(this).parent('tr, div').find('.error');
 
         $.ajax({
             type: "POST",
@@ -17,13 +17,12 @@ $(document).ready(function() {
             url: '/addToCart',
             data: JSON.stringify(data),
             dataType: 'json',
-            success: function(data) {
-                if(data.validationStatus === "SUCCESS") {
-                    $('input.form-control, input.form-group').val('0');
-                    $("#cartSummary").load('/productList #cartSummary > *');
-                } else {
-                    errors.html(data.errors['productForm']);
-                }
+            success: function() {
+                $('input.form-control, input.form-group').val('1');
+                $("#cartSummary").load('/productList #cartSummary > *');
+            },
+            error: function(data) {
+                errors.html(data.responseJSON.errors['productForm']);
             }
         });
     })

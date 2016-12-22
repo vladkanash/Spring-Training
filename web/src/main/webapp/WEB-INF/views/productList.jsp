@@ -38,17 +38,24 @@
                     <tbody>
                         <c:forEach items="${phoneList}" var="phone">
                             <tr>
-                                <sf:form method="POST" modelAttribute="productForm" class="productForm">
+                                <form method="POST" class="productForm">
                                     <td><a href="/phone/${phone.key}"><c:out value="${phone.model}"/></a></td>
                                     <td><c:out value="${phone.color}"/></td>
                                     <td><phonify:currency value="${phone.price}"/></td>
                                     <td>
-                                        <sf:input path="quantity" id="${phone.key}" type="text" class="form-control" maxlength="3"/>
+                                        <input type="hidden" name="productKey" value="${phone.key}"/>
+                                        <input name="quantity" id="${phone.key}" type="text"
+                                               class="form-control"
+                                               maxlength="3"
+                                               value="1"/>
                                         <span class="error text-danger"></span>
                                     </td>
-                                    <td><sf:button type="submit" class="btn btn-sm btn-default">Add to cart</sf:button></td>
-                                    <sf:hidden value="${phone.key}" path="productKey" />
-                                </sf:form>
+                                    <td>
+                                        <button type="submit" class="btn btn-sm btn-default">
+                                        <spring:message code="cart.button.add"/>
+                                    </button>
+                                    </td>
+                                </form>
                             </tr>
                         </c:forEach>
                     </tbody>

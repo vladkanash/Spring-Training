@@ -27,7 +27,7 @@
             <a href="<spring:url value="/orderInfo"/>" class="btn btn-primary">
                 <spring:message code="cartInfo.button.order"/>
             </a>
-            <button onclick="$('#productUpdateForm').submit()" class="btn btn-primary">
+            <button onclick="$('#cartForm').submit()" class="btn btn-primary">
                 <spring:message code="cartInfo.button.update"/>
             </button>
         </div>
@@ -46,22 +46,22 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <sf:form method="POST" modelAttribute="productUpdateForm" action="/updateProduct" id="productUpdateForm">
-                        <sf:errors path="productMap" cssClass="error text-danger"/>
-                        <c:forEach items="${productList}" var="item">
+                    <sf:form method="POST" modelAttribute="cartForm" action="/updateProduct" id="cartForm">
+                        <c:forEach items="${productList}" var="item" varStatus="vs">
                             <tr>
                                 <td><c:out value="${item.phone.model}"/></td>
                                 <td><c:out value="${item.phone.color}"/></td>
                                 <td><phonify:currency value="${item.phone.price}"/></td>
                                 <td>
-                                    <sf:input path="productMap[${item.phone.key}]" type="text"
+                                    <sf:hidden path="items[${vs.index}].productKey" value="${item.phone.key}"/>
+                                    <sf:input path="items[${vs.index}].quantity" type="text"
                                               class="form-control" maxlength="3" value="${item.quantity}"/>
-                                    <sf:errors path="productMap[${item.phone.key}]" cssClass="error text-danger"/>
+                                    <sf:errors path="items[${vs.index}].quantity" cssClass="error text-danger"/>
                                 </td>
                                 <td>
-                                    <a href="/deleteProduct/${item.phone.key}" class="btn btn-sm btn-default">
+                                    <button onclick="deleteProduct(${item.phone.key})" href="/deleteProduct/${item.phone.key}" class="btn btn-sm btn-default">
                                         <spring:message code="cartInfo.button.delete"/>
-                                    </a>
+                                    </button>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -88,5 +88,13 @@
 </div>
 
 <jsp:include page="common/common-js.jsp"/>
+<script>
+    function deleteProduct(key) {
+        $.ajax({
+            url: '/deleteProduct/' + key,
+            type: 'DELETE'
+        });
+    }
+</script>
 </body>
 </html>

@@ -27,7 +27,7 @@
 
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                    <sf:form method="POST" modelAttribute="orderInfoForm" id="orderSubmitForm" action="/submitOrder">
+                    <sf:form method="POST" modelAttribute="orderForm" id="orderSubmitForm" action="/submitOrder">
 
                         <spring:bind path="firstName">
                             <div class="form-group form-horizontal ${status.error ? 'has-error' : ''}">

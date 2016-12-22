@@ -13,4 +13,6 @@ public interface OrderService {
     Order getOrder(final long key) throws OrderNotFoundException;
 
     void saveOrder(final Order order);
+
+    Order getOrderFromCart();
 }

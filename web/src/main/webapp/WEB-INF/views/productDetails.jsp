@@ -47,21 +47,24 @@
             </div>
 
             <div class="col-sm-12 col-lg-4 col-xs-12 col-md-4">
-            <sf:form method="POST" modelAttribute="productForm" class="productForm form-vertical">
+            <form method="POST" class="productForm form-vertical">
                 <div class="form-group">
                     <label class="control-label" for="${phone.key}"><spring:message code="product.quantity"/></label>
                     <div class="controls">
-                        <sf:hidden value="${phone.key}" path="productKey" />
-                        <sf:input path="quantity" id="${phone.key}" type="text" class="form-control" maxlength="3"/>
+                        <input name="productKey" type="hidden" value="${phone.key}"  />
+                        <input name="quantity" id="${phone.key}" type="text"
+                               class="form-control"
+                               maxlength="3"
+                               value="1"/>
                         <span class="error text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <sf:button type="submit" class="btn btn-sm btn-primary">
+                    <button type="submit" class="btn btn-sm btn-primary">
                         <spring:message code="cart.button.add"/>
-                    </sf:button>
+                    </button>
                 </div>
-            </sf:form>
+            </form>
             </div>
         </div>
     </div>

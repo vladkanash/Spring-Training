@@ -1,71 +1,61 @@
 package com.expertsoft.web.controller;
 
-import com.expertsoft.web.model.ProductForm;
+import com.expertsoft.core.model.Phone;
+import com.expertsoft.web.form.CartItem;
 import com.expertsoft.core.service.CartService;
 import com.expertsoft.core.service.PhoneService;
-import com.expertsoft.web.model.AjaxResponse;
-import com.expertsoft.web.validation.ProductFormValidator;
+import com.expertsoft.web.form.AjaxResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.validation.Validator;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class ProductListController {
 
     private final PhoneService phoneService;
-    private final Validator productFormValidator;
     private final MessageSource messageSource;
     private final CartService cartService;
 
     @Autowired
     public ProductListController(PhoneService phoneService,
-                                 ProductFormValidator productFormValidator,
                                  MessageSource messageSource,
                                  CartService cartService) {
         this.phoneService = phoneService;
-        this.productFormValidator = productFormValidator;
         this.messageSource = messageSource;
         this.cartService = cartService;
     }
 
-    @InitBinder
-    protected void initBinder(WebDataBinder binder) {
-        binder.setValidator(productFormValidator);
-    }
-
     @RequestMapping(value = "/productList", method = RequestMethod.GET)
-    public String phoneList(Map<String, Object> model) {
-        ProductForm form = new ProductForm();
-        form.setQuantity("0");
-        model.put("phoneList", phoneService.findAll());
-        model.put("productForm", form);
-        return "productList";
+    public List<Phone> phoneList() {
+        return phoneService.findAll();
     }
 
     @RequestMapping(value="/addToCart", method = RequestMethod.POST)
-    public @ResponseBody AjaxResponse submittedFromData(@RequestBody @Validated ProductForm productForm,
-                                                        BindingResult result) {
-        final AjaxResponse response = new AjaxResponse();
+    public @ResponseBody AjaxResponse submittedFromData(@RequestBody @Valid CartItem cartItem,
+                                                        BindingResult result,
+                                                        HttpServletResponse response) {
+        final AjaxResponse ajaxResponse = new AjaxResponse();
         if (result.hasErrors()) {
-            response.setValidationStatus(AjaxResponse.ValidationStatus.ERROR);
-            for (ObjectError error : result.getAllErrors()) {
-                final String message =  messageSource.getMessage(error, null);
-                response.addError(error.getObjectName(), message);
-            }
+            copyErrors(result, ajaxResponse);
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         } else {
-            int quantity = Integer.valueOf(productForm.getQuantity());
-            cartService.addProductToCart(productForm.getProductKey(), quantity);
-            response.setValidationStatus(AjaxResponse.ValidationStatus.SUCCESS);
+            int quantity = Integer.valueOf(cartItem.getQuantity());
+            cartService.addProductToCart(cartItem.getProductKey(), quantity);
         }
-        return response;
+        return ajaxResponse;
+    }
+
+    private void copyErrors(BindingResult result, AjaxResponse ajaxResponse) {
+        for (ObjectError error : result.getAllErrors()) {
+            final String message =  messageSource.getMessage(error, null);
+            ajaxResponse.addError(error.getObjectName(), message);
+        }
     }
 }

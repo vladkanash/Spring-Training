@@ -1,8 +1,8 @@
 package com.expertsoft.core.service;
 
-import com.expertsoft.core.model.Order;
 import com.expertsoft.core.model.OrderItem;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface CartService {
@@ -15,11 +15,11 @@ public interface CartService {
 
     int getProductCount();
 
-    List<OrderItem> getOrderItems();
+    List<OrderItem> getItems();
 
-    Order getOrder();
+    BigDecimal getTotalPrice();
 
-    double getTotalPrice();
+    Cart getCart();
 
     void clear();
 }

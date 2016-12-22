@@ -1,56 +1,41 @@
 package com.expertsoft.web.controller;
 
 import com.expertsoft.core.model.Order;
-import com.expertsoft.core.service.CartService;
 import com.expertsoft.core.service.OrderService;
-import com.expertsoft.web.model.OrderInfoForm;
-import com.expertsoft.web.validation.OrderSubmitFormValidator;
+import com.expertsoft.web.form.OrderForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Validator;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.validation.Valid;
+
 @Controller
 @PropertySource("classpath:application.properties")
-public class OrderInfoController {
+public class OrderController {
 
     private static final String VIEW_NAME = "orderInfo";
 
-    private final CartService cartService;
     private final OrderService orderService;
-    private final Validator orderSubmitFormValidator;
 
     @Autowired
-    public OrderInfoController(CartService cartService,
-                               OrderService orderService,
-                               OrderSubmitFormValidator validator) {
-        this.cartService = cartService;
-        this.orderSubmitFormValidator = validator;
+    public OrderController(OrderService orderService) {
         this.orderService = orderService;
-    }
-
-    @InitBinder("orderInfoForm")
-    protected void initBinder(WebDataBinder binder) {
-        binder.setValidator(orderSubmitFormValidator);
     }
 
     @RequestMapping(value="/orderInfo", method= RequestMethod.GET)
     public String getCartSummary(Model model) {
         populateDefaultModel(model);
-        model.addAttribute(new OrderInfoForm());
+        model.addAttribute(new OrderForm());
         return VIEW_NAME;
     }
 
     @RequestMapping(value="/submitOrder", method=RequestMethod.POST)
-    public String submitOrder(@ModelAttribute @Validated OrderInfoForm orderInfoForm,
+    public String submitOrder(@ModelAttribute @Valid OrderForm orderForm,
                               BindingResult result,
                               Model model) {
 
@@ -58,25 +43,24 @@ public class OrderInfoController {
             populateDefaultModel(model);
             return VIEW_NAME;
         } else {
-            final Order order = cartService.getOrder();
-            copyShippingInfo(order, orderInfoForm);
+            final Order order = orderService.getOrderFromCart();
+            copyShippingInfo(order, orderForm);
             orderService.saveOrder(order);
-            cartService.clear();
             model.asMap().clear();
             return "redirect:/orderSummary/" + order.getKey();
         }
     }
 
     private void populateDefaultModel(Model model) {
-        final Order order = cartService.getOrder();
+        final Order order = orderService.getOrderFromCart();
         model.addAttribute(order);
         model.addAttribute("shippingPrice", order.getShippingPrice());
     }
 
-    private void copyShippingInfo(final Order order, final OrderInfoForm orderInfoForm) {
-        order.setFirstName(orderInfoForm.getFirstName());
-        order.setLastName(orderInfoForm.getLastName());
-        order.setDeliveryAddress(orderInfoForm.getDeliveryAddress());
-        order.setContactPhone(orderInfoForm.getContactPhone());
+    private void copyShippingInfo(final Order order, final OrderForm orderForm) {
+        order.setFirstName(orderForm.getFirstName());
+        order.setLastName(orderForm.getLastName());
+        order.setDeliveryAddress(orderForm.getDeliveryAddress());
+        order.setContactPhone(orderForm.getContactPhone());
     }
 }

@@ -1,6 +1,6 @@
 package com.expertsoft.web.validation;
 
-import com.expertsoft.web.model.OrderInfoForm;
+import com.expertsoft.web.form.OrderForm;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -16,12 +16,12 @@ public class OrderSubmitFormValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return OrderInfoForm.class.equals(aClass);
+        return OrderForm.class.equals(aClass);
     }
 
     @Override
     public void validate(Object o, Errors errors) {
-        OrderInfoForm orderInfo = (OrderInfoForm) o;
+        OrderForm orderInfo = (OrderForm) o;
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", "orderInfo.firstName.empty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "orderInfo.lastName.empty");
