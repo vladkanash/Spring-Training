@@ -3,44 +3,42 @@ package com.expertsoft.core.service.impl;
 import com.expertsoft.core.model.Order;
 import com.expertsoft.core.model.OrderItem;
 import com.expertsoft.core.model.Phone;
+import com.expertsoft.core.service.Cart;
 import com.expertsoft.core.service.CartService;
 import com.expertsoft.core.service.PhoneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 @PropertySource("classpath:application.properties")
 class CartServiceImpl implements CartService {
 
-    private BigDecimal totalPrice = BigDecimal.ZERO;
+    private final Cart cart;
     private final PhoneService phoneService;
-    private final List<OrderItem> orderItems = new ArrayList<>();
 
     @Value("${shipping.price}")
     private BigDecimal shippingPrice;
 
     @Autowired
-    public CartServiceImpl(PhoneService phoneService) {
+    public CartServiceImpl(PhoneService phoneService, Cart cart) {
         this.phoneService = phoneService;
+        this.cart = cart;
     }
 
     @Override
     public void addProductToCart(long productKey, int quantity) {
         final Phone phone = phoneService.getPhone(productKey);
         if (null == phone) {
-            return;
+            throw new CartException("Product value is null");
         }
 
-        for (final OrderItem item : orderItems) {
+        final List<OrderItem> items = cart.getItems();
+        for (final OrderItem item : items) {
             if (item.getPhone().getKey() == productKey) {
                 item.setQuantity(item.getQuantity() + quantity);
                 repriceCart();
@@ -51,15 +49,16 @@ class CartServiceImpl implements CartService {
         OrderItem item = new OrderItem();
         item.setPhone(phone);
         item.setQuantity(quantity);
-        orderItems.add(item);
+        items.add(item);
         repriceCart();
     }
 
     @Override
     public void removeProduct(long productKey) {
-        for (final OrderItem item : orderItems) {
+        final List<OrderItem> items = cart.getItems();
+        for (final OrderItem item : items) {
             if (productKey == item.getPhone().getKey()) {
-                orderItems.remove(item);
+                items.remove(item);
                 repriceCart();
                 return;
             }
@@ -69,10 +68,10 @@ class CartServiceImpl implements CartService {
     @Override
     public void updateProduct(long productKey, int newQuantity) {
         if (newQuantity <= 0) {
-            return;
+            throw new CartException("Quantity for product is less than 1");
         }
 
-        for (final OrderItem item : orderItems) {
+        for (final OrderItem item : cart.getItems()) {
             if (productKey == item.getPhone().getKey()) {
                 item.setQuantity(newQuantity);
                 repriceCart();
@@ -84,7 +83,7 @@ class CartServiceImpl implements CartService {
     @Override
     public int getProductCount() {
         int productCount = 0;
-        for (final OrderItem item : orderItems) {
+        for (final OrderItem item : cart.getItems()) {
             productCount += item.getQuantity();
         }
         return productCount;
@@ -94,32 +93,34 @@ class CartServiceImpl implements CartService {
     public Order getOrder() {
         Order order = new Order();
         order.setShippingPrice(shippingPrice);
-        order.setTotalPrice(totalPrice);
-        order.setOrderItems(orderItems);
+        order.setTotalPrice(cart.getTotalPrice());
+        order.setOrderItems(cart.getItems());
         return order;
     }
 
     @Override
     public void clear() {
-        orderItems.clear();
-        totalPrice = BigDecimal.ZERO;
+        cart.getItems().clear();
+        cart.setTotalPrice(BigDecimal.ZERO);
     }
 
     @Override
     public double getTotalPrice() {
-        return totalPrice.doubleValue();
+        return cart.getTotalPrice().doubleValue();
     }
 
     @Override
     public List<OrderItem> getOrderItems() {
-        return orderItems;
+        return cart.getItems();
     }
 
     private void repriceCart() {
-        totalPrice = BigDecimal.ZERO;
-        for (final OrderItem item : orderItems) {
-            final Phone phone = item.getPhone();
-            BigDecimal itemPrice = phone.getPrice().multiply(BigDecimal.valueOf(item.getQuantity()));
+        BigDecimal totalPrice = BigDecimal.ZERO;
+        BigDecimal itemPrice;
+        Phone phone;
+        for (final OrderItem item : cart.getItems()) {
+            phone = item.getPhone();
+            itemPrice = phone.getPrice().multiply(BigDecimal.valueOf(item.getQuantity()));
             totalPrice = totalPrice.add(itemPrice);
         }
     }

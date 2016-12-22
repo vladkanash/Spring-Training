@@ -1,4 +1,4 @@
-package com.expertsoft.core.exception;
+package com.expertsoft.core.service.impl;
 
 public class OrderNotFoundException extends RuntimeException {
 

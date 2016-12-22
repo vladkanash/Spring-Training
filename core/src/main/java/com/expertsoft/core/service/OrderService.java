@@ -1,7 +1,7 @@
 package com.expertsoft.core.service;
 
 
-import com.expertsoft.core.exception.OrderNotFoundException;
+import com.expertsoft.core.service.impl.OrderNotFoundException;
 import com.expertsoft.core.model.Order;
 
 import java.util.List;

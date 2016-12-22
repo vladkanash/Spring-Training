@@ -49,19 +49,11 @@ public class OrderItem {
         if (o == null || getClass() != o.getClass()) return false;
 
         OrderItem orderItem = (OrderItem) o;
-
-        if (key != orderItem.key) return false;
-        if (quantity != orderItem.quantity) return false;
-        if (phone != null ? !phone.equals(orderItem.phone) : orderItem.phone != null) return false;
-        return order != null ? order.equals(orderItem.order) : orderItem.order == null;
+        return key == orderItem.key;
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (key ^ (key >>> 32));
-        result = 31 * result + quantity;
-        result = 31 * result + (phone != null ? phone.hashCode() : 0);
-        result = 31 * result + (order != null ? order.hashCode() : 0);
-        return result;
+        return (int) (key ^ (key >>> 32));
     }
 }

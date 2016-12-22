@@ -5,19 +5,18 @@ import java.math.BigDecimal;
 public class Phone {
 
     public Phone() {
-
     }
 
-    private Long key;
+    private long key;
     private String model;
     private String color;
     private BigDecimal price;
 
-    public Long getKey() {
+    public long getKey() {
         return key;
     }
 
-    public void setKey(Long key) {
+    public void setKey(long key) {
         this.key = key;
     }
 
@@ -53,26 +52,11 @@ public class Phone {
         }
 
         Phone phone = (Phone) o;
-
-        if (key != null ? !key.equals(phone.key) : phone.key != null) {
-            return false;
-        }
-        if (model != null ? !model.equals(phone.model) : phone.model != null) {
-            return false;
-        }
-        if (color != null ? !color.equals(phone.color) : phone.color != null) {
-            return false;
-        }
-        return price != null ? price.equals(phone.price) : phone.price == null;
-
+        return key == phone.key;
     }
 
     @Override
     public int hashCode() {
-        int result = key != null ? key.hashCode() : 0;
-        result = 31 * result + (model != null ? model.hashCode() : 0);
-        result = 31 * result + (color != null ? color.hashCode() : 0);
-        result = 31 * result + (price != null ? price.hashCode() : 0);
-        return result;
+        return (int) (key ^ (key >>> 32));
     }
 }

@@ -88,29 +88,11 @@ public class Order {
         if (o == null || getClass() != o.getClass()) return false;
 
         Order order = (Order) o;
-
-        if (key != order.key) return false;
-        if (orderItems != null ? !orderItems.equals(order.orderItems) : order.orderItems != null) return false;
-        if (totalPrice != null ? !totalPrice.equals(order.totalPrice) : order.totalPrice != null) return false;
-        if (shippingPrice != null ? !shippingPrice.equals(order.shippingPrice) : order.shippingPrice != null)
-            return false;
-        if (firstName != null ? !firstName.equals(order.firstName) : order.firstName != null) return false;
-        if (lastName != null ? !lastName.equals(order.lastName) : order.lastName != null) return false;
-        if (deliveryAddress != null ? !deliveryAddress.equals(order.deliveryAddress) : order.deliveryAddress != null)
-            return false;
-        return contactPhone != null ? contactPhone.equals(order.contactPhone) : order.contactPhone == null;
+        return key == order.key;
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (key ^ (key >>> 32));
-        result = 31 * result + (orderItems != null ? orderItems.hashCode() : 0);
-        result = 31 * result + (totalPrice != null ? totalPrice.hashCode() : 0);
-        result = 31 * result + (shippingPrice != null ? shippingPrice.hashCode() : 0);
-        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
-        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        result = 31 * result + (deliveryAddress != null ? deliveryAddress.hashCode() : 0);
-        result = 31 * result + (contactPhone != null ? contactPhone.hashCode() : 0);
-        return result;
+        return (int) (key ^ (key >>> 32));
     }
 }
