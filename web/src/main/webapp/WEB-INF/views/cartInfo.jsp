@@ -55,7 +55,7 @@
                                 <td>
                                     <sf:hidden path="items[${vs.index}].productKey" value="${item.phone.key}"/>
                                     <sf:input path="items[${vs.index}].quantity" type="text"
-                                              class="form-control" maxlength="3" value="${item.quantity}"/>
+                                              class="form-control" maxlength="3" value="${items[vs.index].quantity}"/>
                                     <sf:errors path="items[${vs.index}].quantity" cssClass="error text-danger"/>
                                 </td>
                                 <td>

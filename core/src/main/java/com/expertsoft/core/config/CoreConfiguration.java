@@ -11,7 +11,8 @@ import javax.sql.DataSource;
 
 @Configuration
 @ComponentScan(value = {"com.expertsoft.core"})
-public class DataSourceConfiguration {
+@PropertySource("classpath:application.properties")
+public class CoreConfiguration {
 
     @Bean
     public DataSource embeddedDataSource() {

@@ -1,11 +1,10 @@
 package com.expertsoft.core.dao;
 
-import com.expertsoft.core.config.DataSourceConfiguration;
+import com.expertsoft.core.config.CoreConfiguration;
 import com.expertsoft.core.model.Phone;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +15,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes={ DataSourceConfiguration.class })
+@ContextConfiguration(classes={ CoreConfiguration.class })
 @Transactional
 public class JdbcPhoneDaoTest {
 

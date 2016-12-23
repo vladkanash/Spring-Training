@@ -1,5 +1,6 @@
 package com.expertsoft.web.controller;
 
+import com.expertsoft.core.model.OrderItem;
 import com.expertsoft.core.service.CartService;
 import com.expertsoft.web.form.CartForm;
 import com.expertsoft.web.form.CartItem;
@@ -10,6 +11,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class CartController {
@@ -26,7 +29,7 @@ public class CartController {
     @RequestMapping(value="/cartInfo", method=RequestMethod.GET)
     public String getCartItems(Model model) {
         model.addAttribute("productList", cartService.getItems());
-        model.addAttribute("cartForm", new CartForm());
+        model.addAttribute("cartForm", populateCartForm(cartService.getItems()));
         return VIEW_NAME;
     }
 
@@ -50,4 +53,20 @@ public class CartController {
             return "redirect:" + VIEW_NAME;
         }
     }
+
+    private CartForm populateCartForm(final List<OrderItem> items) {
+        final CartForm form = new CartForm();
+        final List<CartItem> formItems = new ArrayList<>();
+
+        for (final OrderItem item : items) {
+            final CartItem formItem = new CartItem();
+            formItem.setProductKey(item.getPhone().getKey());
+            formItem.setQuantity(String.valueOf(item.getQuantity()));
+            formItems.add(formItem);
+        }
+
+        form.setItems(formItems);
+        return form;
+    }
+
 }

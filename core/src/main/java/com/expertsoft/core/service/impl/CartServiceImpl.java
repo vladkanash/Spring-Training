@@ -12,17 +12,14 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
-@PropertySource("classpath:application.properties")
 class CartServiceImpl implements CartService {
 
     private final Cart cart;
     private final PhoneService phoneService;
-
-    @Value("${shipping.price}")
-    private BigDecimal shippingPrice;
 
     @Autowired
     public CartServiceImpl(PhoneService phoneService, Cart cart) {
@@ -56,9 +53,10 @@ class CartServiceImpl implements CartService {
     @Override
     public void removeProduct(long productKey) {
         final List<OrderItem> items = cart.getItems();
-        for (final OrderItem item : items) {
+        for (Iterator<OrderItem> iter = items.iterator(); iter.hasNext();) {
+            OrderItem item = iter.next();
             if (productKey == item.getPhone().getKey()) {
-                items.remove(item);
+                iter.remove();
                 repriceCart();
                 return;
             }

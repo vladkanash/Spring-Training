@@ -22,7 +22,7 @@ $(document).ready(function() {
                 $("#cartSummary").load('/productList #cartSummary > *');
             },
             error: function(data) {
-                errors.html(data.responseJSON.errors['productForm']);
+                errors.html(data.responseJSON.errors['cartItem']);
             }
         });
     })

@@ -15,4 +15,6 @@ public interface OrderService {
     void saveOrder(final Order order);
 
     Order getOrderFromCart();
+
+    void setShippingPrice(Order order);
 }
