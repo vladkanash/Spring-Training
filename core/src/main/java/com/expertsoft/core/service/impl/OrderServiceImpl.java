@@ -2,11 +2,10 @@ package com.expertsoft.core.service.impl;
 
 import com.expertsoft.core.dao.OrderDao;
 import com.expertsoft.core.model.Order;
-import com.expertsoft.core.service.Cart;
 import com.expertsoft.core.service.CartService;
 import com.expertsoft.core.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -18,14 +17,14 @@ class OrderServiceImpl implements OrderService {
     private final OrderDao orderDao;
     private final CartService cartService;
 
-    @Value("${shipping.price}")
-    private BigDecimal shippingPrice;
+    private final Environment env;
 
     @Autowired
     OrderServiceImpl(OrderDao orderDao,
-                     CartService cartService) {
+                     CartService cartService, Environment env) {
         this.orderDao = orderDao;
         this.cartService = cartService;
+        this.env = env;
     }
 
     @Override
@@ -49,7 +48,7 @@ class OrderServiceImpl implements OrderService {
         Order order = new Order();
         order.setOrderItems(cartService.getItems());
         order.setTotalPrice(cartService.getTotalPrice());
-        order.setShippingPrice(shippingPrice);
+        order.setShippingPrice(new BigDecimal(env.getProperty("shipping.price")));
         return order;
     }
 
@@ -58,6 +57,6 @@ class OrderServiceImpl implements OrderService {
         if (null == order) {
             throw new OrderException("Cannot set shipping price: Order is null");
         }
-        order.setShippingPrice(shippingPrice);
+        order.setShippingPrice(new BigDecimal(env.getProperty("shipping.price")));
     }
 }

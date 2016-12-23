@@ -11,7 +11,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @ComponentScan(value = {"com.expertsoft.core"})
-@PropertySource("classpath:application.properties")
+@PropertySource("classpath:config/application.properties")
 public class CoreConfiguration {
 
     @Bean
