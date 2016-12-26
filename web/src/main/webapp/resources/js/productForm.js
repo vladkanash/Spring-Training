@@ -2,6 +2,7 @@ $(document).ready(function() {
     $('.productForm').submit(function (e) {
         e.preventDefault();
         var data = {};
+        var headers = {};
 
         $('.error').html('');
         $.each(this, function(i, v){
@@ -11,10 +12,16 @@ $(document).ready(function() {
 
         var errors = $(this).parent('tr, div').find('.error');
 
+        var csrfToken = $("meta[name='_csrf']").attr("content");
+        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+
+        headers[csrfHeader] = csrfToken;
+
         $.ajax({
             type: "POST",
             contentType : 'application/json; charset=utf-8',
             url: '/addToCart',
+            headers: headers,
             data: JSON.stringify(data),
             dataType: 'json',
             success: function() {
@@ -25,5 +32,5 @@ $(document).ready(function() {
                 errors.html(data.responseJSON.errors['cartItem']);
             }
         });
-    })
+    });
 });

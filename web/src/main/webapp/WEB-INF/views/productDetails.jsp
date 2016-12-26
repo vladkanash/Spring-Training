@@ -8,6 +8,8 @@
 <html lang="en">
 <head>
     <title>${phone.model}</title>
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
     <jsp:include page="common/common-css.jsp"/>
 </head>
 <body>

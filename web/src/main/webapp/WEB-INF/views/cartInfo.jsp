@@ -8,6 +8,8 @@
 <html lang="en">
 <head>
     <title><spring:message code="cartInfo.title"/></title>
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
     <jsp:include page="common/common-css.jsp"/>
 </head>
 <body>
@@ -90,7 +92,14 @@
 <jsp:include page="common/common-js.jsp"/>
 <script>
     function deleteProduct(key) {
+        var headers = {};
+
+        var csrfToken = $("meta[name='_csrf']").attr("content");
+        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+        headers[csrfHeader] = csrfToken;
+
         $.ajax({
+            headers : headers,
             url: '/deleteProduct/' + key,
             type: 'DELETE'
         });
