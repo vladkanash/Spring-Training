@@ -21,7 +21,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/cartInfo").hasRole("ADMIN")
-                .and().formLogin();
+                .and().formLogin().loginPage("/login");
     }
 
 }
