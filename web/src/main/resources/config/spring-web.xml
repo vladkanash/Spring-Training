@@ -13,6 +13,7 @@
     <mvc:annotation-driven/>
     <mvc:default-servlet-handler/>
     <mvc:view-controller path="/login" view-name="/login"/>
+    <mvc:view-controller path="/register" view-name="/register"/>
     <mvc:resources mapping="/resources/**" location="/resources/"/>
 
     <bean class="com.expertsoft.core.config.CoreConfiguration"/>
@@ -22,8 +23,7 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
-    <bean id="messageSource"
-           class="org.springframework.context.support.ResourceBundleMessageSource">
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basenames">
             <array>
                 <value>messages/userInterface</value>

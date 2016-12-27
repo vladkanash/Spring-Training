@@ -19,6 +19,7 @@
 
     <user-service>
         <user name="admin" password="admin" authorities="ROLE_ADMIN" />
+        <user name="vladkanash" password="pass" authorities="ROLE_USER"/>
     </user-service>
 
 </b:beans>
