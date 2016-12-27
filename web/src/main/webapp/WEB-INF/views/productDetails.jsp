@@ -15,7 +15,9 @@
 <body>
 
     <div class="container">
-        <jsp:include page="header.jsp"/>
+        <jsp:include page="header.jsp">
+            <jsp:param name="showLogin" value="true"/>
+        </jsp:include>
 
         <div class="row title-row">
             <div class="col-lg-4 col-sm-12 col-xs-12 col-md-4">

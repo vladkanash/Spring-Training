@@ -3,19 +3,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="phonify" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title><spring:message code="cartInfo.title"/></title>
-    <meta name="_csrf" content="${_csrf.token}"/>
-    <meta name="_csrf_header" content="${_csrf.headerName}"/>
+    <sec:csrfMetaTags />
     <jsp:include page="common/common-css.jsp"/>
 </head>
 <body>
 
 <div class="container">
-    <jsp:include page="header.jsp"/>
+    <jsp:include page="header.jsp">
+        <jsp:param name="showLogin" value="true"/>
+    </jsp:include>
 
     <c:choose>
     <c:when test="${not empty productList}">

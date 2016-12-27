@@ -7,11 +7,14 @@ import com.expertsoft.core.service.PhoneService;
 import com.expertsoft.web.form.AjaxResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
@@ -46,7 +49,7 @@ public class ProductListController {
             copyErrors(result, ajaxResponse);
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         } else {
-            int quantity = Integer.valueOf(cartItem.getQuantity());
+            int quantity = cartItem.getQuantity();
             cartService.addProductToCart(cartItem.getProductKey(), quantity);
         }
         return ajaxResponse;
@@ -57,5 +60,13 @@ public class ProductListController {
             final String message =  messageSource.getMessage(error, null);
             ajaxResponse.addError(error.getObjectName(), message);
         }
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    @ResponseStatus(value=HttpStatus.BAD_REQUEST)
+    public @ResponseBody AjaxResponse handleMessageNotReadableException(HttpServletRequest request, HttpMessageNotReadableException exception) {
+        final AjaxResponse ajaxResponse = new AjaxResponse();
+        ajaxResponse.addError("cartItem", messageSource.getMessage("typeMismatch.quantity", null, null));
+        return ajaxResponse;
     }
 }

@@ -47,7 +47,7 @@ public class CartController {
             return VIEW_NAME;
         } else {
             for (final CartItem item : cartForm.getItems()) {
-                int quantity = Integer.valueOf(item.getQuantity());
+                int quantity = item.getQuantity();
                 cartService.updateProduct(item.getProductKey(), quantity);
             }
             return "redirect:" + VIEW_NAME;
@@ -61,7 +61,7 @@ public class CartController {
         for (final OrderItem item : items) {
             final CartItem formItem = new CartItem();
             formItem.setProductKey(item.getPhone().getKey());
-            formItem.setQuantity(String.valueOf(item.getQuantity()));
+            formItem.setQuantity(item.getQuantity());
             formItems.add(formItem);
         }
 

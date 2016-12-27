@@ -13,7 +13,10 @@
 <body>
 
 <div class="container">
-    <jsp:include page="header.jsp"/>
+    <jsp:include page="header.jsp">
+        <jsp:param name="showLogin" value="false"/>
+    </jsp:include>
+
     <c:url var="loginUrl" value="/login" />
 
     <div class="row">

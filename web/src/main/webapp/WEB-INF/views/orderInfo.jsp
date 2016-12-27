@@ -13,7 +13,9 @@
 <body>
 
 <div class="container">
-    <jsp:include page="header.jsp"/>
+    <jsp:include page="header.jsp">
+        <jsp:param name="showLogin" value="true"/>
+    </jsp:include>
 
     <c:choose>
         <c:when test="${not empty order.orderItems}">

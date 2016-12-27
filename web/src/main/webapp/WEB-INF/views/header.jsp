@@ -2,7 +2,9 @@
 <%@ taglib prefix="cart" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-<jsp:include page="navbar.jsp"/>
+<jsp:include page="navbar.jsp">
+    <jsp:param name="showLogin" value="${param.showLogin}"/>
+</jsp:include>
 
 <div class="row">
     <div class="col-lg-2 col-sm-6 col-xs-12 col-md-2">

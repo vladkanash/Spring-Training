@@ -8,7 +8,7 @@ public class CartItem {
 
     @NotNull
     @Min(1)
-    private String quantity;
+    private Integer quantity;
 
     private long productKey;
 
@@ -20,11 +20,11 @@ public class CartItem {
         this.productKey = productKey;
     }
 
-    public String getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 
