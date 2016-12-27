@@ -7,16 +7,16 @@ public class Phone {
     public Phone() {
     }
 
-    private long key;
+    private Long key;
     private String model;
     private String color;
     private BigDecimal price;
 
-    public long getKey() {
+    public Long getKey() {
         return key;
     }
 
-    public void setKey(long key) {
+    public void setKey(Long key) {
         this.key = key;
     }
 
@@ -52,7 +52,7 @@ public class Phone {
         }
 
         Phone phone = (Phone) o;
-        return key == phone.key;
+        return key.equals(phone.key);
     }
 
     @Override

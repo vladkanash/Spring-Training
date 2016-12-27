@@ -9,7 +9,7 @@ public class Order {
 
     }
 
-    private long key;
+    private Long key;
     private List<OrderItem> orderItems;
     private BigDecimal totalPrice;
     private BigDecimal shippingPrice;
@@ -18,11 +18,11 @@ public class Order {
     private String deliveryAddress;
     private String contactPhone;
 
-    public long getKey() {
+    public Long getKey() {
         return key;
     }
 
-    public void setKey(long key) {
+    public void setKey(Long key) {
         this.key = key;
     }
 
@@ -88,7 +88,7 @@ public class Order {
         if (o == null || getClass() != o.getClass()) return false;
 
         Order order = (Order) o;
-        return key == order.key;
+        return key.equals(order.key);
     }
 
     @Override

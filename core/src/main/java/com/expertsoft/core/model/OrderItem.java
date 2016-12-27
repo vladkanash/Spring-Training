@@ -6,16 +6,16 @@ public class OrderItem {
 
     }
 
-    private long key;
+    private Long key;
     private int quantity;
     private Phone phone;
     private Order order;
 
-    public long getKey() {
+    public Long getKey() {
         return key;
     }
 
-    public void setKey(long key) {
+    public void setKey(Long key) {
         this.key = key;
     }
 
@@ -49,7 +49,7 @@ public class OrderItem {
         if (o == null || getClass() != o.getClass()) return false;
 
         OrderItem orderItem = (OrderItem) o;
-        return key == orderItem.key;
+        return key.equals(orderItem.key);
     }
 
     @Override
