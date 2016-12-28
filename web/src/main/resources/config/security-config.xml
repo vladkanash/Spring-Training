@@ -17,9 +17,14 @@
         <logout logout-success-url="/productList"/>
     </http>
 
-    <user-service>
-        <user name="admin" password="admin" authorities="ROLE_ADMIN" />
-        <user name="vladkanash" password="pass" authorities="ROLE_USER"/>
-    </user-service>
+    <authentication-manager>
+        <authentication-provider>
+            <jdbc-user-service data-source-ref="driverManagerDataSource"
+                               users-by-username-query=
+                                       "SELECT username, password, enabled FROM users WHERE username=?"
+                               authorities-by-username-query=
+                                       "SELECT username, authority FROM authorities WHERE username=?"/>
+        </authentication-provider>
+    </authentication-manager>
 
 </b:beans>
