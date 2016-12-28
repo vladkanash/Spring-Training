@@ -1,6 +1,5 @@
 package com.expertsoft.core.dao;
 
-import com.expertsoft.core.config.CoreConfiguration;
 import com.expertsoft.core.model.OrderItem;
 import com.expertsoft.core.model.Phone;
 import org.junit.Before;
@@ -17,7 +16,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes={ CoreConfiguration.class })
+@ContextConfiguration(locations={"classpath:config/core-config.xml"})
 @Transactional
 public class JdbcOrderItemDaoTest {
 
