@@ -3,11 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="phonify" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Administration page</title>
+    <sec:csrfMetaTags />
     <jsp:include page="common/common-css.jsp"/>
 </head>
 <body>
@@ -69,7 +71,14 @@
 
 <script>
     function deliveryOrder(key) {
+        var headers = {};
+
+        var csrfToken = $("meta[name='_csrf']").attr("content");
+        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+        headers[csrfHeader] = csrfToken;
+
         $.ajax({
+            headers: headers,
             url: '/deliveryOrder/' + key,
             type: 'POST'
         });
