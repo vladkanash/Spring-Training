@@ -7,6 +7,8 @@ class JdbcConstants {
     final static String ORDER_TABLE = "PHONIFY_ORDER";
     final static String ORDER_ITEM_TABLE = "ORDER_ITEM";
     final static String PHONE_TABLE = "PHONE";
+    final static String USERS_TABLE = "USERS";
+    final static String AUTHORITIES_TABLE = "AUTHORITIES";
 
     final static String ORDER_ITEM_KEY_COLUMN = "KEY";
     final static String ORDER_ITEM_QUANTITY_COLUMN = "QUANTITY";
@@ -25,4 +27,11 @@ class JdbcConstants {
     final static String PHONE_MODEL_COLUMN = "MODEL";
     final static String PHONE_COLOR_COLUMN = "COLOR";
     final static String PHONE_PRICE_COLUMN = "PRICE";
+
+    final static String USERS_USERNAME_COLUMN = "USERNAME";
+    final static String USERS_PASSWORD_COLUMN = "PASSWORD";
+    final static String USERS_ENABLED_COLUMN = "ENABLED";
+
+    final static String AUTHORITIES_USERNAME_COLUMN = "USERNAME";
+    final static String AUTHORITIES_AUTHORITY_COLUMN = "AUTHORITY";
 }
