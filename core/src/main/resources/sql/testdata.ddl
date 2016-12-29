@@ -57,3 +57,9 @@ insert into PHONE (price, model, color) values (464.37, 'Samsung S8300 Tocco Ult
 insert into PHONE (price, model, color) values (410.33, 'Samsung Galaxy S5', 'Aquamarine');
 insert into PHONE (price, model, color) values (68.76, 'LG Optimus One', 'Indigo');
 insert into PHONE (price, model, color) values (264.32, 'Alcatel One Touch Mini OT-708', 'Khaki');
+
+insert into USERS (username, password, enabled) values ('admin', 'admin', 1);
+insert into USERS (username, password, enabled) values ('vladkanash', '123', 1);
+
+insert into AUTHORITIES (username, authority) values ('admin', 'ROLE_ADMIN');
+insert into AUTHORITIES (username, authority) values ('vladkanash', 'ROLE_USER');

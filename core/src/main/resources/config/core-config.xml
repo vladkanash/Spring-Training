@@ -29,11 +29,11 @@
     </bean>
 
     <jdbc:initialize-database data-source="driverManagerDataSource" enabled="${db.insertSchema}">
-        <jdbc:script location="classpath:sql/phonify.ddl" separator="#"/>
+        <jdbc:script location="${db.schemaScript}" separator="#"/>
     </jdbc:initialize-database>
 
     <jdbc:initialize-database data-source="driverManagerDataSource" enabled="${db.insertDemoData}">
-        <jdbc:script location="classpath:sql/h2_testdata.ddl"/>
+        <jdbc:script location="${db.demoDataScript}"/>
     </jdbc:initialize-database>
 
     <bean class="org.springframework.jdbc.core.JdbcTemplate">
@@ -44,7 +44,5 @@
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="driverManagerDataSource"/>
     </bean>
-
-
 
 </beans>

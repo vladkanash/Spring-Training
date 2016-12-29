@@ -6,9 +6,8 @@
 		 http://www.springframework.org/schema/security
 		 http://www.springframework.org/schema/security/spring-security.xsd">
 
+    <global-method-security secured-annotations="enabled" />
     <http>
-        <global-method-security secured-annotations="enabled" />
-
         <intercept-url access="isAuthenticated()" pattern="/cartInfo"/>
         <intercept-url access="hasRole('ROLE_ADMIN')" pattern="/admin"/>
 
