@@ -17,3 +17,7 @@ input.form-control {
 .nav-buttons {
     padding-right: 15px;
 }
+
+input.register-input {
+    width: 100%;
+}

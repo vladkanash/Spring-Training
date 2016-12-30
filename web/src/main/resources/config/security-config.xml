@@ -18,13 +18,14 @@
         <logout logout-success-url="/productList"/>
     </http>
 
-    <authentication-manager>
+    <authentication-manager id="springAuthenticationManager">
         <authentication-provider>
             <jdbc-user-service data-source-ref="driverManagerDataSource"
                                users-by-username-query=
                                        "SELECT username, password, enabled FROM users WHERE username=?"
                                authorities-by-username-query=
                                        "SELECT username, authority FROM authorities WHERE username=?"/>
+            <password-encoder ref="encoder" />
         </authentication-provider>
     </authentication-manager>
 

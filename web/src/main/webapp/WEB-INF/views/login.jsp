@@ -47,7 +47,7 @@
                             <button id="login" name="login" class="btn btn-block btn-primary">Login</button>
                         </div>
                         <div class="col-md-6 col-lg-6">
-                            <button id="forpass" name="forpass" class="btn btn-block btn-warning">I forgot my password</button>
+                            <a href="<spring:url value="register"/>" id="register" name="register" class="btn btn-block btn-success">Register new account</a>
                         </div>
                     </div>
                 </fieldset>

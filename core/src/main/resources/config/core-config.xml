@@ -45,4 +45,8 @@
         <property name="dataSource" ref="driverManagerDataSource"/>
     </bean>
 
+    <bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+        <constructor-arg name="strength" value="10"/>
+    </bean>
+
 </beans>

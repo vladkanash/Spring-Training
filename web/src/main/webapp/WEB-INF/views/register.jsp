@@ -19,44 +19,65 @@
 
     <c:url var="loginUrl" value="/login" />
 
+    <div class="row title-row">
+        <div class="col-lg-10 col-sm-8 col-xs-12 col-md-10">
+            <h4 class="text-primary">
+                Register
+            </h4>
+        </div>
+    </div>
+
     <div class="row">
-        <form class="form-horizontal" action='' method="POST">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <sf:form modelAttribute="userForm" action='/register' method="POST">
 
-            <fieldset>
-                <div id="legend">
-                    <legend class="">Register</legend>
-                </div>
-                <div class="control-group">
-                    <label class="control-label"  for="username">Username</label>
-                    <div class="controls">
-                        <input type="text" id="username" name="username" placeholder="" class="input-xlarge">
-                        <p class="help-block">Username can contain any letters or numbers, without spaces</p>
+                <spring:bind path="username">
+                    <div class="form-group form-horizontal ${status.error ? 'has-error' : ''}">
+                        <label for="username">Username</label>
+                        <sf:input path="username"
+                                  type="text"
+                                  id="username"
+                                  name="username"
+                                  class="form-control register-input"
+                                  placeholder=""/>
+                        <p class="help-block ${status.error ? 'hidden' : ''}">Username can contain any letters or numbers, without spaces</p>
+                        <sf:errors path="username" class="control-label"/>
                     </div>
-                </div>
+                </spring:bind>
 
-                <div class="control-group">
-                    <label class="control-label" for="password">Password</label>
-                    <div class="controls">
-                        <input type="password" id="password" name="password" placeholder="" class="input-xlarge">
-                        <p class="help-block">Password should be at least 4 characters</p>
+                <spring:bind path="password">
+                    <div class="form-group form-horizontal ${status.error ? 'has-error' : ''}">
+                        <label for="password">Password</label>
+                        <sf:password path="password"
+                                     name="password"
+                                     placeholder=""
+                                     class="form-control register-input"/>
+                        <p class="help-block ${status.error ? 'hidden' : ''}">Password should be at least 6 characters</p>
+                        <sf:errors path="password" class="control-label"/>
                     </div>
-                </div>
+                </spring:bind>
 
-                <div class="control-group">
-                    <label class="control-label"  for="password_confirm">Password (Confirm)</label>
-                    <div class="controls">
-                        <input type="password" id="password_confirm" name="password_confirm" placeholder="" class="input-xlarge">
-                        <p class="help-block">Please confirm password</p>
+                <spring:bind path="matchingPassword">
+                    <div class="form-group form-horizontal ${status.error ? 'has-error' : ''}">
+                        <label for="password_confirm">Password (Confirm)</label>
+                        <sf:input path="matchingPassword"
+                                  type="password"
+                                  id="password_confirm"
+                                  name="password_confirm"
+                                  class="form-control register-input"
+                                  placeholder="" />
+                        <p class="help-block ${status.error ? 'hidden' : ''}">Please confirm password</p>
+                        <sf:errors path="matchingPassword" class="control-label"/>
                     </div>
-                </div>
+                </spring:bind>
 
-                <div class="control-group">
+                <div class="form-group">
                     <div class="controls">
                         <button class="btn btn-success">Register</button>
                     </div>
                 </div>
-            </fieldset>
-        </form>
+            </sf:form>
+        </div>
     </div>
 </div>
 
