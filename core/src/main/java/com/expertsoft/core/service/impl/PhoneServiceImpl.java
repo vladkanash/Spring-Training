@@ -32,6 +32,9 @@ class PhoneServiceImpl implements PhoneService {
 
     @Override
     public void savePhone(final Phone phone) {
+        if (null == phone) {
+            throw new IllegalArgumentException("Cannot save phone: phone value is null");
+        }
         phoneDao.savePhone(phone);
     }
 }

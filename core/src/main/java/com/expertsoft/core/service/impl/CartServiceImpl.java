@@ -1,14 +1,11 @@
 package com.expertsoft.core.service.impl;
 
-import com.expertsoft.core.model.Order;
 import com.expertsoft.core.model.OrderItem;
 import com.expertsoft.core.model.Phone;
 import com.expertsoft.core.service.Cart;
 import com.expertsoft.core.service.CartService;
 import com.expertsoft.core.service.PhoneService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -31,7 +28,7 @@ class CartServiceImpl implements CartService {
     public void addProductToCart(long productKey, int quantity) {
         final Phone phone = phoneService.getPhone(productKey);
         if (null == phone) {
-            throw new CartException("Product value is null");
+            throw new IllegalArgumentException("Product value is null");
         }
 
         final List<OrderItem> items = cart.getItems();
@@ -66,7 +63,7 @@ class CartServiceImpl implements CartService {
     @Override
     public void updateProduct(long productKey, int newQuantity) {
         if (newQuantity <= 0) {
-            throw new CartException("Quantity for product is less than 1");
+            throw new IllegalArgumentException("Quantity for product is less than 1");
         }
 
         for (final OrderItem item : cart.getItems()) {

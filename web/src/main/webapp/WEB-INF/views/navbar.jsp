@@ -11,8 +11,8 @@
     <c:if test="${param.showLogin eq true}">
         <sec:authorize access="isAnonymous()" >
             <div class="pull-right nav-buttons">
-                <a href="<spring:url value="/login"/>" class="btn btn-success navbar-btn">Login</a>
-                <a href="<spring:url value="/register"/>" class="btn btn-primary navbar-btn">Register</a>
+                <a href="<spring:url value="/login"/>" class="btn btn-primary navbar-btn">Login</a>
+                <a href="<spring:url value="/register"/>" class="btn btn-success navbar-btn">Register</a>
             </div>
         </sec:authorize>
         <sec:authorize access="isAuthenticated()">

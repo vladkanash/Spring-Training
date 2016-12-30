@@ -39,6 +39,10 @@ class OrderServiceImpl implements OrderService {
 
     @Override
     public void saveOrder(Order order) {
+        if (null == order) {
+            throw new IllegalArgumentException("Cannot save order: order is null");
+        }
+
         orderDao.saveOrder(order);
         cartService.clear();
     }
@@ -55,7 +59,7 @@ class OrderServiceImpl implements OrderService {
     @Override
     public void setShippingPrice(Order order) {
         if (null == order) {
-            throw new OrderException("Cannot set shipping price: Order is null");
+            throw new IllegalArgumentException("Cannot set shipping price: Order is null");
         }
         order.setShippingPrice(new BigDecimal(env.getProperty("shipping.price")));
     }
