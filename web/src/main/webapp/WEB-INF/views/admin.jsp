@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Administration page</title>
+    <title><spring:message code="adminPage.title"/></title>
     <sec:csrfMetaTags />
     <jsp:include page="common/common-css.jsp"/>
 </head>
@@ -21,7 +21,7 @@
     <div class="row title-row">
         <div class="col-lg-10 col-sm-8 col-xs-12 col-md-10">
             <h4 class="text-primary">
-                Administration page
+                <spring:message code="adminPage.header"/>
             </h4>
         </div>
     </div>
@@ -51,9 +51,16 @@
                                 <td><c:out value="${order.contactPhone}"/></td>
                                 <td><phonify:currency value="${order.totalPrice}"/></td>
                                 <td>
-                                    <button onclick="deliveryOrder(${order.key})" class="btn btn-sm btn-default">
-                                        <spring:message code="adminPage.button.delivery"/>
-                                    </button>
+                                    <c:choose>
+                                        <c:when test="${order.delivered}">
+                                            <spring:message code="adminPage.message.shipped"/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <button onclick="deliveryOrder(${order.key})" class="btn btn-sm btn-default">
+                                                <spring:message code="adminPage.button.delivery"/>
+                                            </button>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -61,7 +68,7 @@
                 </table>
             </c:when>
             <c:otherwise>
-                Orders not found.
+                <spring:message code="adminPage.message.noOrders"/>
             </c:otherwise>
             </c:choose>
         </div>
@@ -79,9 +86,10 @@
 
         $.ajax({
             headers: headers,
-            url: '/deliveryOrder/' + key,
+            url: '/setDeliveredState/' + key,
             type: 'POST'
         });
+        $(".table").load('/admin .table > *');
     }
 </script>
 

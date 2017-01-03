@@ -17,6 +17,7 @@ public class Order {
     private String lastName;
     private String deliveryAddress;
     private String contactPhone;
+    private boolean delivered;
 
     public Long getKey() {
         return key;
@@ -80,6 +81,14 @@ public class Order {
 
     public void setShippingPrice(BigDecimal shippingPrice) {
         this.shippingPrice = shippingPrice;
+    }
+
+    public boolean isDelivered() {
+        return delivered;
+    }
+
+    public void setDelivered(boolean delivered) {
+        this.delivered = delivered;
     }
 
     @Override

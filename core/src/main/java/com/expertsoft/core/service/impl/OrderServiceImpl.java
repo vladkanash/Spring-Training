@@ -63,4 +63,10 @@ class OrderServiceImpl implements OrderService {
         }
         order.setShippingPrice(new BigDecimal(env.getProperty("shipping.price")));
     }
+
+    @Override
+    public boolean deliveryOrder(long orderKey) {
+        orderDao.setDeliveredState(orderKey);
+        return true;
+    }
 }

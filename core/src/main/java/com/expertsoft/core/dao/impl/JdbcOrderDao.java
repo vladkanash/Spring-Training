@@ -21,6 +21,7 @@ class JdbcOrderDao implements OrderDao {
 
     private static final String SELECT_ALL_QUERY = "SELECT  * FROM PHONIFY_ORDER";
     private static final String SELECT_QUERY = "SELECT * FROM PHONIFY_ORDER WHERE KEY=?";
+    private static final String UPDATE_QUERY = "UPDATE PHONIFY_ORDER SET delivered=1 WHERE KEY=?";
 
     private final JdbcOperations jdbcOperations;
     private final RowMapper<Order> orderRowMapper;
@@ -49,13 +50,14 @@ class JdbcOrderDao implements OrderDao {
     }
 
     public void saveOrder(Order order) {
-        final Map<String, Object> parameters = new HashMap<>(6);
+        final Map<String, Object> parameters = new HashMap<>(7);
         parameters.put(JdbcConstants.ORDER_FIRST_NAME_COLUMN, order.getFirstName());
         parameters.put(JdbcConstants.ORDER_LAST_NAME_COLUMN, order.getLastName());
         parameters.put(JdbcConstants.ORDER_TOTAL_PRICE_COLUMN, order.getTotalPrice());
         parameters.put(JdbcConstants.ORDER_CONTACT_PHONE_COLUMN, order.getContactPhone());
         parameters.put(JdbcConstants.ORDER_DELIVERY_ADDRESS_COLUMN, order.getDeliveryAddress());
         parameters.put(JdbcConstants.ORDER_SHIPPING_PRICE_COLUMN, order.getShippingPrice());
+        parameters.put(JdbcConstants.ORDER_DELIVERED_COLUMN_NAME, order.isDelivered());
 
         final Number newId = jdbcInsert.executeAndReturnKey(parameters);
         order.setKey(newId.longValue());
@@ -70,5 +72,9 @@ class JdbcOrderDao implements OrderDao {
 
     public List<Order> findAll() {
         return jdbcOperations.query(SELECT_ALL_QUERY, orderRowMapper);
+    }
+
+    public void setDeliveredState(long orderKey) {
+       jdbcOperations.update(UPDATE_QUERY, orderKey);
     }
 }

@@ -26,8 +26,9 @@ public class AdminController {
         return "/admin";
     }
 
-    @RequestMapping(path = "/deliveryOrder/{orderKey}", method = RequestMethod.POST)
-    public String deliveryOrder(@PathVariable String orderKey) {
+    @RequestMapping(path = "/setDeliveredState/{orderKey}", method = RequestMethod.POST)
+    public String deliveryOrder(@PathVariable long orderKey) {
+        orderService.deliveryOrder(orderKey);
         return "redirect:/admin";
     }
 }

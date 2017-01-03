@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Login</title>
+    <title><spring:message code="login.title"/></title>
     <jsp:include page="common/common-css.jsp"/>
 </head>
 <body>
@@ -25,29 +25,47 @@
             <sf:form action="${loginUrl}" method="post" class="form-horizontal">
                 <fieldset>
                     <div class="col-lg-12 col-xs-12">
-                        <legend>Have an account? Sign In</legend>
+                        <legend><spring:message code="login.header"/></legend>
                     </div>
+
+                    <c:if test="${param.error ne null}">
+                        <div class="col-lg-12 col-xs-12 has-error">
+                            Invalid username and/or password. Please check your data.
+                        </div>
+                    </c:if>
 
                     <div class="form-group col-lg-12 col-xs-12">
                         <label class="col-md-1 control-label" for="username"></label>
                         <div class="col-md-12 col-lg-12">
-                            <input style="width: 100%" id="username" name="username" type="text" placeholder="Username" class="form-control input-md in">
+                            <spring:message code="login.placeholder.username" var="username-placeholder"/>
+                            <input style="width: 100%" id="username"
+                                   name="username"
+                                   type="text"
+                                   placeholder="${username-placeholder}"
+                                   class="form-control input-md in">
                         </div>
                     </div>
 
                     <div class="form-group col-lg-12 col-xs-12">
                         <label class="col-md-1 control-label" for="password"></label>
                         <div class="col-md-12 col-lg-12">
-                            <input style="width: 100%" id="password" name="password" type="password" placeholder="Password" class="form-control input-md">
+                            <spring:message code="login.placeholder.password" var="pass-placeholder"/>
+                            <input style="width: 100%" id="password"
+                                   name="password"
+                                   type="password"
+                                   placeholder="${pass-placeholder}"
+                                   class="form-control input-md">
                         </div>
                     </div>
 
                     <div class="form-group col-lg-12 col-cs-12">
                         <div class="col-md-6 col-lg-6">
-                            <button id="login" name="login" class="btn btn-block btn-primary">Login</button>
+                            <button id="login" name="login" class="btn btn-block btn-primary"><spring:message code="login.label.login"/></button>
                         </div>
                         <div class="col-md-6 col-lg-6">
-                            <a href="<spring:url value="register"/>" id="register" name="register" class="btn btn-block btn-success">Register new account</a>
+                            <a href="<spring:url value="register"/>" id="register" name="register" class="btn btn-block btn-success">
+                                <spring:message code="login.label.register"/>
+                            </a>
                         </div>
                     </div>
                 </fieldset>
