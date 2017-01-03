@@ -12,6 +12,7 @@
         <intercept-url access="isAuthenticated()" pattern="/orderInfo"/>
         <intercept-url access="isAuthenticated()" pattern="/orderSummary"/>
         <intercept-url access="hasRole('ROLE_ADMIN')" pattern="/admin"/>
+        <intercept-url access="hasRole('ROLE_USER')" pattern="/user"/>
 
         <form-login
                 login-page="/login"

@@ -12,6 +12,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -50,7 +52,17 @@ public class RegistrationController {
         if (result.hasErrors()) {
               return "/register";
         } else {
-            userService.addUser(userForm.getUsername(), userForm.getPassword());
+            boolean success = userService.addUser(userForm.getUsername(), userForm.getPassword());
+            if (!success) {
+                result.addError(new FieldError("userForm",
+                        "username",
+                        userForm.getUsername(),
+                        false,
+                        new String[]{"register.userExists"},
+                        null,
+                        null));
+                return "/register";
+            }
             authenticateUserAndSetSession(userForm.getUsername(), userForm.getPassword(), request);
         }
         return "redirect:/productList";

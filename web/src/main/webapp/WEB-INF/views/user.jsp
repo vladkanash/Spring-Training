@@ -35,10 +35,8 @@
                         <td><strong><spring:message code="userPage.label.key"/></strong></td>
                         <td><strong><spring:message code="userPage.label.firstName"/></strong></td>
                         <td><strong><spring:message code="userPage.label.lastName"/></strong></td>
-                        <td><strong><spring:message code="userPage.label.deliveryAddress"/></strong></td>
-                        <td><strong><spring:message code="userPage.label.contactPhone"/></strong></td>
                         <td><strong><spring:message code="userPage.label.totalPrice"/></strong></td>
-                        <td><strong></strong></td>
+                        <td><strong>Order Status</strong></td>
                     </tr>
                     </thead>
                     <tbody>
@@ -47,22 +45,20 @@
                             <td><c:out value="${order.key}"/></td>
                             <td><c:out value="${order.firstName}"/></td>
                             <td><c:out value="${order.lastName}"/></td>
-                            <td><c:out value="${order.deliveryAddress}"/></td>
-                            <td><c:out value="${order.contactPhone}"/></td>
                             <td><phonify:currency value="${order.totalPrice}"/></td>
                             <td>
                                 <c:choose>
                                     <c:when test="${order.delivered}">
-                                            Order is shipped
+                                        <spring:message code="userPage.messages.order.shipped"/>
                                     </c:when>
                                     <c:otherwise>
-                                            Waiting for shipping
+                                        <spring:message code="userPage.messages.order.waitingForShipping"/>
                                     </c:otherwise>
                                 </c:choose>
                             </td>
                             <td>
                                 <a href="<spring:url value="/orderSummary/${order.key}"/>" class="btn btn-sm btn-default">
-                                    Order Summary
+                                    <spring:message code="userPage.button.orderSummary"/>
                                 </a>
                             </td>
                         </tr>

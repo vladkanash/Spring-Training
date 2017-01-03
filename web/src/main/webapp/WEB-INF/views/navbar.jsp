@@ -11,8 +11,12 @@
     <c:if test="${param.showLogin eq true}">
         <sec:authorize access="isAnonymous()" >
             <div class="pull-right nav-buttons">
-                <a href="<spring:url value="/login"/>" class="btn btn-primary navbar-btn">Login</a>
-                <a href="<spring:url value="/register"/>" class="btn btn-success navbar-btn">Register</a>
+                <a href="<spring:url value="/login"/>" class="btn btn-primary navbar-btn">
+                    <spring:message code="navbar.button.login"/>
+                </a>
+                <a href="<spring:url value="/register"/>" class="btn btn-success navbar-btn">
+                    <spring:message code="navbar.button.register"/>
+                </a>
             </div>
         </sec:authorize>
         <sec:authorize access="isAuthenticated()">
@@ -23,13 +27,19 @@
             <sec:authentication property="principal.username" var="username"/>
             <div class="pull-right nav-buttons">
                 <p class="navbar-text">
-                    Welcome, ${username}
+                    <spring:message code="navbar.message.welcome"/>&nbsp;${username}
                 </p>
                 <sec:authorize access="hasRole('ADMIN')">
-                    <a href="<spring:url value="/admin"/>" class="btn btn-success navbar-btn">To the admin page</a>
+                    <a href="<spring:url value="/admin"/>" class="btn btn-success navbar-btn">
+                        <spring:message code="navbar.button.admin"/>
+                    </a>
                 </sec:authorize>
-                <a href="<spring:url value="/user/${username}"/>" class="btn btn-primary navbar-btn">Profile</a>
-                <button class="btn btn-primary navbar-btn" onclick="$('#logout').submit()">Logout</button>
+                <a href="<spring:url value="/user"/>" class="btn btn-primary navbar-btn">
+                    <spring:message code="navbar.button.profile"/>
+                </a>
+                <button class="btn btn-primary navbar-btn" onclick="$('#logout').submit()">
+                    <spring:message code="navbar.button.logout"/>
+                </button>
             </div>
         </sec:authorize>
     </c:if>

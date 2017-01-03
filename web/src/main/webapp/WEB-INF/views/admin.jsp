@@ -35,7 +35,7 @@
                             <td><strong><spring:message code="adminPage.label.key"/></strong></td>
                             <td><strong><spring:message code="adminPage.label.firstName"/></strong></td>
                             <td><strong><spring:message code="adminPage.label.lastName"/></strong></td>
-                            <td><strong>Username</strong></td>
+                            <td><strong><spring:message code="adminPage.label.username"/></strong></td>
                             <td><strong><spring:message code="adminPage.label.deliveryAddress"/></strong></td>
                             <td><strong><spring:message code="adminPage.label.contactPhone"/></strong></td>
                             <td><strong><spring:message code="adminPage.label.totalPrice"/></strong></td>
@@ -57,7 +57,7 @@
                                     <c:choose>
                                         <c:when test="${order.delivered}">
                                             <button onclick="deliveryOrder(${order.key})" class="btn btn-sm btn-default" disabled="disabled">
-                                                Shipped
+                                                <spring:message code="adminPage.message.order.shipped"/>
                                             </button>
                                         </c:when>
                                         <c:otherwise>
@@ -69,7 +69,7 @@
                                 </td>
                                 <td>
                                     <a href="<spring:url value="/orderSummary/${order.key}"/>" class="btn btn-sm btn-default">
-                                        Order Summary
+                                        <spring:message code="adminPage.button.orderSummary"/>
                                     </a>
                                 </td>
                             </tr>

@@ -41,8 +41,8 @@
                     </thead>
                     <tbody>
                         <c:forEach items="${phoneList}" var="phone">
-                            <tr>
-                                <form method="POST" class="productForm">
+                            <form method="POST" class="productForm">
+                                <tr>
                                     <td><a href="/phone/${phone.key}"><c:out value="${phone.model}"/></a></td>
                                     <td><c:out value="${phone.color}"/></td>
                                     <td><phonify:currency value="${phone.price}"/></td>
@@ -59,8 +59,8 @@
                                         <spring:message code="cart.button.add"/>
                                     </button>
                                     </td>
-                                </form>
-                            </tr>
+                                </tr>
+                            </form>
                         </c:forEach>
                     </tbody>
                     </table>
