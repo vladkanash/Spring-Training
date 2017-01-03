@@ -17,4 +17,6 @@ public interface OrderService {
     void setShippingPrice(Order order);
 
     boolean deliveryOrder(long orderKey);
+
+    List<Order> getOrdersForUser(String username);
 }

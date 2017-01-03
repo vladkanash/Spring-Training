@@ -5,6 +5,8 @@ import com.expertsoft.core.dao.impl.UserExistsException;
 import com.expertsoft.core.model.User;
 import com.expertsoft.core.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,13 @@ class UserServiceImpl implements UserService {
 
     @Override
     public User getUser(String username) {
+        return userDao.getUser(username);
+    }
+
+    @Override
+    public User getLoggedInUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
         return userDao.getUser(username);
     }
 

@@ -10,6 +10,7 @@ public class Order {
     }
 
     private Long key;
+    private User user;
     private List<OrderItem> orderItems;
     private BigDecimal totalPrice;
     private BigDecimal shippingPrice;
@@ -18,6 +19,14 @@ public class Order {
     private String deliveryAddress;
     private String contactPhone;
     private boolean delivered;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Long getKey() {
         return key;

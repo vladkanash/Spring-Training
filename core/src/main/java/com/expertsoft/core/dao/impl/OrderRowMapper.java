@@ -1,8 +1,10 @@
 package com.expertsoft.core.dao.impl;
 
 import com.expertsoft.core.dao.OrderItemDao;
+import com.expertsoft.core.dao.UserDao;
 import com.expertsoft.core.model.Order;
 import com.expertsoft.core.model.OrderItem;
+import com.expertsoft.core.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
@@ -15,10 +17,12 @@ import java.util.List;
 class OrderRowMapper implements RowMapper<Order> {
 
     private final OrderItemDao orderItemDao;
+    private final UserDao userDao;
 
     @Autowired
-    public OrderRowMapper(OrderItemDao orderItemDao) {
+    public OrderRowMapper(OrderItemDao orderItemDao, UserDao userDao) {
         this.orderItemDao = orderItemDao;
+        this.userDao = userDao;
     }
 
     @Override
@@ -31,6 +35,11 @@ class OrderRowMapper implements RowMapper<Order> {
                 item.setOrder(order);
             }
         }
+
+        final String username = resultSet.getString(JdbcConstants.ORDER_USER_COLUMN_NAME);
+        final User user = userDao.getUser(username);
+
+        order.setUser(user);
         order.setOrderItems(orderItems);
 
         order.setKey(orderKey);

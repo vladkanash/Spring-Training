@@ -16,6 +16,7 @@ class JdbcConstants {
     final static String ORDER_ITEM_ORDER_COLUMN = "ORDER_FK";
 
     final static String ORDER_KEY_COLUMN = "KEY";
+    final static String ORDER_USER_COLUMN_NAME = "USERNAME";
     final static String ORDER_FIRST_NAME_COLUMN = "FIRST_NAME";
     final static String ORDER_LAST_NAME_COLUMN = "LAST_NAME";
     final static String ORDER_TOTAL_PRICE_COLUMN = "TOTAL_PRICE";

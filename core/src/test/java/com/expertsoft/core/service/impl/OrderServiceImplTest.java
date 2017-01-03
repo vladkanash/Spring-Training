@@ -45,7 +45,7 @@ public class OrderServiceImplTest {
         OrderDao orderDao = mock(OrderDao.class);
         when(orderDao.findAll()).thenReturn(Collections.singletonList(order));
 
-        OrderServiceImpl orderService = new OrderServiceImpl(orderDao, null, null);
+        OrderServiceImpl orderService = new OrderServiceImpl(orderDao, null, null, null);
         assertEquals(orderService.findAll().size(), 1);
     }
 
@@ -54,7 +54,7 @@ public class OrderServiceImplTest {
         OrderDao orderDao = mock(OrderDao.class);
         when(orderDao.getOrder(23)).thenReturn(order);
 
-        OrderServiceImpl orderService = new OrderServiceImpl(orderDao, null, null);
+        OrderServiceImpl orderService = new OrderServiceImpl(orderDao, null, null, null);
         assertEquals(orderService.getOrder(23).getLastName(), "Smith");
     }
 }

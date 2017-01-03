@@ -11,6 +11,8 @@ public interface UserService {
 
     User getUser(String username);
 
+    User getLoggedInUser();
+
     List<User> findAll();
 
     EnumSet<User.Authority> getUserAuthorities(String username);

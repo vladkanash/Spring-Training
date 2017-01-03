@@ -35,6 +35,7 @@
                             <td><strong><spring:message code="adminPage.label.key"/></strong></td>
                             <td><strong><spring:message code="adminPage.label.firstName"/></strong></td>
                             <td><strong><spring:message code="adminPage.label.lastName"/></strong></td>
+                            <td><strong>Username</strong></td>
                             <td><strong><spring:message code="adminPage.label.deliveryAddress"/></strong></td>
                             <td><strong><spring:message code="adminPage.label.contactPhone"/></strong></td>
                             <td><strong><spring:message code="adminPage.label.totalPrice"/></strong></td>
@@ -48,6 +49,7 @@
                                 <td><c:out value="${order.key}"/></td>
                                 <td><c:out value="${order.firstName}"/></td>
                                 <td><c:out value="${order.lastName}"/></td>
+                                <td><c:out value="${order.user.username}"/></td>
                                 <td><c:out value="${order.deliveryAddress}"/></td>
                                 <td><c:out value="${order.contactPhone}"/></td>
                                 <td><phonify:currency value="${order.totalPrice}"/></td>

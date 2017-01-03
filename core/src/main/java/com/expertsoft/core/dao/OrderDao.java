@@ -13,4 +13,6 @@ public interface OrderDao {
     List<Order> findAll();
 
     void setDeliveredState(long orderKey);
+
+    List<Order> getOrdersForUser(String username);
 }

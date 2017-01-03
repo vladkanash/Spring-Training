@@ -10,24 +10,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@Secured({"ROLE_ADMIN"})
-public class AdminController {
+@Secured({"ROLE_USER"})
+public class UserController {
 
     private final OrderService orderService;
 
     @Autowired
-    public AdminController(OrderService orderService) {
+    public UserController(OrderService orderService) {
         this.orderService = orderService;
     }
 
-    @RequestMapping(path = "/admin", method = RequestMethod.GET)
-    public ModelAndView adminPage() {
-        return new ModelAndView("/admin", "orderList", orderService.findAll());
+    @RequestMapping(path = "/user/{username}", method = RequestMethod.GET)
+    public ModelAndView userPage(@PathVariable String username) {
+        return new ModelAndView("/user", "orderList", orderService.getOrdersForUser(username));
     }
 
-    @RequestMapping(path = "/setDeliveredState/{orderKey}", method = RequestMethod.POST)
-    public String deliveryOrder(@PathVariable long orderKey) {
-        orderService.deliveryOrder(orderKey);
-        return "redirect:/admin";
-    }
 }

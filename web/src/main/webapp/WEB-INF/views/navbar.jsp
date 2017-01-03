@@ -20,14 +20,15 @@
             <form action="${logoutUrl}" id="logout" method="post">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             </form>
-
+            <sec:authentication property="principal.username" var="username"/>
             <div class="pull-right nav-buttons">
                 <p class="navbar-text">
-                    Welcome, <sec:authentication property="principal.username"/>
+                    Welcome, ${username}
                 </p>
                 <sec:authorize access="hasRole('ADMIN')">
                     <a href="<spring:url value="/admin"/>" class="btn btn-success navbar-btn">To the admin page</a>
                 </sec:authorize>
+                <a href="<spring:url value="/user/${username}"/>" class="btn btn-primary navbar-btn">Profile</a>
                 <button class="btn btn-primary navbar-btn" onclick="$('#logout').submit()">Logout</button>
             </div>
         </sec:authorize>
