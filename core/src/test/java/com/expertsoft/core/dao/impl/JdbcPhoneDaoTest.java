@@ -1,5 +1,6 @@
-package com.expertsoft.core.dao;
+package com.expertsoft.core.dao.impl;
 
+import com.expertsoft.core.dao.PhoneDao;
 import com.expertsoft.core.model.Phone;
 import org.junit.Test;
 import org.junit.runner.RunWith;

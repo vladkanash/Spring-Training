@@ -57,10 +57,4 @@ public class OrderServiceImplTest {
         OrderServiceImpl orderService = new OrderServiceImpl(orderDao, null, null);
         assertEquals(orderService.getOrder(23).getLastName(), "Smith");
     }
-
-    @Test
-    public void saveOrder() throws Exception {
-
-    }
-
 }

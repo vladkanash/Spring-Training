@@ -39,7 +39,7 @@
                                   id="username"
                                   name="username"
                                   class="form-control register-input"
-                                  placeholder=""/>
+                                  value="${userForm.username}"/>
                         <p class="help-block ${status.error ? 'hidden' : ''}">Username can contain any letters or numbers, without spaces</p>
                         <sf:errors path="username" class="control-label"/>
                     </div>
@@ -50,8 +50,8 @@
                         <label for="password">Password</label>
                         <sf:password path="password"
                                      name="password"
-                                     placeholder=""
-                                     class="form-control register-input"/>
+                                     class="form-control register-input"
+                                     value="${userForm.password}"/>
                         <p class="help-block ${status.error ? 'hidden' : ''}">Password should be at least 6 characters</p>
                         <sf:errors path="password" class="control-label"/>
                     </div>
@@ -65,7 +65,7 @@
                                   id="password_confirm"
                                   name="password_confirm"
                                   class="form-control register-input"
-                                  placeholder="" />
+                                  value="${userForm.matchingPassword}"/>
                         <p class="help-block ${status.error ? 'hidden' : ''}">Please confirm password</p>
                         <sf:errors path="matchingPassword" class="control-label"/>
                     </div>

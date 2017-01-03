@@ -15,7 +15,6 @@ public class OrderForm {
     @NotBlank
     private String deliveryAddress;
 
-    @NotBlank
     @Pattern(regexp="^[0-9]{10}$")
     private String contactPhone;
 

@@ -1,5 +1,7 @@
-package com.expertsoft.core.dao;
+package com.expertsoft.core.dao.impl;
 
+import com.expertsoft.core.dao.OrderItemDao;
+import com.expertsoft.core.dao.PhoneDao;
 import com.expertsoft.core.model.OrderItem;
 import com.expertsoft.core.model.Phone;
 import org.junit.Before;

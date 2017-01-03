@@ -1,5 +1,6 @@
-package com.expertsoft.core.dao;
+package com.expertsoft.core.dao.impl;
 
+import com.expertsoft.core.dao.UserDao;
 import com.expertsoft.core.dao.impl.UserExistsException;
 import com.expertsoft.core.model.User;
 import org.junit.Test;

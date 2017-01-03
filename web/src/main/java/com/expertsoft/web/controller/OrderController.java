@@ -5,6 +5,7 @@ import com.expertsoft.core.service.OrderService;
 import com.expertsoft.web.form.OrderForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.validation.Valid;
 
 @Controller
+@Secured({"ROLE_USER"})
 @PropertySource("classpath:config/application.properties")
 public class OrderController {
 

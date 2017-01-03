@@ -38,7 +38,8 @@
                             <td><strong><spring:message code="adminPage.label.deliveryAddress"/></strong></td>
                             <td><strong><spring:message code="adminPage.label.contactPhone"/></strong></td>
                             <td><strong><spring:message code="adminPage.label.totalPrice"/></strong></td>
-                            <td><strong><spring:message code="adminPage.label.action"/></strong></td>
+                            <td><strong></strong></td>
+                            <td><strong></strong></td>
                         </tr>
                     </thead>
                     <tbody>
@@ -53,14 +54,21 @@
                                 <td>
                                     <c:choose>
                                         <c:when test="${order.delivered}">
-                                            <spring:message code="adminPage.message.shipped"/>
+                                            <button onclick="deliveryOrder(${order.key})" class="btn btn-sm btn-default" disabled="disabled">
+                                                Shipped
+                                            </button>
                                         </c:when>
                                         <c:otherwise>
-                                            <button onclick="deliveryOrder(${order.key})" class="btn btn-sm btn-default">
-                                                <spring:message code="adminPage.button.delivery"/>
-                                            </button>
+                                        <button onclick="deliveryOrder(${order.key})" class="btn btn-sm btn-primary">
+                                            <spring:message code="adminPage.button.delivery"/>
+                                        </button>
                                         </c:otherwise>
                                     </c:choose>
+                                </td>
+                                <td>
+                                    <a href="<spring:url value="/orderSummary/${order.key}"/>" class="btn btn-sm btn-default">
+                                        Order Summary
+                                    </a>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -87,9 +95,11 @@
         $.ajax({
             headers: headers,
             url: '/setDeliveredState/' + key,
-            type: 'POST'
+            type: 'POST',
+            success: function() {
+                $(".table").load('/admin .table > *');
+            }
         });
-        $(".table").load('/admin .table > *');
     }
 </script>
 

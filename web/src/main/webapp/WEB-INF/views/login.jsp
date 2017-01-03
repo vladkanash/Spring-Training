@@ -30,18 +30,20 @@
 
                     <c:if test="${param.error ne null}">
                         <div class="col-lg-12 col-xs-12 has-error">
-                            Invalid username and/or password. Please check your data.
+                            <span class="control-label">
+                                Invalid username and/or password. Please check your data.
+                            </span>
                         </div>
                     </c:if>
 
                     <div class="form-group col-lg-12 col-xs-12">
                         <label class="col-md-1 control-label" for="username"></label>
                         <div class="col-md-12 col-lg-12">
-                            <spring:message code="login.placeholder.username" var="username-placeholder"/>
+                            <spring:message code="login.placeholder.username" var="username"/>
                             <input style="width: 100%" id="username"
                                    name="username"
                                    type="text"
-                                   placeholder="${username-placeholder}"
+                                   placeholder="${username}"
                                    class="form-control input-md in">
                         </div>
                     </div>
@@ -49,11 +51,11 @@
                     <div class="form-group col-lg-12 col-xs-12">
                         <label class="col-md-1 control-label" for="password"></label>
                         <div class="col-md-12 col-lg-12">
-                            <spring:message code="login.placeholder.password" var="pass-placeholder"/>
+                            <spring:message code="login.placeholder.password" var="password"/>
                             <input style="width: 100%" id="password"
                                    name="password"
                                    type="password"
-                                   placeholder="${pass-placeholder}"
+                                   placeholder="${password}"
                                    class="form-control input-md">
                         </div>
                     </div>
