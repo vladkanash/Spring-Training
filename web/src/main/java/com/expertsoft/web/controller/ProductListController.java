@@ -1,6 +1,5 @@
 package com.expertsoft.web.controller;
 
-import com.expertsoft.core.model.Phone;
 import com.expertsoft.web.form.CartItem;
 import com.expertsoft.core.service.CartService;
 import com.expertsoft.core.service.PhoneService;
@@ -13,11 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 public class ProductListController {
@@ -35,9 +34,9 @@ public class ProductListController {
         this.cartService = cartService;
     }
 
-    @RequestMapping(value = "/productList", method = RequestMethod.GET)
-    public List<Phone> phoneList() {
-        return phoneService.findAll();
+    @RequestMapping(value = {"/productList", "/"}, method = RequestMethod.GET)
+    public ModelAndView phoneList() {
+        return new ModelAndView("productList", "phoneList", phoneService.findAll());
     }
 
     @RequestMapping(value="/addToCart", method = RequestMethod.POST)
