@@ -11,5 +11,5 @@ phases:
       - mvn package
 artifacts:
   files:
-    - web/target/Phonify.war
-  discard-paths: yes
+    - '**/*'
+  base-directory: 'web/target/Phonify'
