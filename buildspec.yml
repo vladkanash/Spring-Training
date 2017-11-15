@@ -1,0 +1,14 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - echo BUILD STARTED ON `date`
+      - mvn test
+  post_build:
+    commands:
+      - echo BUILD COMPLETED ON `date`
+      - mvn package
+artifacts:
+  files:
+    - web/target/Phonify.war
