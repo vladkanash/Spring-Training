@@ -20,9 +20,9 @@ import java.util.Map;
 @Repository
 class JdbcUserDao implements UserDao {
 
-    private final static String SELECT_USER_QUERY = "SELECT * FROM USERS WHERE username=?";
-    private final static String SELECT_ALL_USERS_QUERY = "SELECT * FROM USERS";
-    private final static String SELECT_AUTHORITIES_QUERY = "SELECT AUTHORITY FROM AUTHORITIES WHERE username=?";
+    private final static String SELECT_USER_QUERY = "SELECT * FROM PHONIFY_USERS WHERE username=?";
+    private final static String SELECT_ALL_USERS_QUERY = "SELECT * FROM PHONIFY_USERS";
+    private final static String SELECT_AUTHORITIES_QUERY = "SELECT AUTHORITY FROM PHONIFY_AUTHORITIES WHERE username=?";
 
     private final JdbcOperations jdbcOperations;
     private final SimpleJdbcInsert usersInsert;

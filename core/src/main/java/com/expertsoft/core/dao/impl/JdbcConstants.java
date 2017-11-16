@@ -7,8 +7,8 @@ class JdbcConstants {
     final static String ORDER_TABLE = "PHONIFY_ORDER";
     final static String ORDER_ITEM_TABLE = "ORDER_ITEM";
     final static String PHONE_TABLE = "PHONE";
-    final static String USERS_TABLE = "USERS";
-    final static String AUTHORITIES_TABLE = "AUTHORITIES";
+    final static String USERS_TABLE = "PHONIFY_USERS";
+    final static String AUTHORITIES_TABLE = "PHONIFY_AUTHORITIES";
 
     final static String ORDER_ITEM_ID_COLUMN = "ID";
     final static String ORDER_ITEM_QUANTITY_COLUMN = "QUANTITY";

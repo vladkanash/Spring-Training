@@ -58,9 +58,9 @@ insert into PHONE (price, model, color) values (410.33, 'Samsung Galaxy S5', 'Aq
 insert into PHONE (price, model, color) values (68.76, 'LG Optimus One', 'Indigo');
 insert into PHONE (price, model, color) values (264.32, 'Alcatel One Touch Mini OT-708', 'Khaki');
 
-insert into USERS (username, password, enabled) values ('admin', '$2a$10$FO1u4xHOa/U5mLWzZCZvluhrpxdYKRPmnV6zSP/l5dvA7auBJ85na', 1); --admin123
-insert into USERS (username, password, enabled) values ('vladkanash', '$2a$10$yqywoLiWwb9ytJCZZc65BuvZVFZOZ8Z.z8XQIpXqo6e3OnccdvhPG', 1); --123456
+insert into PHONIFY_USERS (username, password, enabled) values ('admin', '$2a$10$FO1u4xHOa/U5mLWzZCZvluhrpxdYKRPmnV6zSP/l5dvA7auBJ85na', 1); --admin123
+insert into PHONIFY_USERS (username, password, enabled) values ('vladkanash', '$2a$10$yqywoLiWwb9ytJCZZc65BuvZVFZOZ8Z.z8XQIpXqo6e3OnccdvhPG', 1); --123456
 
-insert into AUTHORITIES (username, authority) values ('admin', 'ROLE_ADMIN');
-insert into AUTHORITIES (username, authority) values ('admin', 'ROLE_USER');
-insert into AUTHORITIES (username, authority) values ('vladkanash', 'ROLE_USER');
+insert into PHONIFY_AUTHORITIES (username, authority) values ('admin', 'ROLE_ADMIN');
+insert into PHONIFY_AUTHORITIES (username, authority) values ('admin', 'ROLE_USER');
+insert into PHONIFY_AUTHORITIES (username, authority) values ('vladkanash', 'ROLE_USER');
