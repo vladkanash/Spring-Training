@@ -19,7 +19,7 @@ class JdbcOrderItemDao implements OrderItemDao {
 
     private final static String SELECT_FOR_ORDER_QUERY = "SELECT * FROM ORDER_ITEM WHERE ORDER_FK=?";
     private final static String SELECT_ALL_QUERY = "SELECT * FROM ORDER_ITEM";
-    private final static String SELECT_QUERY = "SELECT * FROM ORDER_ITEM WHERE `KEY`=?";
+    private final static String SELECT_QUERY = "SELECT * FROM ORDER_ITEM WHERE ID=?";
 
     private final JdbcOperations jdbcOperations;
     private final SimpleJdbcInsert jdbcInsert;
@@ -33,7 +33,7 @@ class JdbcOrderItemDao implements OrderItemDao {
         this.orderItemRowMapper = orderItemRowMapper;
         this.jdbcInsert = new SimpleJdbcInsert(dataSource)
                 .withTableName(JdbcConstants.ORDER_ITEM_TABLE)
-                .usingGeneratedKeyColumns(JdbcConstants.ORDER_ITEM_KEY_COLUMN);
+                .usingGeneratedKeyColumns(JdbcConstants.ORDER_ITEM_ID_COLUMN);
     }
 
     public List<OrderItem> getItemsForOrder(long orderKey) {
@@ -47,14 +47,14 @@ class JdbcOrderItemDao implements OrderItemDao {
     public void saveOrderItem(OrderItem item) {
         final Map<String, Object> parameters = new HashMap<>(3);
 
-        parameters.put(JdbcConstants.ORDER_ITEM_PHONE_COLUMN, item.getPhone().getKey());
+        parameters.put(JdbcConstants.ORDER_ITEM_PHONE_COLUMN, item.getPhone().getId());
         parameters.put(JdbcConstants.ORDER_ITEM_QUANTITY_COLUMN, item.getQuantity());
         final Order order = item.getOrder();
         if (null != order) {
-            parameters.put(JdbcConstants.ORDER_ITEM_ORDER_COLUMN, order.getKey());
+            parameters.put(JdbcConstants.ORDER_ITEM_ORDER_COLUMN, order.getId());
         }
         final Number newId = jdbcInsert.executeAndReturnKey(parameters);
-        item.setKey(newId.longValue());
+        item.setId(newId.longValue());
     }
 
     public OrderItem getOrderItem(long key) {

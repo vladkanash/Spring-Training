@@ -41,7 +41,7 @@ public class JdbcOrderDaoTest {
         order.setLastName("Smith");
 
         orderDao.saveOrder(order);
-        Order savedOrder = orderDao.getOrder(order.getKey());
+        Order savedOrder = orderDao.getOrder(order.getId());
         assertEquals(order.getFirstName(), savedOrder.getFirstName());
     }
 
@@ -65,7 +65,7 @@ public class JdbcOrderDaoTest {
         order.setOrderItems(items);
 
         orderDao.saveOrder(order);
-        Order savedOrder = orderDao.getOrder(order.getKey());
+        Order savedOrder = orderDao.getOrder(order.getId());
         assertEquals(order.getOrderItems().size(), savedOrder.getOrderItems().size());
     }
 

@@ -9,7 +9,7 @@ public class Order {
 
     }
 
-    private Long key;
+    private Long id;
     private User user;
     private List<OrderItem> orderItems;
     private BigDecimal totalPrice;
@@ -28,12 +28,12 @@ public class Order {
         this.user = user;
     }
 
-    public Long getKey() {
-        return key;
+    public Long getId() {
+        return id;
     }
 
-    public void setKey(Long key) {
-        this.key = key;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public List<OrderItem> getOrderItems() {
@@ -106,11 +106,11 @@ public class Order {
         if (o == null || getClass() != o.getClass()) return false;
 
         Order order = (Order) o;
-        return key.equals(order.key);
+        return id.equals(order.id);
     }
 
     @Override
     public int hashCode() {
-        return (int) (key ^ (key >>> 32));
+        return (int) (id ^ (id >>> 32));
     }
 }

@@ -17,7 +17,7 @@ import java.util.Map;
 @Repository
 class JdbcPhoneDao implements PhoneDao {
 
-    private final static String SELECT_QUERY = "SELECT * FROM PHONE WHERE `key`=?";
+    private final static String SELECT_QUERY = "SELECT * FROM PHONE WHERE ID=?";
     private final static String SELECT_ALL_QUERY = "SELECT * FROM PHONE";
 
     private final JdbcOperations jdbcOperations;
@@ -28,7 +28,7 @@ class JdbcPhoneDao implements PhoneDao {
         this.jdbcOperations = jdbcOperations;
         this.jdbcInsert = new SimpleJdbcInsert(dataSource)
                 .withTableName(JdbcConstants.PHONE_TABLE)
-                .usingGeneratedKeyColumns(JdbcConstants.PHONE_KEY_COLUMN);
+                .usingGeneratedKeyColumns(JdbcConstants.PHONE_ID_COLUMN);
     }
 
     public Phone getPhone(long key) {
@@ -47,7 +47,7 @@ class JdbcPhoneDao implements PhoneDao {
         parameters.put(JdbcConstants.PHONE_MODEL_COLUMN, phone.getModel());
         parameters.put(JdbcConstants.PHONE_COLOR_COLUMN, phone.getColor());
         final Number newId = jdbcInsert.executeAndReturnKey(parameters);
-        phone.setKey(newId.longValue());
+        phone.setId(newId.longValue());
     }
 
     public List<Phone> findAll() {

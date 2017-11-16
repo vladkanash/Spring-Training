@@ -57,13 +57,13 @@
                                 <td><c:out value="${item.phone.color}"/></td>
                                 <td><phonify:currency value="${item.phone.price}"/></td>
                                 <td>
-                                    <sf:hidden path="items[${vs.index}].productKey" value="${item.phone.key}"/>
+                                    <sf:hidden path="items[${vs.index}].productKey" value="${item.phone.id}"/>
                                     <sf:input path="items[${vs.index}].quantity" type="text"
                                               class="form-control" maxlength="3" value="${items[vs.index].quantity}"/>
                                     <sf:errors path="items[${vs.index}].quantity" cssClass="error text-danger"/>
                                 </td>
                                 <td>
-                                    <button onclick="deleteProduct(${item.phone.key})" href="/deleteProduct/${item.phone.key}" class="btn btn-sm btn-default">
+                                    <button onclick="deleteProduct(${item.phone.id})" href="/deleteProduct/${item.phone.id}" class="btn btn-sm btn-default">
                                         <spring:message code="cartInfo.button.delete"/>
                                     </button>
                                 </td>
@@ -93,7 +93,7 @@
 
 <jsp:include page="common/common-js.jsp"/>
 <script>
-    function deleteProduct(key) {
+    function deleteProduct(id) {
         var headers = {};
 
         var csrfToken = $("meta[name='_csrf']").attr("content");
@@ -102,7 +102,7 @@
 
         $.ajax({
             headers : headers,
-            url: '/deleteProduct/' + key,
+            url: '/deleteProduct/' + id,
             type: 'DELETE'
         });
     }

@@ -25,7 +25,7 @@ class OrderItemRowMapper implements RowMapper<OrderItem> {
         final long phoneKey = resultSet.getLong(JdbcConstants.ORDER_ITEM_PHONE_COLUMN);
         final Phone phone = phoneDao.getPhone(phoneKey);
 
-        item.setKey(resultSet.getLong(JdbcConstants.ORDER_ITEM_KEY_COLUMN));
+        item.setId(resultSet.getLong(JdbcConstants.ORDER_ITEM_ID_COLUMN));
         item.setQuantity(resultSet.getInt(JdbcConstants.ORDER_ITEM_QUANTITY_COLUMN));
         item.setPhone(phone);
         return item;

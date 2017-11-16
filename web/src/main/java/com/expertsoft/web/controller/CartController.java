@@ -60,7 +60,7 @@ public class CartController {
 
         for (final OrderItem item : items) {
             final CartItem formItem = new CartItem();
-            formItem.setProductKey(item.getPhone().getKey());
+            formItem.setProductKey(item.getPhone().getId());
             formItem.setQuantity(item.getQuantity());
             formItems.add(formItem);
         }

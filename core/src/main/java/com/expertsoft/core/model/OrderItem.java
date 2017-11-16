@@ -6,17 +6,17 @@ public class OrderItem {
 
     }
 
-    private Long key;
+    private Long id;
     private int quantity;
     private Phone phone;
     private Order order;
 
-    public Long getKey() {
-        return key;
+    public Long getId() {
+        return id;
     }
 
-    public void setKey(Long key) {
-        this.key = key;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public int getQuantity() {
@@ -49,11 +49,11 @@ public class OrderItem {
         if (o == null || getClass() != o.getClass()) return false;
 
         OrderItem orderItem = (OrderItem) o;
-        return key.equals(orderItem.key);
+        return id.equals(orderItem.id);
     }
 
     @Override
     public int hashCode() {
-        return (int) (key ^ (key >>> 32));
+        return (int) (id ^ (id >>> 32));
     }
 }

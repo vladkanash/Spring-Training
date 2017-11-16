@@ -43,12 +43,12 @@
                         <c:forEach items="${phoneList}" var="phone">
                             <form method="POST" class="productForm">
                                 <tr>
-                                    <td><a href="/phone/${phone.key}"><c:out value="${phone.model}"/></a></td>
+                                    <td><a href="/phone/${phone.id}"><c:out value="${phone.model}"/></a></td>
                                     <td><c:out value="${phone.color}"/></td>
                                     <td><phonify:currency value="${phone.price}"/></td>
                                     <td>
-                                        <input type="hidden" name="productKey" value="${phone.key}"/>
-                                        <input name="quantity" id="${phone.key}" type="text"
+                                        <input type="hidden" name="productKey" value="${phone.id}"/>
+                                        <input name="quantity" id="${phone.id}" type="text"
                                                class="form-control"
                                                maxlength="3"
                                                value="1"/>

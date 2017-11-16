@@ -21,9 +21,9 @@ import java.util.Map;
 class JdbcOrderDao implements OrderDao {
 
     private static final String SELECT_ALL_QUERY = "SELECT  * FROM PHONIFY_ORDER";
-    private static final String SELECT_QUERY = "SELECT * FROM PHONIFY_ORDER WHERE `KEY`=?";
+    private static final String SELECT_QUERY = "SELECT * FROM PHONIFY_ORDER WHERE ID=?";
     private static final String ORDERS_FOR_USER_QUERY = "SELECT * FROM PHONIFY_ORDER WHERE USERNAME=?";
-    private static final String UPDATE_QUERY = "UPDATE PHONIFY_ORDER SET delivered=1 WHERE `KEY`=?";
+    private static final String UPDATE_QUERY = "UPDATE PHONIFY_ORDER SET delivered=1 WHERE ID=?";
 
     private final JdbcOperations jdbcOperations;
     private final RowMapper<Order> orderRowMapper;
@@ -40,7 +40,7 @@ class JdbcOrderDao implements OrderDao {
         this.orderItemDao = orderItemDao;
         this.jdbcInsert = new SimpleJdbcInsert(dataSource)
                 .withTableName(JdbcConstants.ORDER_TABLE)
-                .usingGeneratedKeyColumns(JdbcConstants.ORDER_KEY_COLUMN);
+                .usingGeneratedKeyColumns(JdbcConstants.ORDER_ID_COLUMN);
     }
 
     @Override
@@ -69,7 +69,7 @@ class JdbcOrderDao implements OrderDao {
         }
 
         final Number newId = jdbcInsert.executeAndReturnKey(parameters);
-        order.setKey(newId.longValue());
+        order.setId(newId.longValue());
 
         if (null != order.getOrderItems()) {
             for (final OrderItem item : order.getOrderItems()) {

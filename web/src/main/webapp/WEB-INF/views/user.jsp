@@ -32,7 +32,7 @@
                 <table class="table table bordered">
                     <thead>
                     <tr>
-                        <td><strong><spring:message code="userPage.label.key"/></strong></td>
+                        <td><strong><spring:message code="userPage.label.id"/></strong></td>
                         <td><strong><spring:message code="userPage.label.firstName"/></strong></td>
                         <td><strong><spring:message code="userPage.label.lastName"/></strong></td>
                         <td><strong><spring:message code="userPage.label.totalPrice"/></strong></td>
@@ -42,7 +42,7 @@
                     <tbody>
                     <c:forEach items="${orderList}" var="order">
                         <tr>
-                            <td><c:out value="${order.key}"/></td>
+                            <td><c:out value="${order.id}"/></td>
                             <td><c:out value="${order.firstName}"/></td>
                             <td><c:out value="${order.lastName}"/></td>
                             <td><phonify:currency value="${order.totalPrice}"/></td>
@@ -57,7 +57,7 @@
                                 </c:choose>
                             </td>
                             <td>
-                                <a href="<spring:url value="/orderSummary/${order.key}"/>" class="btn btn-sm btn-default">
+                                <a href="<spring:url value="/orderSummary/${order.id}"/>" class="btn btn-sm btn-default">
                                     <spring:message code="userPage.button.orderSummary"/>
                                 </a>
                             </td>

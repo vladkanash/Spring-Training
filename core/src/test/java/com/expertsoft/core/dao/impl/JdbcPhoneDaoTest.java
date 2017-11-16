@@ -30,7 +30,7 @@ public class JdbcPhoneDaoTest {
         testPhone.setPrice(new BigDecimal(659.99));
 
         phoneDao.savePhone(testPhone);
-        String savedModel = phoneDao.getPhone(testPhone.getKey()).getModel();
+        String savedModel = phoneDao.getPhone(testPhone.getId()).getModel();
         assertEquals(savedModel, testPhone.getModel());
     }
 
@@ -40,13 +40,13 @@ public class JdbcPhoneDaoTest {
         phone1.setModel("Samsung A4");
         phone1.setColor("Black");
         phone1.setPrice(new BigDecimal(659.99));
-        phone1.setKey(15L);
+        phone1.setId(15L);
 
         Phone phone2 = new Phone();
         phone2.setModel("Apple IPhone");
         phone2.setColor("White");
         phone2.setPrice(new BigDecimal(990.00));
-        phone2.setKey(16L);
+        phone2.setId(16L);
 
         phoneDao.savePhone(phone1);
         phoneDao.savePhone(phone2);

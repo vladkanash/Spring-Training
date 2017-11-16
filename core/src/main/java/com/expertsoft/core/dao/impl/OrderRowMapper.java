@@ -28,7 +28,7 @@ class OrderRowMapper implements RowMapper<Order> {
     @Override
     public Order mapRow(ResultSet resultSet, int i) throws SQLException {
         final Order order = new Order();
-        final long orderKey = resultSet.getLong(JdbcConstants.ORDER_KEY_COLUMN);
+        final long orderKey = resultSet.getLong(JdbcConstants.ORDER_ID_COLUMN);
         final List<OrderItem> orderItems = orderItemDao.getItemsForOrder(orderKey);
         if (null != orderItems) {
             for (final OrderItem item : orderItems) {
@@ -42,7 +42,7 @@ class OrderRowMapper implements RowMapper<Order> {
         order.setUser(user);
         order.setOrderItems(orderItems);
 
-        order.setKey(orderKey);
+        order.setId(orderKey);
         order.setFirstName(resultSet.getString(JdbcConstants.ORDER_FIRST_NAME_COLUMN));
         order.setLastName(resultSet.getString(JdbcConstants.ORDER_LAST_NAME_COLUMN));
         order.setContactPhone(resultSet.getString(JdbcConstants.ORDER_CONTACT_PHONE_COLUMN));

@@ -33,7 +33,7 @@ class CartServiceImpl implements CartService {
 
         final List<OrderItem> items = cart.getItems();
         for (final OrderItem item : items) {
-            if (item.getPhone().getKey() == productKey) {
+            if (item.getPhone().getId() == productKey) {
                 item.setQuantity(item.getQuantity() + quantity);
                 repriceCart();
                 return;
@@ -52,7 +52,7 @@ class CartServiceImpl implements CartService {
         final List<OrderItem> items = cart.getItems();
         for (Iterator<OrderItem> iter = items.iterator(); iter.hasNext();) {
             OrderItem item = iter.next();
-            if (productKey == item.getPhone().getKey()) {
+            if (productKey == item.getPhone().getId()) {
                 iter.remove();
                 repriceCart();
                 return;
@@ -67,7 +67,7 @@ class CartServiceImpl implements CartService {
         }
 
         for (final OrderItem item : cart.getItems()) {
-            if (productKey == item.getPhone().getKey()) {
+            if (productKey == item.getPhone().getId()) {
                 item.setQuantity(newQuantity);
                 repriceCart();
                 return;

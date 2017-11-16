@@ -32,7 +32,7 @@
                 <table class="table table bordered">
                     <thead>
                         <tr>
-                            <td><strong><spring:message code="adminPage.label.key"/></strong></td>
+                            <td><strong><spring:message code="adminPage.label.id"/></strong></td>
                             <td><strong><spring:message code="adminPage.label.firstName"/></strong></td>
                             <td><strong><spring:message code="adminPage.label.lastName"/></strong></td>
                             <td><strong><spring:message code="adminPage.label.username"/></strong></td>
@@ -46,7 +46,7 @@
                     <tbody>
                         <c:forEach items="${orderList}" var="order">
                             <tr>
-                                <td><c:out value="${order.key}"/></td>
+                                <td><c:out value="${order.id}"/></td>
                                 <td><c:out value="${order.firstName}"/></td>
                                 <td><c:out value="${order.lastName}"/></td>
                                 <td><c:out value="${order.user.username}"/></td>
@@ -56,19 +56,19 @@
                                 <td>
                                     <c:choose>
                                         <c:when test="${order.delivered}">
-                                            <button onclick="deliveryOrder(${order.key})" class="btn btn-sm btn-default" disabled="disabled">
+                                            <button onclick="deliveryOrder(${order.id})" class="btn btn-sm btn-default" disabled="disabled">
                                                 <spring:message code="adminPage.message.order.shipped"/>
                                             </button>
                                         </c:when>
                                         <c:otherwise>
-                                        <button onclick="deliveryOrder(${order.key})" class="btn btn-sm btn-primary">
+                                        <button onclick="deliveryOrder(${order.id})" class="btn btn-sm btn-primary">
                                             <spring:message code="adminPage.button.delivery"/>
                                         </button>
                                         </c:otherwise>
                                     </c:choose>
                                 </td>
                                 <td>
-                                    <a href="<spring:url value="/orderSummary/${order.key}"/>" class="btn btn-sm btn-default">
+                                    <a href="<spring:url value="/orderSummary/${order.id}"/>" class="btn btn-sm btn-default">
                                         <spring:message code="adminPage.button.orderSummary"/>
                                     </a>
                                 </td>
@@ -87,7 +87,7 @@
 </div>
 
 <script>
-    function deliveryOrder(key) {
+    function deliveryOrder(id) {
         var headers = {};
 
         var csrfToken = $("meta[name='_csrf']").attr("content");
@@ -96,7 +96,7 @@
 
         $.ajax({
             headers: headers,
-            url: '/setDeliveredState/' + key,
+            url: '/setDeliveredState/' + id,
             type: 'POST',
             success: function() {
                 $(".table").load('/admin .table > *');

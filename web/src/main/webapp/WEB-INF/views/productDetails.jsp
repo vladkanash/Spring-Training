@@ -53,10 +53,10 @@
             <div class="col-sm-12 col-lg-4 col-xs-12 col-md-4">
             <form method="POST" class="productForm form-vertical">
                 <div class="form-group">
-                    <label class="control-label" for="${phone.key}"><spring:message code="product.quantity"/></label>
+                    <label class="control-label" for="${phone.id}"><spring:message code="product.quantity"/></label>
                     <div class="controls">
-                        <input name="productKey" type="hidden" value="${phone.key}"  />
-                        <input name="quantity" id="${phone.key}" type="text"
+                        <input name="productKey" type="hidden" value="${phone.id}"  />
+                        <input name="quantity" id="${phone.id}" type="text"
                                class="form-control"
                                maxlength="3"
                                value="1"/>

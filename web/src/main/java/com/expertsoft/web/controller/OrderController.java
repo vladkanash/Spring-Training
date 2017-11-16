@@ -49,7 +49,7 @@ public class OrderController {
             copyShippingInfo(order, orderForm);
             orderService.saveOrder(order);
             model.asMap().clear();
-            return "redirect:/orderSummary/" + order.getKey();
+            return "redirect:/orderSummary/" + order.getId();
         }
     }
 

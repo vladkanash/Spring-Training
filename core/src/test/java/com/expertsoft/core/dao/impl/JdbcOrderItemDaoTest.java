@@ -64,7 +64,7 @@ public class JdbcOrderItemDaoTest {
         testItem.setPhone(phone);
 
         orderItemDao.saveOrderItem(testItem);
-        OrderItem item = orderItemDao.getOrderItem(testItem.getKey());
+        OrderItem item = orderItemDao.getOrderItem(testItem.getId());
         assertEquals(item.getPhone(), testItem.getPhone());
     }
 

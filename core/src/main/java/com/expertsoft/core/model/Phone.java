@@ -7,17 +7,17 @@ public class Phone {
     public Phone() {
     }
 
-    private Long key;
+    private Long id;
     private String model;
     private String color;
     private BigDecimal price;
 
-    public Long getKey() {
-        return key;
+    public Long getId() {
+        return id;
     }
 
-    public void setKey(Long key) {
-        this.key = key;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getModel() {
@@ -52,11 +52,11 @@ public class Phone {
         }
 
         Phone phone = (Phone) o;
-        return key.equals(phone.key);
+        return id.equals(phone.id);
     }
 
     @Override
     public int hashCode() {
-        return (int) (key ^ (key >>> 32));
+        return (int) (id ^ (id >>> 32));
     }
 }
