@@ -25,9 +25,9 @@
         <authentication-provider>
             <jdbc-user-service data-source-ref="driverManagerDataSource"
                                users-by-username-query=
-                                       "SELECT username, password, enabled FROM phonify_users WHERE username=?"
+                                       "SELECT USERNAME, PASSWORD, ENABLED FROM PHONIFY_USERS WHERE USERNAME=?"
                                authorities-by-username-query=
-                                       "SELECT username, authority FROM phonify_authorities WHERE username=?"/>
+                                       "SELECT USERNAME, AUTHORITY FROM PHONIFY_AUTHORITIES WHERE USERNAME=?"/>
             <password-encoder ref="encoder" />
         </authentication-provider>
     </authentication-manager>
