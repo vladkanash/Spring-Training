@@ -17,7 +17,7 @@ import java.util.Map;
 @Repository
 class JdbcPhoneDao implements PhoneDao {
 
-    private final static String SELECT_QUERY = "SELECT * FROM PHONE WHERE key=?";
+    private final static String SELECT_QUERY = "SELECT * FROM PHONE WHERE `key`=?";
     private final static String SELECT_ALL_QUERY = "SELECT * FROM PHONE";
 
     private final JdbcOperations jdbcOperations;

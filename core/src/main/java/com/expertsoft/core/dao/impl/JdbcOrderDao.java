@@ -21,9 +21,9 @@ import java.util.Map;
 class JdbcOrderDao implements OrderDao {
 
     private static final String SELECT_ALL_QUERY = "SELECT  * FROM PHONIFY_ORDER";
-    private static final String SELECT_QUERY = "SELECT * FROM PHONIFY_ORDER WHERE KEY=?";
+    private static final String SELECT_QUERY = "SELECT * FROM PHONIFY_ORDER WHERE `KEY`=?";
     private static final String ORDERS_FOR_USER_QUERY = "SELECT * FROM PHONIFY_ORDER WHERE USERNAME=?";
-    private static final String UPDATE_QUERY = "UPDATE PHONIFY_ORDER SET delivered=1 WHERE KEY=?";
+    private static final String UPDATE_QUERY = "UPDATE PHONIFY_ORDER SET delivered=1 WHERE `KEY`=?";
 
     private final JdbcOperations jdbcOperations;
     private final RowMapper<Order> orderRowMapper;

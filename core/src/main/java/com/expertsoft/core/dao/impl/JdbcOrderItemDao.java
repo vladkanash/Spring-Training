@@ -19,7 +19,7 @@ class JdbcOrderItemDao implements OrderItemDao {
 
     private final static String SELECT_FOR_ORDER_QUERY = "SELECT * FROM ORDER_ITEM WHERE ORDER_FK=?";
     private final static String SELECT_ALL_QUERY = "SELECT * FROM ORDER_ITEM";
-    private final static String SELECT_QUERY = "SELECT * FROM ORDER_ITEM WHERE KEY=?";
+    private final static String SELECT_QUERY = "SELECT * FROM ORDER_ITEM WHERE `KEY`=?";
 
     private final JdbcOperations jdbcOperations;
     private final SimpleJdbcInsert jdbcInsert;

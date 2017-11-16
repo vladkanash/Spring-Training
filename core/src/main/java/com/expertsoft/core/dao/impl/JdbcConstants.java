@@ -10,12 +10,12 @@ class JdbcConstants {
     final static String USERS_TABLE = "USERS";
     final static String AUTHORITIES_TABLE = "AUTHORITIES";
 
-    final static String ORDER_ITEM_KEY_COLUMN = "KEY";
+    final static String ORDER_ITEM_KEY_COLUMN = "`KEY`";
     final static String ORDER_ITEM_QUANTITY_COLUMN = "QUANTITY";
     final static String ORDER_ITEM_PHONE_COLUMN = "PHONE_FK";
     final static String ORDER_ITEM_ORDER_COLUMN = "ORDER_FK";
 
-    final static String ORDER_KEY_COLUMN = "KEY";
+    final static String ORDER_KEY_COLUMN = "`KEY`";
     final static String ORDER_USER_COLUMN_NAME = "USERNAME";
     final static String ORDER_FIRST_NAME_COLUMN = "FIRST_NAME";
     final static String ORDER_LAST_NAME_COLUMN = "LAST_NAME";
@@ -25,7 +25,7 @@ class JdbcConstants {
     final static String ORDER_SHIPPING_PRICE_COLUMN = "SHIPPING_PRICE";
     final static String ORDER_DELIVERED_COLUMN_NAME = "DELIVERED";
 
-    final static String PHONE_KEY_COLUMN = "KEY";
+    final static String PHONE_KEY_COLUMN = "`KEY`";
     final static String PHONE_MODEL_COLUMN = "MODEL";
     final static String PHONE_COLOR_COLUMN = "COLOR";
     final static String PHONE_PRICE_COLUMN = "PRICE";
